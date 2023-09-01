@@ -232,13 +232,13 @@ $(document).ready(function(){
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="main.bit"><img src="/img/logo.png" alt="로고이미지"></a>
+					<a href="/page/main"><img src="/img/logo.png" alt="로고이미지"></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus" >
-						<li><a href="main.bit"  style="font-size: 20px; font-weight: 700;">홈</a></li>
+						<li><a href="/page/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
 						<li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
