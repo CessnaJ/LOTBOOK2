@@ -125,7 +125,7 @@
 </header>
 
 
-<form id="register_form" method="post" action="member.bit"
+<form id="register_form" method="post" action="/member/signup"
 	onsubmit="return validateForm();">
 	<input type="hidden" name="view" value="signup" />
 	<div class="d-flex flex-row justify-content-center ">
@@ -236,7 +236,7 @@
 				<button type="submit" id="register_btn" class="site-btn"
 					name="submit">회원가입</button>
 				<input type="button" id="cancel_btn" class="btn btn-secondary"
-					onclick="location.href='main.bit'" value="취소"
+					onclick="location.href='/page/main'" value="취소"
 					style="width: 7.5rem; height: 2.9rem; border-radius: 0px; font: 14px Cairo;">
 			</div>
 		</div>
@@ -294,7 +294,7 @@ $(document)
 	    const email = emailInput.value;
 
 	    $.ajax({
-	        url: "/lotbook/member.bit?view=checkDuplicateEmail&email=" + email,
+	        url: "/rest/api/checkDuplicateEmail&email=" + email,
 	        method: "GET",
 	        success: function(data) {
 	        	const messageElement = document.getElementById("email_message");

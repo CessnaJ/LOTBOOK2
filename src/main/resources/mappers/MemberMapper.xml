@@ -11,6 +11,9 @@
 		SELECT * FROM member WHERE sequence=#{sequence}
 	</select>
 
+	<select id="emailCheck" parameterType="String" resultMap="memberMap">
+		SELECT email FROM member WHERE email = #{emailToCheck}
+	</select>
 
 </mapper>
 
