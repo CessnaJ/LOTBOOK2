@@ -20,10 +20,11 @@ public class ProductDetailController {
     private final ProductService productService; // 생성자 주입방식. 롬복의 RequiredArgsConstructor 덕분에 생성자 주입이 자동으로 이뤄짐
 
     @GetMapping
-    public String getproduct(Model model) {
+    public String getproductDetail(Model model) {
         // 검색 로직 구현부분.. 간이로 이렇게 받아서 쓸 수 있다는걸 보여드립니다.
         model.addAttribute("data-test", "Search results for: " + "데이터가 잘 받아서 들어오나요" );
         model.addAttribute("center", "shop-details");
+
 
         log.warn("상품상세요청");
         Product product = productService.get(1);

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("member")
+@RequestMapping("/member")
 public class MemberController {
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     private final MemberService memberService;
