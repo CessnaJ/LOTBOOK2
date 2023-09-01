@@ -81,8 +81,7 @@ $(document).ready(function(){
     </header>
     <!-- Header Section End -->
 <div class="checkout__form">
-	<form action="member.bit" method="post">
-		<input type="hidden" name="view" value="loginimpl">
+	<form action="/member/login" method="post">
 		<div class="row" style="margin-top:5vh;">
 			<div class="col-lg-5 col-md-6 m-auto d-flex flex-column align-items-center">
 
@@ -113,3 +112,7 @@ $(document).ready(function(){
 		</div>
 	</form>
 </div>
+
+<script>
+
+</script>
