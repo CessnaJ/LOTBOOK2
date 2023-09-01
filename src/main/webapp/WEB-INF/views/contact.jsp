@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Header Section Begin -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <header class="header">
 	<div class="header__top">
 		<div class="container">
@@ -18,7 +19,7 @@
 						<c:otherwise>
 							<li class="active"><a href="/page/signin"><i
 									class="fa fa-user"></i> 로그인</a></li>
-							<li class=""><a href="/page/signup"><i
+							<li class=""><a href="${pageContext.request.contextPath}/page/signup"><i
 									class="fa fa-user"></i> 회원가입</a></li>
 						</c:otherwise>
 					</c:choose>
@@ -30,15 +31,15 @@
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/page/main"><img src="/img/logo.png" alt=""></a>
+					<a href="${pageContext.request.contextPath}/page/main"><img src="${pageContext.request.contextPath}/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus" >
-						<li><a href="/page/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
+						<li><a href="${pageContext.request.contextPath}/page/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
-						<li class="active"><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
+						<li class="active"><a href="${pageContext.request.contextPath}/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
 				</nav>
 			</div>
