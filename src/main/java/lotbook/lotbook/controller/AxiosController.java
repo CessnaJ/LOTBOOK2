@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("rest")
+@RequestMapping("/api/rest")
 public class AxiosController {
 
     private final CartService cartService;
 
-    @GetMapping(value = "/api/changeCount")
+    @GetMapping(value = "/changeCount")
     @ResponseBody
     public int changeCount(Model model, @RequestParam long sequence, @RequestParam long productSequence, @RequestParam long memberSequence, @RequestParam int count) {
         int result = 0;
