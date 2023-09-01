@@ -5,5 +5,11 @@
     <select id="selectProductBySequence" parameterType="long" resultType="lotbook.lotbook.dto.entity.Product">
         SELECT * FROM product WHERE sequence=#{sequence}
     </select>
-	
+
+    <select id="selectProduct" parameterType="long" resultMap="lotbook.lotbook.dto.entity.Product">
+        SELECT sequence, product_imgurl, product_detail_imgurl, name, price, content, stock, created_at, updated_at, point_accumulation_rate, discount_rate, sales_count,  author_sequence, publisher_sequence, category_sequence
+        FROM product
+        WHERE sequence = #{sequence}
+        <!-- TODO: state복구 state 임시 제거 된 상태 -->
+    </select>
 </mapper>

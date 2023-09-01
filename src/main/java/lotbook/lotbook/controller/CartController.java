@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("cart")
+@RequestMapping("/cart")
 public class CartController {
 
     private final CartService cartService;
