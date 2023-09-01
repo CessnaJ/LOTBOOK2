@@ -6,10 +6,7 @@ import lotbook.lotbook.dto.entity.*;
 import lotbook.lotbook.dto.request.CartToOrderRequest;
 import lotbook.lotbook.dto.response.CartProduct;
 import lotbook.lotbook.enums.PointStateEnum;
-import lotbook.lotbook.service.CartService;
-import lotbook.lotbook.service.MemberService;
-import lotbook.lotbook.service.OrderService;
-import lotbook.lotbook.service.ProductService;
+import lotbook.lotbook.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +19,16 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/cart")
+@RequestMapping("/cart")
 public class CartController {
 
     private final CartService cartService;
     private final ProductService productService;
     private final OrderService orderService;
     private final MemberService memberService;
+    private final PointService pointService;
+    private final OrderDetailService orderDetailService;
+
     @GetMapping(value = "/shopingCart")
     public String ShopingCartPage(Model model, @RequestParam long memberSeq) {
         log.warn("장바구니 상세 페이지");
@@ -135,74 +135,72 @@ public class CartController {
 
     @PostMapping(value = "/caartToOrderResult")
     public String CartToOrderResult(Model model, CartToOrderRequest cartToOrder, HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        Member loggedInUser = (Member) session.getAttribute("logincust");
-//
-//        model.addAttribute("center", "checkout-result");
-//
-//
-//        Order order = Order.builder().receiverName(cartToOrder.getReceiverName()).orderPhone(cartToOrder.getOrderPhone())
-//                .vendorMessage(cartToOrder.getVendorMessage()).addressDetail(cartToOrder.getAddressDetail()).streetAddress(cartToOrder.getStreetAddress())
-//                .receiverEmail(cartToOrder.getEmail()).zipcode(cartToOrder.getZipcode()).memberSequence(cartToOrder.getMemberSequence()).build();
-//
-//        int totalPoint = 0;
-//        int totalPrice = 0;
-//        String[] cartSequences = cartToOrder.getSequences().split(",");
-//
-//        try {
-//            orderService.insert(order);
-//
-//            // memberId에 해당하는 가장 최근 order sequence
-//            List<Order> orderList = orderService
-//                    .getAll(Order.builder().memberSequence(cartToOrder.getMemberSequence()).build());
-//            List<OrderDetail> orderDetailList = new ArrayList<>();
-//
-//            // TODO : Order sequence에 해당하는 OrderDetail 채우기
-//            for (int i = 0; i < cartSequences.length; i++) {
-//                Cart tempCart = Cart.builder().sequence(Long.parseLong(cartSequences[i])).build();
-//                Cart cart = cartService.get(tempCart);
-//                Product tempProduct = Product.builder().sequence(cart.getProductSequence()).build();
-//                Product product = productService.get(tempProduct);
-//
-//                try {
-//
-//                    OrderDetail orderDetail = OrderDetail.builder()
-//                            .orderSequence(orderList.get(0).getSequence()).orderDetailProduct(product)
-//                            .count(cart.getCount())
-//                            .productPoint(product.getPointAccumulationRate() * 0.01 * product.getPrice())
-//                            .productPrice(product.getPrice()).productSequence(product.getSequence()).build();
-//                    totalPoint += product.getPointAccumulationRate() * 0.01 * cart.getCount()
-//                            * product.getPrice();
-//                    totalPrice += product.getPrice() * cart.getCount();
-//                    orderDetailService.register(orderDetail);
-//                    orderDetailList.add(orderDetail);
-//
-//                    cartService.remove(tempCart);
-//                    int cartCount = cartService.getCartCount(cartToOrder.getMemberSequence());
-//                    request.setAttribute("cartCount", cartCount);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            request.setAttribute("orderResult", order);
-//            request.setAttribute("orderDetailResult", orderDetailList);
-//            request.setAttribute("totalPoint", totalPoint);
-//            request.setAttribute("totalPrice", totalPrice);
-//            request.setAttribute("usedPoint", cartToOrder.getUsePoint());
-//
-//            // 포인트 사용
-//            Point point = Point.builder().point(cartToOrder.getUsePoint()).state(PointStateEnum.USED).memberSequence(cartToOrder.getMemberSequence()).build();
-//            pointService.register(point);
-//            pointService.modify(point);
-//
-//
-//
-//            Member updatedUserInfo = memberService.get(Member.builder().email(loggedInUser.getEmail()).build());
-//            session.setAttribute("logincust", updatedUserInfo);
-//
-//        } catch (Exception e1) {
-//            e1.printStackTrace();
-//        }
+        HttpSession session = request.getSession();
+        Member loggedInUser = (Member) session.getAttribute("logincust");
+
+        model.addAttribute("center", "checkout-result");
+        log.warn(cartToOrder.getAddressDetail());
+
+        Order order = Order.builder().receiverName(cartToOrder.getReceiverName()).orderPhone(cartToOrder.getOrderPhone())
+                .vendorMessage(cartToOrder.getVendorMessage()).addressDetail(cartToOrder.getAddressDetail()).streetAddress(cartToOrder.getStreetAddress())
+                .receiverEmail(cartToOrder.getEmail()).zipcode(cartToOrder.getZipcode()).memberSequence(cartToOrder.getMemberSequence()).build();
+
+        int totalPoint = 0;
+        int totalPrice = 0;
+        String[] cartSequences = cartToOrder.getSequences().split(",");
+
+        try {
+            List<Order> orderList = orderService
+                    .getAll(Order.builder().memberSequence(cartToOrder.getMemberSequence()).build());
+            List<OrderDetail> orderDetailList = new ArrayList<>();
+
+            for (int i = 0; i < cartSequences.length; i++) {
+                Cart tempCart = Cart.builder().sequence(Long.parseLong(cartSequences[i])).build();
+                Cart cart = cartService.get(tempCart);
+                Product product = productService.get((int) cart.getProductSequence());
+
+                try {
+
+                    OrderDetail orderDetail = OrderDetail.builder()
+                            .orderSequence(orderList.get(0).getSequence()).orderDetailProduct(product)
+                            .count(cart.getCount())
+                            .productPoint(product.getPointAccumulationRate() * 0.01 * product.getPrice())
+                            .productPrice(product.getPrice()).productSequence(product.getSequence()).build();
+                    totalPoint += (int) (product.getPointAccumulationRate() * 0.01 * cart.getCount() * product.getPrice());
+                    totalPrice += product.getPrice() * cart.getCount();
+                    orderDetailService.insert(orderDetail);
+                    orderDetailList.add(orderDetail);
+
+                    cartService.remove(tempCart);
+                    int cartCount = cartService.getCartCount(cartToOrder.getMemberSequence());
+                    request.setAttribute("cartCount", cartCount);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            model.addAttribute("orderResult", order);
+            log.warn("order: " + order.toString());
+            model.addAttribute("orderDetailResult", orderDetailList);
+            log.warn("orderDetailReesult: " + orderDetailList);
+            model.addAttribute("totalPoint", totalPoint);
+            log.warn(String.valueOf(totalPoint));
+            model.addAttribute("totalPrice", totalPrice);
+            log.warn(String.valueOf(totalPrice));
+            model.addAttribute("usedPoint", cartToOrder.getUsePoint());
+
+            // 포인트 사용
+            Point point = Point.builder().point(cartToOrder.getUsePoint()).state(PointStateEnum.USED).memberSequence(cartToOrder.getMemberSequence()).build();
+            pointService.insert(point);
+            pointService.modify(point);
+
+
+
+            Member updatedUserInfo = memberService.get(Member.builder().email(loggedInUser.getEmail()).build());
+            session.setAttribute("logincust", updatedUserInfo);
+
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
         return "index";
     }
 

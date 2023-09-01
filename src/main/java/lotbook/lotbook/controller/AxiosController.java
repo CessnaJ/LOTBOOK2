@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/rest")
+@RequestMapping("/api")
 public class AxiosController {
 
     private final CartService cartService;

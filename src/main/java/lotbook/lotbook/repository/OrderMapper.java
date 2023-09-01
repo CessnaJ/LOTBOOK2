@@ -8,5 +8,5 @@ public interface OrderMapper {
 
     Order select(Order order);
     int insert(Order order);
-    List<Order> selectAllMyOrder(Order order);
+    List<Order> selectall(Order order);
 }
