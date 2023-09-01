@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 
 @Slf4j
 @Controller
@@ -22,7 +25,9 @@ public class MemberController {
     private final CartService cartService;
 
     @PostMapping(value = "/login")
-    public String login(Model model, LoginRequest loginDto) {
+    public String login(Model model, LoginRequest loginDto, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
         model.addAttribute("center", "main");
 
         Member loginInfo = Member.builder().email(loginDto.getEmail()).hashedPwd(loginDto.getPassword()).build();
@@ -30,10 +35,10 @@ public class MemberController {
         try {
             Member loginUser = memberService.get(loginInfo);
             int cartCount = cartService.getCartCount(loginUser.getSequence());
-            model.addAttribute("cartCount", cartCount);
+            session.setAttribute("cartCount", cartCount);
 
             if (loginUser != null && bCryptPasswordEncoder.matches(loginDto.getPassword(), loginUser.getHashedPwd())) {
-                model.addAttribute("logincust", loginUser);
+                session.setAttribute("logincust", loginUser);
             } else {
                 model.addAttribute("center", "signin");
             }

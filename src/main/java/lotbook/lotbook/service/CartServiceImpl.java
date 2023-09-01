@@ -15,7 +15,7 @@ public class CartServiceImpl implements CartService {
     private final CartMapper cartMapper;
 
     @Override
-    public int register(Cart cart) {
+    public int register(Cart cart) throws Exception {
         int result = 0;
 
         try {
@@ -34,6 +34,7 @@ public class CartServiceImpl implements CartService {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            throw new Exception("장바구니 담기 에러");
         }
 
         return result;

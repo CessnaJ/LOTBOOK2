@@ -190,8 +190,9 @@ function use_point(value, totalPrice, myPoint) {
       <div class="row"></div>
       <div class="checkout__form">
          <h4>결제 확인서</h4>
-         <form id="register_form" action="main.bit?view=checkout-result&sequences=${sequences }&cmd=1" method="post">
-            <span style="display: none;" id="productSequences">${sequences }</span>
+         <form id="register_form" action="/cart/api/caartToOrderResult" method="post">
+            <input style="display: none;" id="productSequences" name="sequences" value="${sequences }">
+            <input style="display: none;" id="memberSequence" name="memberSequence" value="${logincust.sequence }">
             <input type="hidden" name="view" value="checkout-result" />
             <div class="row">
                <div class="col-lg-8 col-md-6">
@@ -207,7 +208,7 @@ function use_point(value, totalPrice, myPoint) {
                               받는 분 성함<span>*</span>
                            </p>
                            <input class="text-dark" id="custName" type="text"
-                              name="input__receiverName" required>
+                              name="receiverName" required>
                         </div>
                      </div>
                   </div>
@@ -216,7 +217,7 @@ function use_point(value, totalPrice, myPoint) {
                         이메일(청구서 수신용)<span>*</span>
                      </p>
                      <input class="text-dark" id="custEmail" type="email"
-                        name="input__email" required>
+                        name="email" required>
                   </div>
 
                   <div class="checkout__input">
@@ -224,14 +225,14 @@ function use_point(value, totalPrice, myPoint) {
                         연락처<span>*</span>
                      </p>
                      <input class="text-dark" id="custPhone" type="tel"
-                        pattern="[0-9]{3}[0-9]{4}[0-9]{4}" name="input__phone" required>
+                        pattern="[0-9]{3}[0-9]{4}[0-9]{4}" name="orderPhone" required>
                   </div>
                   <div class="checkout__input">
                      <p>
                         우편 번호<span>*</span>
                      </p>
                      <input class="text-dark" type="text" id="sample6_postcode"
-                        placeholder="우편번호" name="input__zipcode"> <input
+                        placeholder="우편번호" name="zipcode"> <input
                         type="button" onclick="getAddress()" value="우편번호 찾기"><br>
                   </div>
                   <div class="checkout__input">
@@ -239,11 +240,11 @@ function use_point(value, totalPrice, myPoint) {
                         주소<span>*</span>
                      </p>
                      <input class="text-dark" type="text" id="sample6_address"
-                        placeholder="주소" name="input__street_address"><br>
+                        placeholder="주소" name="streetAddress"><br>
                      <input class="text-dark" type="text" id="sample6_detailAddress"
-                        placeholder="상세주소" name="input__address_detail"> <input
+                        placeholder="상세주소" name="adddressDetail"> <input
                         class="text-dark" type="text" id="sample6_extraAddress"
-                        placeholder="배송 메세지" name="input__vendor_message">
+                        placeholder="배송 메세지" name="vendorMessage">
                   </div>
                </div>
                <div class="col-lg-4 col-md-6">
@@ -294,7 +295,7 @@ function use_point(value, totalPrice, myPoint) {
                            사용 가능 포인트: ${logincust.accumulatedPoint } 점
                         </div>
                         <div style="width: 100%; text-align: right;">
-                           <input id="checkbox" type="checkbox" onclick="use_all_point(${logincust.accumulatedPoint }, ${orderProductList[fn:length(orderProductList) - 1].totalPrice })"><label style="text-align: right; margin-left: 5px;">전액 사용</label>
+                           <input id="checkbox" type="checkbox" name="usePoint" onclick="use_all_point(${logincust.accumulatedPoint }, ${orderProductList[fn:length(orderProductList) - 1].totalPrice })"><label style="text-align: right; margin-left: 5px;">전액 사용</label>
                         </div>
                      </div>
                      <div class="checkout__order__total">
