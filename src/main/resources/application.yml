@@ -10,7 +10,7 @@ spring:
     jsp:
       servlet:
         check-interval: 0   # JSP 리로드 간격 설정 (0은 항상 리로드- 개발용)
-    static-path-pattern: /resources/**
+    static-path-pattern: /resources/static/**
 
 
 mybatis:

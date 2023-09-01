@@ -26,9 +26,9 @@ request.setCharacterEncoding("UTF-8");
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="active"><a href="main.bit?view=signin"><i
+							<li class="active"><a href="/page/signin"><i
 									class="fa fa-user"></i> 로그인</a></li>
-							<li class=""><a href="main.bit?view=signup"><i
+							<li class=""><a href="/page/signup"><i
 									class="fa fa-user"></i> 회원가입</a></li>
 						</c:otherwise>
 					</c:choose>
@@ -50,8 +50,7 @@ request.setCharacterEncoding("UTF-8");
 							style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li><a href="category.bit?view=1"
 							style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
-						<li><a href="main.bit?view=contact"
-							style="font-size: 20px; font-weight: 700;">고객센터</a></li>
+						<li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -178,7 +177,7 @@ request.setCharacterEncoding("UTF-8");
 				</div>
 				<button type="button" name="submit" class="site-btn" id="order__btn"
 					>이메일로 명세서 받기</button>
-				<button type="button" class="site-btn" id="order__btn"
+				<button type="button" class="site-btn"
 					onclick="goHome()">홈으로 이동하기</button>
 			</div>
 		</div>
