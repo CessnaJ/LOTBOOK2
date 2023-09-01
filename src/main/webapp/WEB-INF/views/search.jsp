@@ -5,17 +5,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-<%@ page
-	import="app.dto.response.SearchResult, app.dto.mapper.SearchProductMapper, java.util.List"%>
+<%--<%@ page--%>
+<%--	import="app.dto.response.SearchResult, app.dto.mapper.SearchProductMapper, java.util.List"%>--%>
 
-<%
-// ProductDetailWithReviews 객체 받아오기
-SearchResult searchResult = (SearchResult) request.getAttribute("searchResult");
-List<SearchProductMapper> searchedList = searchResult.getSearchList();
+<%--<%--%>
+<%--// ProductDetailWithReviews 객체 받아오기--%>
+<%--SearchResult searchResult = (SearchResult) request.getAttribute("searchResult");--%>
+<%--List<SearchProductMapper> searchedList = searchResult.getSearchList();--%>
 
-int endPage = (int) Math.ceil((double) searchResult.getCategoryCount() / 9.0);
-pageContext.setAttribute("endPage", endPage);
-%>
+<%--int endPage = (int) Math.ceil((double) searchResult.getCategoryCount() / 9.0);--%>
+<%--pageContext.setAttribute("endPage", endPage);--%>
+<%--%>--%>
 
 
 <style type="text/css">
@@ -52,9 +52,9 @@ pageContext.setAttribute("endPage", endPage);
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="active"><a href="main.bit?view=signin"><i
+							<li class="active"><a href="/page/signin"><i
 									class="fa fa-user"></i> 로그인</a></li>
-							<li class=""><a href="main.bit?view=signup"><i
+							<li class=""><a href="/page/signup"><i
 									class="fa fa-user"></i> 회원가입</a></li>
 						</c:otherwise>
 					</c:choose>
@@ -66,19 +66,19 @@ pageContext.setAttribute("endPage", endPage);
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="main.bit"><img src="/img/logo.png" alt="로고이미지"></a>
+					<a href="/page/main"><img src="/img/logo.png" alt="로고이미지"></a>
 					검색페이지 입장 잘 했는데, 이미지가 나오니?
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus">
-						<li><a href="main.bit"
+						<li><a href="/page/main"
 							style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li class="active"><a href="category.bit?view=1"
 							style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
-						<li><a href="main.bit?view=contact"
-							style="font-size: 20px; font-weight: 700;">고객센터</a></li>
+						<li><a href="/page/contact"
+							   style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
 				</nav>
 			</div>

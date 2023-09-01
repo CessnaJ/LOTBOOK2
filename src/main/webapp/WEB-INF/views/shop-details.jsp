@@ -15,6 +15,7 @@
 <%--	selectedProduct = productDetailWithReviews.getContent();--%>
 <%--}--%>
 <%--%>--%>
+
 <style type="text/css">
 .info-tag {
 	width: 5vw;
@@ -49,7 +50,7 @@
 }
 
 .q-quantity {
-	background-color: gray;
+	background-color: rgb(128, 128, 128);
 }
 
 .review-star {
@@ -89,9 +90,9 @@
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="active"><a href="main.bit?view=signin"><i
+							<li class="active"><a href="/page/signin"><i
 									class="fa fa-user"></i> 로그인</a></li>
-							<li class=""><a href="main.bit?view=signup"><i
+							<li class=""><a href="/page/signup"><i
 									class="fa fa-user"></i> 회원가입</a></li>
 						</c:otherwise>
 					</c:choose>
@@ -103,18 +104,18 @@
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="main.bit"><img src="/img/logo.png" alt=""></a>
+					<a href="/page/main"><img src="/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus">
-						<li><a href="main.bit"
+						<li><a href="/page/main"
 							style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li class="active"><a href="category.bit?view=1"
 							style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
-						<li><a href="main.bit?view=contact"
-							style="font-size: 20px; font-weight: 700;">고객센터</a></li>
+						<li><a href="/page/contact"
+							   style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -257,14 +258,14 @@
 							<h5 class="my-2 info-tag normal-info">배송료</h5>
 							<div class="my-2">무료</div>
 						</div>
-						<div class="d-flex flex-col" style="margin-top: 5px; margin-bottom: 5px; display: relative;">
+						<div class="d-flex flex-col" style="margin-top: 5px; margin-bottom: 5px; posistion: relative;">
 							<a id="kakaotalk-sharing-btn" class="btn" style="padding: 0px;">
 								<img style="width: 40px;" src="https://contents.kyobobook.co.kr/resources/fo/images/common/ink/ico_sns_kakao_48x48@2x.png">
 							</a>
 							<a id="copy-link-btn" class="btn" style="padding: 0px; margin-left: 20px;">
 								<img style="width: 40px;" src="https://contents.kyobobook.co.kr/resources/fo/images/common/ink/ico_sns_url_48x48@2x.png">
 							</a>
-							<div class="bg-warning text-white" id="success-alert" style="margin-left: 10px; display: absolute; height: 40px; border-radius: 20px; padding-top: 7px; padding-right: 10px; padding-left: 10px;">
+							<div class="bg-warning text-white" id="success-alert" style="margin-left: 10px; posistion: absolute; height: 40px; border-radius: 20px; padding-top: 7px; padding-right: 10px; padding-left: 10px;">
 							  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
 							  복사되었습니다
 							</div>
@@ -460,9 +461,9 @@
 <script>
    $(document).ready(function() {
 	   $("#success-alert").hide();
-	   
+
 	   Kakao.init('893713b29c0f17f54e1560263bc47e13');
-	   
+
 	   $('#kakaotalk-sharing-btn').click(function(){
  	   Kakao.Share.sendDefault({
  		   objectType: 'commerce',
@@ -492,7 +493,7 @@
  		     },
  		   ],
  		 });})
-	  
+
  		 
 	  $("#copy-link-btn").click(function() {
 		  
@@ -679,5 +680,5 @@
  		   ],
  		 });
  	   };
-   
+
 </script>

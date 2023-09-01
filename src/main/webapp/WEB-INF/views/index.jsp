@@ -32,8 +32,10 @@
 <link rel="stylesheet" href="/css/style.css" type="text/css">
 <link rel="stylesheet" href="/css/common-style.css">
 <link rel="icon" href="/img/favicon.ico">
-<link rel="stylesheet"
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -271,14 +273,14 @@
 
 
 	<!-- Js Plugins -->
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/jquery-ui.min.js"></script>
-	<script src="js/jquery.slicknav.js"></script>
-	<script src="js/mixitup.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="/js/jquery-3.3.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/jquery.nice-select.min.js"></script>
+	<script src="/js/jquery-ui.min.js"></script>
+	<script src="/js/jquery.slicknav.js"></script>
+	<script src="/js/mixitup.min.js"></script>
+	<script src="/js/owl.carousel.min.js"></script>
+	<script src="/js/main.js"></script>
 	<script>
 		(function() {
 			var w = window;

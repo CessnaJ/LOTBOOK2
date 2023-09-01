@@ -48,9 +48,9 @@
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="active"><a href="main.bit?view=signin"><i
+							<li class="active"><a href="/page/signin"><i
 									class="fa fa-user"></i> 로그인</a></li>
-							<li class=""><a href="main.bit?view=signup"><i
+							<li class=""><a href="/page/signup"><i
 									class="fa fa-user"></i> 회원가입</a></li>
 						</c:otherwise>
 					</c:choose>
@@ -62,15 +62,15 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="main.bit"><img src="/img/logo.png" alt=""></a>
+                        <a href="/page/main"><img src="/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
 						<ul id="header__menus" >
-							<li class="active"><a href="main.bit"  style="font-size: 20px; font-weight: 700;">홈</a></li>
+							<li class="active"><a href="/page/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
 							<li><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
-							<li><a href="main.bit?view=contact"  style="font-size: 20px; font-weight: 700;">고객센터</a></li>
+							<li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 						</ul>
 					</nav>
                 </div>
