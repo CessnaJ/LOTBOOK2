@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="mysql.properties" />
+
+	<typeHandlers>
+		<typeHandler javaType="boolean" jdbcType="TINYINT" handler="org.apache.ibatis.type.BooleanTypeHandler" />
+	</typeHandlers>
+	<environments default="">
+		<environment id="">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.cj.jdbc.Driver" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${user}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="mappers/CartMapper.xml" />
+		<mapper resource="mappers/CategoryMapper.xml" />
+		<mapper resource="mappers/MemberMapper.xml" />
+		<mapper resource="mappers/OrderDetailMapper.xml" />
+		<mapper resource="mappers/OrderMapper.xml" />
+		<!-- <mapper resource="mapper/ProductDetailMapper.xml" /> -->
+		<mapper resource="mappers/ProductMapper.xml" />
+		<mapper resource="mappers/ReviewMapper.xml" />
+		<mapper resource="mappers/SearchMapper.xml" />
+		<mapper resource="mappers/PointMapper.xml" />
+
+	</mappers>
+</configuration>

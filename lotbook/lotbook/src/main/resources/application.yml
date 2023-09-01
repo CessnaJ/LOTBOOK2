@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/shopdb
+    username: user01
+    password: 123456
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+    jsp:
+      servlet:
+        check-interval: 0   # JSP 리로드 간격 설정 (0은 항상 리로드- 개발용)
+    static-path-pattern: /resources/**
+
+
+mybatis:
+  configuration:
+    multiple-result-sets-enabled: false
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    jdbc-type-for-null: varchar
+    default-fetch-size: 500
+  mapper-locations:
+    - classpath:/mappers/*.xml
+  type-aliases-package: lotbook.lotbook.dto.entity   # Type Alias 패키지 위치 지정. 수정이 필요함.
+
+logging:
+  level:
+    root: INFO
+    org.springframework: DEBUG
+
