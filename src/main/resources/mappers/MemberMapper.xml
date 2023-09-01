@@ -3,6 +3,9 @@
 <mapper namespace="lotbook.lotbook.repository.MemberMapper">
 
 
+	<select id="select" parameterType="member" resultType="lotbook.lotbook.dto.entity.Member">
+		SELECT * FROM member WHERE email=#{email}
+	</select>
 
 	<select id="selectMemberBySequence" parameterType="int" resultType="lotbook.lotbook.dto.entity.Member">
 		SELECT * FROM member WHERE sequence=#{sequence}
