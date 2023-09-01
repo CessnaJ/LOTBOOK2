@@ -5,6 +5,8 @@ import lotbook.lotbook.dto.entity.Member;
 import java.util.List;
 
 public interface MemberMapper {
+    Member select(Member member);
+
     List<Member> selectAllMembers();
 
     Member selectMemberBySequence(int sequence);
