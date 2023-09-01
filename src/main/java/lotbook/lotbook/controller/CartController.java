@@ -22,14 +22,14 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/cart")
+@RequestMapping("/api/cart")
 public class CartController {
 
     private final CartService cartService;
     private final ProductService productService;
     private final OrderService orderService;
     private final MemberService memberService;
-    @GetMapping(value = "/api/shopingCart")
+    @GetMapping(value = "/shopingCart")
     public String ShopingCartPage(Model model, @RequestParam long memberSeq) {
         log.warn("장바구니 상세 페이지");
         model.addAttribute("center", "shoping-cart");
@@ -56,7 +56,7 @@ public class CartController {
         return "index";
     }
 
-    @GetMapping(value = "/api/deleteCart")
+    @GetMapping(value = "/deleteCart")
     public String DeleteCart(Model model, @RequestParam long sequence, @RequestParam long memberSequence, @RequestParam int isCart) {
 
         if (isCart == 0) {
@@ -86,7 +86,7 @@ public class CartController {
         return "index";
     }
 
-    @GetMapping(value = "/api/cartToOrder")
+    @GetMapping(value = "/cartToOrder")
     public String CartToOrder(Model model, @RequestParam String sequences) {
         model.addAttribute("center", "checkout");
 
@@ -133,7 +133,7 @@ public class CartController {
         return "index";
     }
 
-    @PostMapping(value = "/api/caartToOrderResult")
+    @PostMapping(value = "/caartToOrderResult")
     public String CartToOrderResult(Model model, CartToOrderRequest cartToOrder, HttpServletRequest request) {
 //        HttpSession session = request.getSession();
 //        Member loggedInUser = (Member) session.getAttribute("logincust");
