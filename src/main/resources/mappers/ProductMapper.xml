@@ -2,14 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="lotbook.lotbook.repository.ProductMapper">
 
+    <!-- product 기본 정보 -->
     <select id="selectProductBySequence" parameterType="long" resultType="lotbook.lotbook.dto.entity.Product">
         SELECT * FROM product WHERE sequence=#{sequence}
     </select>
 
-    <select id="selectProduct" parameterType="long" resultMap="lotbook.lotbook.dto.entity.Product">
-        SELECT sequence, product_imgurl, product_detail_imgurl, name, price, content, stock, created_at, updated_at, point_accumulation_rate, discount_rate, sales_count,  author_sequence, publisher_sequence, category_sequence
-        FROM product
-        WHERE sequence = #{sequence}
-        <!-- TODO: state복구 state 임시 제거 된 상태 -->
+    <!-- 연관된(저자, 출판사, 카테고리) 이름 -->
+    <select id="selectRelatedNameAndCategory" parameterType="long" resultType="lotbook.lotbook.dto.mapper.ProductRelatedNameMapper">
+        SELECT
+            a.name AS author_name,
+            pb.name AS publisher_name,
+            c.sequence AS sub_category_sequence,
+            c.name AS sub_category_name,
+            m.sequence AS main_category_sequence,
+            m.name AS main_category_name
+        FROM
+            product p
+                INNER JOIN author a ON p.author_sequence = a.sequence
+                INNER JOIN publisher pb ON p.publisher_sequence = pb.sequence
+                INNER JOIN category c ON p.category_sequence = c.sequence
+                INNER JOIN category m ON c.parent_category = m.sequence
+        WHERE
+            p.sequence = #{sequence}
     </select>
+
+
+
 </mapper>
