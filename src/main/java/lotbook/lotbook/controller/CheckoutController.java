@@ -1,6 +1,8 @@
 package lotbook.lotbook.controller;
 
 import lotbook.lotbook.dto.entity.Product;
+import lotbook.lotbook.dto.response.CartProduct;
+import lotbook.lotbook.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,12 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("checkout")
 public class CheckoutController {
 
+
+    private final ProductService productService;
 //    private final CheckoutService checkoutService;
 
     @GetMapping(value = "/api/checkoutbuynow")
@@ -26,10 +33,28 @@ public class CheckoutController {
 
         model.addAttribute("center", "checkoutbuynow");
 
+        List<CartProduct> productList = new ArrayList<>();
+        try {
+            Product res = productService.get(productId);
+            productList.add(new CartProduct());
+            productList.get(0).setName(res.getName());
+            productList.get(0).setPrice(res.getPrice());
+            productList.get(0).setDiscountRate(res.getDiscountRate());
+            productList.get(0).setTotalPoint((int) (Math
+                    .floor(res.getPrice() * count * res.getPointAccumulationRate() * 0.01)));
+            productList.get(0).setCount((int) count);
+            int priceMuldiscountRate = (int) ((int) ((int) res.getPrice() * ((100 - res.getDiscountRate()) * 0.01))
+                                * count);
 
-        Product product = Product.builder().sequence(productId).build();
+            productList.get(0).setTotalPrice(priceMuldiscountRate - priceMuldiscountRate % 10);
+            model.addAttribute("res", res);
 
-//        model.addAttribute("orderProductList", productList);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        model.addAttribute("orderProductList", productList);
         model.addAttribute("count", count);
         model.addAttribute("productId", productId);
 
