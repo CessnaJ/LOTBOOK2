@@ -1,5 +1,6 @@
 package lotbook.lotbook.service;
 
+import lotbook.lotbook.dto.entity.OrderDetail;
 import lotbook.lotbook.dto.entity.Product;
 import org.springframework.stereotype.Service;
 
@@ -7,5 +8,7 @@ import org.springframework.stereotype.Service;
 public interface ProductService {
 
     Product get(int sequence);
+
+    int updateByProductKeyWithSalesCount(OrderDetail v) throws Exception;
 
 }

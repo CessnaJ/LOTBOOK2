@@ -190,7 +190,7 @@ function use_point(value, totalPrice, myPoint) {
       <div class="row"></div>
       <div class="checkout__form">
          <h4>결제 확인서</h4>
-         <form id="register_form" action="/cart/api/caartToOrderResult" method="post">
+         <form id="register_form" action="/cart/caartToOrderResult" method="post">
             <input style="display: none;" id="productSequences" name="sequences" value="${sequences }">
             <input style="display: none;" id="memberSequence" name="memberSequence" value="${logincust.sequence }">
             <input type="hidden" name="view" value="checkout-result" />
@@ -242,7 +242,7 @@ function use_point(value, totalPrice, myPoint) {
                      <input class="text-dark" type="text" id="sample6_address"
                         placeholder="주소" name="streetAddress"><br>
                      <input class="text-dark" type="text" id="sample6_detailAddress"
-                        placeholder="상세주소" name="adddressDetail"> <input
+                        placeholder="상세주소" name="addressDetail"> <input
                         class="text-dark" type="text" id="sample6_extraAddress"
                         placeholder="배송 메세지" name="vendorMessage">
                   </div>
