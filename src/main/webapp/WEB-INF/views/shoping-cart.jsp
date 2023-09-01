@@ -336,7 +336,7 @@
 	}
 	
 	function cart_delete() {
-		location.href = 'main.bit?view=deleteCart&sequence=' + productSequence + '&memberSeq=' + memberSequence + '&isCart=1';
+		location.href = '/cart/api/deleteCart?sequence=' + productSequence + '&memberSequence=' + memberSequence + '&isCart=1';
 		
 		close_modal();
 	}
@@ -354,7 +354,7 @@
 			}
 			
 			if (!isStockZero) {
-				location.href = 'main.bit?view=checkout&sequences=' + selectedCart;
+				location.href = '/cart/api/cartToOrder?sequences=' + selectedCart;
 			}
 		}
 	}
@@ -366,17 +366,17 @@
 		if (checkbox.checked) {
 			
 		} else {
-			$.ajax({
-				url:'rest.bit?view=changeCount&sequence=' + sequence + '&productSequence=' + productSeq + '&count=' + (count+1) + '&memberSeq=' + memberSeq,
-				success:function(result){
-					if (result === 0) {
-						alert("재고 이상의 상품을 담을 수 없습니다!");
-					} else {
-						$('#product-count' + sequence).text(result);
-						$("#price" + sequence).text(((price * ((100 - discountRate) * 0.01)) * (count+1) - ((price * ((100 - discountRate) * 0.01)) * (count+1))%10).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " 원");
-						$('#point' + sequence).text((Math.floor(price * (count+1) * pointAccumulationRate * 0.01)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-					}
-				}
+			axios.get('/rest/api/changeCount?sequence=' + sequence + '&productSequence=' + productSeq + '&count=' + (count+1) + '&memberSequence=' + memberSeq)
+					.then(function(result) {
+						if (result === 0) {
+							alert("재고 이상의 상품을 담을 수 없습니다!");
+						} else {
+							$('#product-count' + sequence).text(result.data);
+							$("#price" + sequence).text(((price * ((100 - discountRate) * 0.01)) * (count+1) - ((price * ((100 - discountRate) * 0.01)) * (count+1))%10).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " 원");
+							$('#point' + sequence).text((Math.floor(price * (count+1) * pointAccumulationRate * 0.01)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+						}
+					}).catch(function (error) {
+						console.log(error);
 			});
 		}
 		
@@ -391,18 +391,17 @@
 		if (checkbox.checked) {
 			
 		} else {
-			$.ajax({
-				url:'rest.bit?view=changeCount&sequence=' + sequence + '&productSequence=' + productSeq + '&count=' + (count-1) + '&memberSeq=' + memberSeq,
-				success:function(result){
-					$('#product-count' + sequence).text(result);
-					if (count <= 1) {
-						$("#price" + sequence).text(((price * ((100 - discountRate) * 0.01)) * (1) - ((price * ((100 - discountRate) * 0.01)) * (1))%10).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " 원");
-						$('#point' + sequence).text((Math.floor(price * (1) * pointAccumulationRate * 0.01)) + " 점");
-					} else {
-						$("#price" + sequence).text(((price * ((100 - discountRate) * 0.01)) * (count-1) - ((price * ((100 - discountRate) * 0.01)) * (count-1))%10).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " 원");
-						$('#point' + sequence).text((Math.floor(price * (count-1) * pointAccumulationRate * 0.01)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-					}
-				}
+			axios.get('/rest/api/changeCount?sequence=' + sequence + '&productSequence=' + productSeq + '&count=' + (count-1) + '&memberSequence=' + memberSeq)
+					.then(function(result) {
+						$('#product-count' + sequence).text(result.data);
+						if (count <= 1) {
+							$("#price" + sequence).text(((price * ((100 - discountRate) * 0.01)) * (1) - ((price * ((100 - discountRate) * 0.01)) * (1))%10).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " 원");
+							$('#point' + sequence).text((Math.floor(price * (1) * pointAccumulationRate * 0.01)) + " 점");
+						} else {
+							$("#price" + sequence).text(((price * ((100 - discountRate) * 0.01)) * (count-1) - ((price * ((100 - discountRate) * 0.01)) * (count-1))%10).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " 원");
+							$('#point' + sequence).text((Math.floor(price * (count-1) * pointAccumulationRate * 0.01)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+						}
+					}).catch(function(error) {
 			});
 		}
 		
