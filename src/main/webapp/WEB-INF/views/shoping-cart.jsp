@@ -5,8 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%    
 	request.setCharacterEncoding("UTF-8");
-	String[] myCartList = request.getParameterValues("myCartList");
-	String[] myCartProductList = request.getParameterValues("myCartProductList");
 %>
 <style>
 	#modal {
