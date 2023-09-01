@@ -23,7 +23,7 @@ public class ProductDetailController {
     public String getproduct(Model model) {
         // 검색 로직 구현부분.. 간이로 이렇게 받아서 쓸 수 있다는걸 보여드립니다.
         model.addAttribute("data-test", "Search results for: " + "데이터가 잘 받아서 들어오나요" );
-        model.addAttribute("center", "signup");
+        model.addAttribute("center", "shop-details");
 
         log.warn("상품상세요청");
         Product product = productService.get(1);
@@ -38,7 +38,7 @@ public class ProductDetailController {
 //        }
 
         log.info("/product-detail 로 들어왔어요 ㅋㅋ.");
-        return "shop-details";  // search.jsp 페이지로 이동시킴.
+        return "index";  // search.jsp 페이지로 이동시킴.
     }
 
 

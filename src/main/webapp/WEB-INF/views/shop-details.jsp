@@ -15,6 +15,7 @@
 <%--	selectedProduct = productDetailWithReviews.getContent();--%>
 <%--}--%>
 <%--%>--%>
+
 <style type="text/css">
 .info-tag {
 	width: 5vw;
@@ -460,9 +461,9 @@
 <script>
    $(document).ready(function() {
 	   $("#success-alert").hide();
-	   
+
 	   Kakao.init('893713b29c0f17f54e1560263bc47e13');
-	   
+
 	   $('#kakaotalk-sharing-btn').click(function(){
  	   Kakao.Share.sendDefault({
  		   objectType: 'commerce',
@@ -492,7 +493,7 @@
  		     },
  		   ],
  		 });})
-	  
+
  		 
 	  $("#copy-link-btn").click(function() {
 		  
@@ -679,5 +680,5 @@
  		   ],
  		 });
  	   };
-   
+
 </script>
