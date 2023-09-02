@@ -8,7 +8,7 @@
     </select>
 
     <!-- 연관된(저자, 출판사, 카테고리) 이름 -->
-    <select id="selectRelatedNameAndCategory" parameterType="long" resultType="lotbook.lotbook.dto.mapper.ProductRelatedNameMapper">
+    <select id="selectRelatedNameAndCategoryByProductSequence" parameterType="long" resultType="lotbook.lotbook.dto.mapper.ProductRelatedNameMapperDTO">
         SELECT
             a.name AS author_name,
             pb.name AS publisher_name,

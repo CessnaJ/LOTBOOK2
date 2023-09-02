@@ -67,7 +67,6 @@
 			<div class="col-lg-3">
 				<div class="header__logo">
 					<a href="/page/main"><img src="/img/logo.png" alt="로고이미지"></a>
-					검색페이지 입장 잘 했는데, 이미지가 나오니?
 				</div>
 			</div>
 			<div class="col-lg-6">

@@ -9,10 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryMapper {
-	private String mainCategorySequence;
+public class ProductRelatedNameMapperDTO {
+	private String authorName;
+	private String publisherName;
+	private int mainCategorySequence;
 	private String mainCategoryName;
-	private String subCategorySequence;
+	private int subCategorySequence;
 	private String subCategoryName;
-
 }

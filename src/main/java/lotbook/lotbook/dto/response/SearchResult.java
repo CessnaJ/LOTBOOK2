@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lotbook.lotbook.dto.mapper.SearchProductMapper;
+import lotbook.lotbook.dto.mapper.SearchProductMapperDTO;
 
 @Data
 @Builder
@@ -27,5 +27,5 @@ public class SearchResult {
 	
 	private String orderBy;
 	
-	private List<SearchProductMapper> searchList;
+	private List<SearchProductMapperDTO> searchList;
 }
