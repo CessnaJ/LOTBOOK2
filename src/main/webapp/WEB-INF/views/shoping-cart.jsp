@@ -336,7 +336,7 @@
 	}
 	
 	function cart_delete() {
-		location.href = '/api/cart/deleteCart?sequence=' + productSequence + '&memberSequence=' + memberSequence + '&isCart=1';
+		location.href = '/cart/deleteCart?sequence=' + productSequence + '&memberSequence=' + memberSequence + '&isCart=1';
 		
 		close_modal();
 	}
@@ -354,7 +354,7 @@
 			}
 			
 			if (!isStockZero) {
-				location.href = '/api/cart/cartToOrder?sequences=' + selectedCart;
+				location.href = '/cart/cartToOrder?sequences=' + selectedCart;
 			}
 		}
 	}
@@ -366,7 +366,7 @@
 		if (checkbox.checked) {
 			
 		} else {
-			axios.get('/api/rest/changeCount?sequence=' + sequence + '&productSequence=' + productSeq + '&count=' + (count+1) + '&memberSequence=' + memberSeq)
+			axios.get('/api/changeCount?sequence=' + sequence + '&productSequence=' + productSeq + '&count=' + (count+1) + '&memberSequence=' + memberSeq)
 					.then(function(result) {
 						if (result === 0) {
 							alert("재고 이상의 상품을 담을 수 없습니다!");
@@ -391,7 +391,7 @@
 		if (checkbox.checked) {
 			
 		} else {
-			axios.get('/api/rest/changeCount?sequence=' + sequence + '&productSequence=' + productSeq + '&count=' + (count-1) + '&memberSequence=' + memberSeq)
+			axios.get('/api/changeCount?sequence=' + sequence + '&productSequence=' + productSeq + '&count=' + (count-1) + '&memberSequence=' + memberSeq)
 					.then(function(result) {
 						$('#product-count' + sequence).text(result.data);
 						if (count <= 1) {

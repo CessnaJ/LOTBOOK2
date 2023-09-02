@@ -3,6 +3,7 @@ package lotbook.lotbook.service;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
+import lotbook.lotbook.dto.entity.OrderDetail;
 import lotbook.lotbook.dto.entity.Product;
 import lotbook.lotbook.dto.mapper.ProductRelatedNameMapperDTO;
 import lotbook.lotbook.dto.mapper.ReviewWithNameMapperDTO;
@@ -26,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
     @Override
+<<<<<<< HEAD
     public ProductDetailWithReviews getProductDetail(long sequence) {
         Product product = productMapper.selectProductBySequence(sequence);
         ProductRelatedNameMapperDTO relatedName = productMapper.selectRelatedNameAndCategoryByProductSequence(sequence);
@@ -66,6 +68,18 @@ public class ProductServiceImpl implements ProductService {
                 .reviews(reviews)
                 .averageRating(avgRating)
                 .build();
+=======
+    public int updateByProductKeyWithSalesCount(OrderDetail v) throws Exception {
+        int result = 0;
+        try {
+            result = productMapper.updateByProductKeyWithSalesCount(v);
+        } catch (Exception e) {
+            e.getStackTrace();
+            e.printStackTrace();
+            throw new Exception("베스트셀러 책 검색 에러");
+        }
+        return result;
+>>>>>>> 6f30a70428d275e892548c98704b5c48a9ba811d
     }
 
 }

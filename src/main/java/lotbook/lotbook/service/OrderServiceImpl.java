@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getAll(Order order) throws Exception {
         List<Order> orders = new ArrayList<>();
         try {
-            orders = orderMapper.selectAllMyOrder(order);
+            orders = orderMapper.selectall(order);
         } catch(Exception e) {
             e.printStackTrace();
             throw new Exception("추후 에러코드 추가 - order 전체 조회 에러");
