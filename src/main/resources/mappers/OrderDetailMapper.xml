@@ -2,10 +2,14 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="orderdetail">
+<mapper namespace="lotbook.lotbook.repository.OrderDetailMapper">
 
-
-	
-	
+    <!-- 상품 구매 -->
+    <insert id="insert" parameterType="lotbook.lotbook.dto.entity.OrderDetail">
+        INSERT INTO `orderdetail`
+            (count, product_price, product_point, order_sequence, product_sequence)
+        VALUES (#{count}, #{productPrice}, #{productPoint}, #{orderSequence},
+                #{productSequence});
+    </insert>
 
 </mapper>

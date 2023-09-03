@@ -70,7 +70,7 @@ function use_point(value, totalPrice, myPoint) {
 							<li class="active"><a
 								href="main.bit?view=mypage&memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
-							<li class=""><a href="member.bit?view=logout"><i
+							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
@@ -293,7 +293,7 @@ function use_point(value, totalPrice, myPoint) {
 					</div>
 					<button type="submit" class="site-btn">주문하기</button>
 					
-					<img src="./img/payment-kakao.png" style="margin-top:10px;"  alt="kakao 결제" onClick={requestPay()}>
+					<img src="/img/payment-kakao.png" style="margin-top:10px;"  alt="kakao 결제" onClick={requestPay()}>
 				</div>
 			</div>
 		</div>

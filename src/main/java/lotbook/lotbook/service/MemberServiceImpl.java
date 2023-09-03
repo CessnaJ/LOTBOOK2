@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServicceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService {
 
     private final MemberMapper memberMapper;
 
@@ -24,6 +24,11 @@ public class MemberServicceImpl implements MemberService {
     @Override
     public boolean isEmailDuplicate(String emailToCheck) {
         return memberMapper.emailCheck(emailToCheck);
+    }
+
+    @Override
+    public int modifyInfo(Member v) {
+        return memberMapper.modifyInfo(v);
     }
 
 

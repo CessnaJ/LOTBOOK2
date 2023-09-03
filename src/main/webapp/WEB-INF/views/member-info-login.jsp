@@ -26,7 +26,7 @@
 						<c:when test="${logincust != null }">
 							<li class="active"><a href="main.bit?view=mypage&memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
-							<li class=""><a href="member.bit?view=logout"><i
+							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
@@ -129,9 +129,7 @@
 		<p style="margin-top:10px;">안전한 개인정보보호를 위해 비밀번호를 입력해주세요.</p>
 		<hr style="border: 1px solid black; margin:20px 0;">
 			<div class="checkout__form">
-			<form action="member.bit" method="post">
-				<input type="hidden" name="view" value="updateinfo">
-		
+			<form action="/member/updateinfo" method="post">
 				<div class="col-lg-6">
 					<div class="checkout__input">
 						<p>

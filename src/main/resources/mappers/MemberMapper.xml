@@ -11,9 +11,13 @@
 		SELECT * FROM member WHERE sequence=#{sequence}
 	</select>
 
-	<select id="emailCheck" parameterType="String" resultMap="memberMap">
+	<select id="emailCheck" parameterType="String" resultType="lotbook.lotbook.dto.entity.Member">
 		SELECT email FROM member WHERE email = #{emailToCheck}
 	</select>
+
+	<update id="updateInfo" parameterType="lotbook.lotbook.dto.entity.Member">
+		UPDATE member SET hashed_pwd=#{hashedPwd}, name=#{name}, member_phone=#{memberPhone}, zipcode=#{zipcode}, street_address=#{streetAddress}, address_detail=#{addressDetail} WHERE sequence=#{sequence}
+	</update>
 
 </mapper>
 

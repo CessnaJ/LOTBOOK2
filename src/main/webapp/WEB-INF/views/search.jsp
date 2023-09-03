@@ -48,7 +48,7 @@
 						<c:when test="${logincust != null }">
 							<li class="active"><a href="main.bit?view=mypage"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
-							<li class=""><a href="member.bit?view=logout"><i
+							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>

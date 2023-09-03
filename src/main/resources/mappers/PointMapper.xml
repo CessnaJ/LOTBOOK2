@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="point">
+<mapper namespace="lotbook.lotbook.repository.PointMapper">
 
-	
+    <!-- 가장 최근에 가입한 사용자 sequence 조회 -->
+    <select id="select" resultType="_int">
+        SELECT sequence FROM `member` ORDER BY created_at DESC LIMIT 1;
+    </select>
+
+    <!-- 포인트 적립 및 사용 -->
+    <insert id="insert" parameterType="lotbook.lotbook.dto.entity.Point">
+        INSERT INTO `point` (point, state, member_sequence) values(#{point}, #{state}, #{memberSequence})
+    </insert>
+
+    <!-- 포인트 사용 내역 조회 -->
+    <select id="selectAll" parameterType="lotbook.lotbook.dto.entity.Point" resultType="lotbook.lotbook.dto.entity.Point">
+        SELECT * FROM `point` WHERE member_sequence = #{memberSequence} ORDER BY registered_at DESC
+    </select>
+
+    <!-- 사용자 총 적립금 수정 -->
+    <update id="update" parameterType="lotbook.lotbook.dto.entity.Point">
+        UPDATE `member` SET accumulated_point = accumulated_point + ${point} WHERE sequence = #{memberSequence}
+    </update>
 	
 </mapper>

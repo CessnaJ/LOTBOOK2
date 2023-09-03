@@ -68,7 +68,7 @@ AOS.init({
 						<div class="header__cart">
 							<ul>
 								<li><a
-									href="main.bit?view=shopping-cart&memberSeq=${logincust.sequence }"><i
+									href="/cart/shopingCart?memberSeq=${logincust.sequence }"><i
 									class="fa fa-shopping-bag"></i> <span>${cartCount }</span></a></li>
 							</ul>
 						</div>
