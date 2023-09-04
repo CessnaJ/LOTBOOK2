@@ -107,7 +107,7 @@ public class MemberController {
             int memberSeq = pointService.getMemberSeq();
 
             point = Point.builder().point(1000).state(PointStateEnum.REGISTERED).memberSequence(memberSeq).build();
-            pointService.regisster(point);
+            pointService.register(point);
             pointService.modify(point);
 
         } catch (Exception e) {
