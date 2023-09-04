@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lotbook.lotbook.dto.entity.OrderDetail;
 import lotbook.lotbook.dto.entity.Product;
+import lotbook.lotbook.dto.mapper.CategoryProductWithReviewDTO;
 import lotbook.lotbook.dto.mapper.ProductRelatedNameMapperDTO;
 import lotbook.lotbook.dto.mapper.ReviewWithNameMapperDTO;
 import lotbook.lotbook.dto.response.ProductDetailWithReviews;
@@ -68,7 +69,27 @@ public class ProductServiceImpl implements ProductService {
                 .averageRating(avgRating)
                 .build();
     }
-    
+
+    @Override
+    public CategoryProductWithReviewDTO getPopular() {
+        return null;
+    }
+
+    @Override
+    public CategoryProductWithReviewDTO getLatest() {
+        return null;
+    }
+
+    @Override
+    public CategoryProductWithReviewDTO getHighPoint() {
+        return null;
+    }
+
+    @Override
+    public CategoryProductWithReviewDTO getHighDiscount() {
+        return null;
+    }
+
     public int updateByProductKeyWithSalesCount(OrderDetail v) throws Exception {
         int result = 0;
         try {
