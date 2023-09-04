@@ -12,7 +12,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     private final OrderDetailMapper orderDetailMapper;
     private final ProductMapper productMapper;
     @Override
-    public int insert(OrderDetail v) throws Exception {
+    public int register(OrderDetail v) throws Exception {
         int result = 0;
         try {
             result = orderDetailMapper.insert(v);

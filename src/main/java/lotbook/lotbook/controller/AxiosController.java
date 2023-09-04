@@ -2,6 +2,7 @@ package lotbook.lotbook.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lotbook.lotbook.service.MemberService;
 import lotbook.lotbook.dto.entity.Cart;
 import lotbook.lotbook.service.CartService;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class AxiosController {
 
     private final CartService cartService;
+    private final MemberService memberService;
 
     @GetMapping(value = "/changeCount")
     @ResponseBody
@@ -35,9 +37,14 @@ public class AxiosController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            result = 0;
         }
 
         return result;
+    }
+
+    @GetMapping(value="/api/checkDuplicateEmail")
+    @ResponseBody
+    public boolean checkDuplicateEmail(Model model, @RequestParam String email) {
+        return memberService.isEmailDuplicate(email);
     }
 }
