@@ -190,7 +190,7 @@ function use_point(value, totalPrice, myPoint) {
       <div class="row"></div>
       <div class="checkout__form">
          <h4>결제 확인서</h4>
-         <form id="register_form" action="/cart/caartToOrderResult" method="post">
+         <form id="register_form" action="/cart/cartToOrderResult" method="post">
             <input style="display: none;" id="productSequences" name="sequences" value="${sequences }">
             <input style="display: none;" id="memberSequence" name="memberSequence" value="${logincust.sequence }">
             <input type="hidden" name="view" value="checkout-result" />
@@ -305,10 +305,9 @@ function use_point(value, totalPrice, myPoint) {
                        </span>
                </div>
                <button type="submit" class="site-btn" >주문하기</button>
-              <img src="./img/payment-kakao.png" style="margin-top:10px;"  alt="kakao 결제" onClick={requestPay()}>
+              <img src="/img/payment-kakao.png" style="margin-top:10px;"  alt="kakao 결제" onClick={requestPay()}>
             </div>
          </div>
-
       </div></form>
       </div>
    </div>
@@ -326,12 +325,11 @@ $(document).ready(function(){
      
 })
 
-
-var productName = document.getElementById("productName").innerText;
-var totalPrice = document.getElementById("totalPrice").innerText;
-var sequences = document.getElementById("productSequences").innerText;
-var orderLength = document.getElementById("totalLength").innerText;
 function requestPay() {
+   var productName = document.getElementById("productName").innerText;
+   var totalPrice = document.getElementById("totalPrice").innerText;
+   var sequences = document.getElementById("productSequences").value;
+   var orderLength = document.getElementById("totalLength").innerText;
    var receiverName = document.getElementById("custName").value;
    var receiverEmail = document.getElementById("custEmail").value;
    var receiverPhone = document.getElementById("custPhone").value;
@@ -339,13 +337,63 @@ function requestPay() {
    var receiverAddress = document.getElementById("sample6_address").value;
    var receiverDetailAddress = document.getElementById("sample6_detailAddress").value;
    var receiverMessage = document.getElementById("sample6_extraAddress").value;
-   
-     
+   var loginUserSeq = document.getElementById("memberSequence").value;
+
+
+   var form = document.createElement('form');
+   form.setAttribute('method', 'post');
+   form.setAttribute('action', '/cart/cartToOrderResult');
+   var obj1 = document.createElement('input');
+   obj1.setAttribute('name', 'memberSequence');
+   obj1.setAttribute('value', loginUserSeq);
+   var obj2 = document.createElement('input');
+   obj2.setAttribute('name', 'sequences');
+   obj2.setAttribute('value', sequences);
+   var obj3 = document.createElement('input');
+   obj3.setAttribute('name', 'receiverName');
+   obj3.setAttribute('value', receiverName);
+   var obj4 = document.createElement('input');
+   obj4.setAttribute('name', 'orderPhone');
+   obj4.setAttribute('value', receiverPhone);
+   var obj5 = document.createElement('input');
+   obj5.setAttribute('name', 'zipcode');
+   obj5.setAttribute('value', receiverPostCode);
+   var obj6 = document.createElement('input');
+   obj6.setAttribute('name', 'streetAddress');
+   obj6.setAttribute('value', receiverAddress);
+   var obj7 = document.createElement('input');
+   obj7.setAttribute('name', 'addressDetail');
+   obj7.setAttribute('value', receiverDetailAddress);
+   var obj8 = document.createElement('input');
+   obj8.setAttribute('name', 'vendorMessage');
+   obj8.setAttribute('value', receiverMessage);
+   var obj9 = document.createElement('input');
+   obj9.setAttribute('name', 'email');
+   obj9.setAttribute('value', receiverEmail);
+   var obj10 = document.createElement('input');
+   obj10.setAttribute('name', 'usePoint');
+   obj10.setAttribute('value', document.getElementById("usePoint").value);
+
+   // objs.setAttribute('sequences', sequences);
+   // objs.setAttribute('receiverName', receiverName);
+   // objs.setAttribute('orderPhone', receiverPhone);
+   // objs.setAttribute('zipcode', receiverPostCode);
+   // objs.setAttribute('streetAddress', receiverAddress);
+   // objs.setAttribute('addressDetail', receiverDetailAddress);
+   // objs.setAttribute('vendorMessage', receiverMessage);
+   // objs.setAttribute('email', receiverEmail);
+   // objs.setAttribute('usePoint', document.getElementById("usePoint").value);
+
+   form.append(obj1, obj2, obj3, obj4, obj5, obj6, obj7, obj8, obj9, obj10);
+
+   console.log(form);
+   document.body.appendChild(form);
+
     IMP.request_pay({
         pg : 'kakaopay',
         pay_method : 'card',
         merchant_uid: 'merchant_' + new Date().getTime(), 
-        name : productName + " 외 " + String(Number(orderLength)-1) + "건",
+        name : orderLength*1 === 1 ? productName : productName + " 외 " + String(Number(orderLength)-1) + "건",
         amount : totalPrice,
         buyer_email : receiverEmail,
         buyer_name : receiverName,
@@ -353,72 +401,11 @@ function requestPay() {
         buyer_addr : receiverAddress,
         buyer_postcode :receiverPostCode
     }, function (rsp) { // callback
-       console.log(rsp);
+       if (rsp.success) {
 
-       location.href="main.bit?view=checkout-result&main.bit?view=checkout-result&sequences=" + sequences + "&cmd=1"
-      + "&input__receiverName=" + receiverName
-      + "&input__phone=" + receiverPhone
-      + "&input__zipcode=" + receiverPostCode
-      + "&input__street_address=" + receiverAddress
-      + "&input__address_detail=" + receiverDetailAddress
-      + "&input__vendor_message=" + receiverMessage
-      + "&input__email=" + receiverEmail
-      + "&usePoint=" + document.getElementById("usePoint").value;
-         //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+          form.submit();
+       }
+
     });
-}
-
-
-function kakaopay() {
-   var clientKey = '';
-   var tossPayments = TossPayments(clientKey);
-   
-
-   if (receiverName === "") {
-      document.getElementById("custName").focus();
-   } else if (receiverEmail === "") {
-      console.log("none email")
-      document.getElementById("custEmail").focus();
-   } else if (receiverPhone === "") {
-      document.getElementById("custPhone").focus();
-   } else if (receiverPostCode === "") {
-      document.getElementById("sample6_postcode").focus();
-   } else if (receiverAddress === "") {
-      document.getElementById("sample6_address").focus()
-   } else if (receiverDetailAddress === "") {
-      document.getElementById("sample6_detailAddress").focus();
-   } else {
-      var receiverName = document.getElementById("custName").value;
-      var receiverEmail = document.getElementById("custEmail").value;
-      var receiverPhone = document.getElementById("custPhone").value;
-      var receiverPostCode = document.getElementById("sample6_postcode").value;
-      var receiverAddress = document.getElementById("sample6_address").value;
-      var receiverDetailAddress = document.getElementById("sample6_detailAddress").value;
-      var receiverMessage = document.getElementById("sample6_extraAddress").value;
-
-      $.ajax({
-         url:"rest.bit?view=kakaopay&name=" + encodeURIComponent(productName) + "&count=" + productCount + "&price=" + totalPrice + "&pointAccumulationRate=" + pointAccumulationRate + "&productId=" + productId
-               + "&input__receiverName=" + receiverName
-               + "&input__phone=" + receiverPhone
-               + "&input__zipcode=" + receiverPostCode
-               + "&input__street_address=" + receiverAddress
-               + "&input__address_detail=" + receiverDetailAddress
-               + "&input__vendor_message=" + receiverMessage
-               + "&input__email=" + receiverEmail
-      }).done(function(resp){
-         console.log(resp)
-         if(resp.status === 500){
-            alert("카카오페이결제를 실패하였습니다.")
-         } else{
-             // alert(resp.tid); //결제 고유 번호
-            var box = resp.next_redirect_pc_url;
-            window.open(box); // 새창 열기
-         }
-      
-      }).fail(function(error){
-         alert(JSON.stringify(error));
-      });
-   }
-   
 }
 </script>
