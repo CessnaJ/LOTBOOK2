@@ -4,18 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<%--<%@ page--%>
-<%--	import="app.dto.entity.Product, app.dto.entity.Review, app.dto.response.ProductDetailWithReviews, java.util.List"%>--%>
-<%--<%--%>
-<%--// ProductDetailWithReviews 객체 받아오기--%>
-<%--ProductDetailWithReviews productDetailWithReviews = (ProductDetailWithReviews) request--%>
-<%--		.getAttribute("productDetailWithReviews");--%>
-<%--String selectedProduct = "";--%>
-<%--if (productDetailWithReviews != null) {--%>
-<%--	selectedProduct = productDetailWithReviews.getContent();--%>
-<%--}--%>
-<%--%>--%>
-
 <style type="text/css">
 .info-tag {
 	width: 5vw;
@@ -75,7 +63,6 @@
 </svg>
 <!-- Header Section Begin -->
 <header class="header">
-	${product}
 	<div class="header__top">
 		<div class="container">
 			<nav class="header__menu header__top__right mobile-menu"
@@ -173,10 +160,10 @@
 		<div class="row">
 			<div class="col-lg-12 text-center">
 				<div class="breadcrumb__text">
-					<h2>${ productDetailWithReviews.getName() }</h2>
+					<h2>${ productDetail.name }</h2>
 					<div class="breadcrumb__option">
-						<a href="index.jsp">Home</a> <a href="./category?view=${productDetailWithReviews.getMainCategorySequence() }">${productDetailWithReviews.getMainCategoryName() }</a>
-						<a href="./category?view=${productDetailWithReviews.getSubCategorySequence() }">${productDetailWithReviews.getSubCategoryName() }</a>
+						<a href="index.jsp">Home</a> <a href="./category?view=${productDetail.mainCategorySequence }">${productDetail.mainCategoryName }</a>
+						<a href="./category?view=${productDetail.subCategorySequence }">${productDetail.subCategoryName }</a>
 						<!-- TODO: 클릭시, 카테고리 검색으로 넘기기  -->
 					</div>
 				</div>
@@ -188,29 +175,29 @@
 
 <!-- Product Details Section Begin -->
 <section class="product-details spad">
-	<div style="display: none;" id="productSeq">${productDetailWithReviews.sequence }</div>
-	<div style="display: none;" id="productName">'${productDetailWithReviews.name }'</div>
-	<div style="display: none;" id="productImgUrl">'${productDetailWithReviews.productImgurl }'</div>
+	<div style="display: none;" id="productSeq">${productDetail.sequence }</div>
+	<div style="display: none;" id="productName">'${productDetail.name }'</div>
+	<div style="display: none;" id="productImgUrl">'${productDetail.productImgurl }'</div>
 	<div style="display: none;" id="custSeq">${logincust.sequence }</div>
 	<div class="container">
 		<div class="row d-flex justify-content-center">
 			<div class="col-lg-5 col-md-5 mr-3">
 				<div class="product__details__pic">
 					<div class="product__details__pic__item">
-						<!-- <img class="product__details__pic__item--large"
-							src=${productDetailWithReviews.getProductImgurl() } alt="상품사진"> -->
+						<img class="product__details__pic__item--large"
+							src=${productDetail.productImgurl } alt="">
 					</div>
 
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-6">
 				<div class="product__details__text">
-					<h3>${ productDetailWithReviews.getName() }</h3>
+					<h3>${ productDetail.name }</h3>
 					<div class="product__details__rating">
 						<c:set var="fullStars"
-							value="${Math.floor(productDetailWithReviews.averageRating)}" />
+							value="${Math.floor(productDetail.averageRating)}" />
 						<c:set var="halfStar"
-							value="${productDetailWithReviews.averageRating % 1 >= 0.5 ? 1 : 0}" />
+							value="${productDetail.averageRating % 1 >= 0.5 ? 1 : 0}" />
 						<c:set var="emptyStars" value="${5 - fullStars - halfStar}" />
 						<c:forEach var="i" begin="1" end="${fullStars}">
 							<i class="fa fa-star"></i>
@@ -226,7 +213,7 @@
 						
 						
 
-						<span><fmt:formatNumber value="${productDetailWithReviews.averageRating}" pattern="#0.0"/></span> <span>(${ productDetailWithReviews.getReviews().size() }개의
+						<span><fmt:formatNumber value="${productDetail.averageRating}" pattern="#0.0"/></span> <span>(${ productDetail.reviews.size() }개의
 							리뷰)</span>
 					</div>
 
@@ -236,7 +223,7 @@
 							<h5 class="my-2 info-tag normal-info">정가</h5>
 							<div class="my-2">
 								<fmt:formatNumber
-									value="${ productDetailWithReviews.getOriginalPrice() }"
+									value="${ productDetail.originalPrice }"
 									type="number" pattern="#,##0" />
 								원
 							</div>
@@ -245,11 +232,11 @@
 							<h5 class="my-2 info-tag normal-info">판매가</h5>
 							<div class="my-2">
 								<span class="bold-info"> <fmt:formatNumber
-										value="${ productDetailWithReviews.getPrice() }" type="number"
+										value="${ productDetail.price }" type="number"
 										pattern="#,##0" />
-								</span> 원( <span class="text-warning">${ productDetailWithReviews.getDiscountRate().intValue()}%,
+								</span> 원( <span class="text-warning">${ productDetail.discountRate.intValue()}%,
 								</span> <span> <fmt:formatNumber
-										value="${ productDetailWithReviews.getOriginalPrice() - productDetailWithReviews.getPrice() }"
+										value="${ productDetail.originalPrice - productDetail.price }"
 										type="number" pattern="#,##0" /> 원 할인)
 								</span>
 							</div>
@@ -272,7 +259,7 @@
 						</div>
 					</div>
 					<div class="mb-4">
-						<p style="display: inline;">${productDetailWithReviews.getContent().substring(0, 100)}...<a
+						<p style="display: inline;">${productDetail.content.substring(0, 100)}...<a
 								href="#details-description" class="text-muted"> 더보기</a>
 						</p>
 
@@ -296,12 +283,12 @@
 
 						<!-- stock 0개일때 style, button disabled -->
 						<c:choose>
-							<c:when test="${productDetailWithReviews.getStock() > 0}">
+							<c:when test="${productDetail.stock > 0}">
 								<button type="button" class="primary-btn border_none"
-									onclick='addToCart(${productDetailWithReviews.getSequence()}, ${logincust.sequence})'
+									onclick='addToCart(${productDetail.sequence}, ${logincust.sequence})'
 									 id="addToCartButton">장바구니에 담기</button>
 								<button type="button" class="primary-btn border_none"
-									onclick='checkOutBuyNow(${productDetailWithReviews.getSequence()}, ${logincust.sequence})'
+									onclick='checkOutBuyNow(${productDetail.sequence}, ${logincust.sequence})'
 									id="checkoutbuynow">바로 구매</button>
 							</c:when>
 							<c:otherwise>
@@ -322,13 +309,13 @@
 
 					<ul>
 						<li><b>구매가능 여부</b> <span><c:choose>
-									<c:when test="${productDetailWithReviews.getStock() > 0}">구매가능</c:when>
+									<c:when test="${productDetail.stock > 0}">구매가능</c:when>
 									<c:otherwise><span style="color: black; font-weight:bolder;">품절</span></c:otherwise>
 								</c:choose></span></li>
-						<li><b>작가</b> <span>${productDetailWithReviews.getAuthorName() }</span></li>
-						<li><b>출판사</b> <span>${productDetailWithReviews.getPublisherName() }</span></li>
-						<li><b>포인트 적립</b> <span><span class="text-warning">${productDetailWithReviews.getPointAccumulation() }</span>포인트
-								/ <span class="text-warning">${productDetailWithReviews.getPointAccumulationRate() }%</span></span></li>
+						<li><b>작가</b> <span>${productDetail.authorName }</span></li>
+						<li><b>출판사</b> <span>${productDetail.publisherName }</span></li>
+						<li><b>포인트 적립</b> <span><span class="text-warning">${productDetail.pointAccumulation }</span>포인트
+								/ <span class="text-warning">${productDetail.pointAccumulationRate }%</span></span></li>
 					</ul>
 				</div>
 			</div>
@@ -339,7 +326,7 @@
 							data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">상세
 								설명</a></li>
 						<li class="nav-item"><a class="nav-link" data-toggle="tab"
-							href="#tabs-2" role="tab" aria-selected="false">리뷰 <span>(${ productDetailWithReviews.getReviews().size() }개)</span></a>
+							href="#tabs-2" role="tab" aria-selected="false">리뷰 <span>(${ productDetail.reviews.size() }개)</span></a>
 						</li>
 					</ul>
 					<div class="tab-content">
@@ -347,18 +334,18 @@
 							<div class="product__details__tab__desc" id="details-description">
 								<h6>상세 설명</h6>
 								<div class="d-flex flex-column align-items-center">
-									<!-- <img
+									<img
 										class="product__details__pic__item--large col-lg-6 col-md-6 mb-5"
-										src=${productDetailWithReviews.getProductImgurl() } alt="상품사진"> -->
-									<p class="col-lg-8 col-md-8 content-style">${productDetailWithReviews.getContent()}</p>
+										src=${productDetail.productImgurl } alt="">
+									<p class="col-lg-8 col-md-8 content-style">${productDetail.content}</p>
 								</div>
 
 								<div class="d-flex flex-column align-items-center mb-5">
 									<c:if
-										test="${productDetailWithReviews.productDetailImgurl != null}">
+										test="${productDetail.productDetailImgurl != null}">
 										<img
 											class="product__details__pic__item--large col-lg-6 col-md-6 mb-5"
-											src=${productDetailWithReviews.productDetailImgurl }
+											src=${productDetail.productDetailImgurl }
 											alt="상품디테일사진">
 									</c:if>
 								</div>
@@ -372,13 +359,13 @@
 								<h6>리뷰</h6>
 								<div class="reviews">
 									<c:choose>
-										<c:when test="${empty productDetailWithReviews.getReviews()}">
+										<c:when test="${empty productDetail.reviews}">
 											<p>등록된 리뷰가 없습니다.</p>
 										</c:when>
 
 
 										<c:otherwise>
-											<c:forEach items="${productDetailWithReviews.getReviews()}"
+											<c:forEach items="${productDetail.reviews}"
 												var="review">
 												<fmt:parseDate value="${review.createdAt}"
 													pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
@@ -468,27 +455,27 @@
  	   Kakao.Share.sendDefault({
  		   objectType: 'commerce',
  		   content: {
- 		     title: `${productDetailWithReviews.getContent().substring(0, 100)}`,
+ 		     title: `${productDetail.content.substring(0, 100)}`,
  		     imageUrl:
- 		     `${productDetailWithReviews.getProductImgurl() }`,
+ 		     `${productDetail.productImgurl }`,
  		     //TODO : 추후 배포 url로 변경
  		     link: {
- 		       mobileWebUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetailWithReviews.getSequence()}`,
- 		       webUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetailWithReviews.getSequence()}`,
+ 		       mobileWebUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
+ 		       webUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
  		     },
  		   },
  		   commerce: {
- 		     productName: `${productDetailWithReviews.name }`,
- 		     regularPrice: ${ productDetailWithReviews.getOriginalPrice()},
- 		     discountRate: ${ productDetailWithReviews.getDiscountRate().intValue()},
- 		     discountPrice: ${productDetailWithReviews.getPrice()},
+ 		     productName: `${productDetail.name }`,
+ 		     regularPrice: ${productDetail.originalPrice},
+ 		     discountRate: ${productDetail.discountRate.intValue()},
+ 		     discountPrice: ${productDetail.price},
  		   },
  		   buttons: [
  		     {
  		       title: '구매하기',
  		       link: {
- 		         mobileWebUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetailWithReviews.getSequence()}`,
- 		         webUrl:`http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetailWithReviews.getSequence()}`,
+ 		         mobileWebUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
+ 		         webUrl:`http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
  		       },
  		     },
  		   ],
@@ -634,8 +621,8 @@
       var count = Number(cnt);
       if (count >= 2) {
          document.getElementById('totalPriceTag').textContent = '총 상품금액: ';
-         var totalPrice = count * ${productDetailWithReviews.getPrice()};
-        // document.getElementById('totalPrice').textContent = count * ${productDetailWithReviews.getPrice()};
+         var totalPrice = count * ${productDetail.price};
+        // document.getElementById('totalPrice').textContent = count * ${productDetail.price};
         document.getElementById('totalPrice').textContent = totalPrice.toLocaleString() + "원";
       } else {
          document.getElementById('totalPriceTag').textContent = '';
@@ -657,7 +644,7 @@
  		     },
  		   },
  		   commerce: {
- 		     productName: `${productDetailWithReviews.name }`,
+ 		     productName: `${productDetail.name }`,
  		     regularPrice: 100000,
  		     discountRate: 10,
  		     discountPrice: 90000,

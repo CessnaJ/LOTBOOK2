@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public interface CartService {
-    int register(Cart cart);
+    int register(Cart cart) throws Exception;
     int modify(Cart cart);
     int remove(Cart cart);
     Cart get(Cart cart) throws Exception;
