@@ -382,7 +382,7 @@
 			
 		});
 		function goToDetail(seq) {
-			location.href="product-detail.bit?view=shop-details&sequence=" + seq;
+			location.href="/product-detail/" + seq;
 		}
 		function search(keyword) {
 			// 키워드가 비어있는지 확인
@@ -412,9 +412,7 @@
 
 			let encodedKeyword = encodeURIComponent(keyword);
 
-			// window.location.href = 'search.bit?view=search&keyword=' + keyword
-			// 		+ '&orderby=popular'
-			window.location.href = 'search.bit?view=search&keyword=' + encodedKeyword
+			window.location.href = '/search?keyword=' + encodedKeyword
 					+ '&orderby=popular'
 		}
 		const recentViewList = document.getElementById("recentViewList");

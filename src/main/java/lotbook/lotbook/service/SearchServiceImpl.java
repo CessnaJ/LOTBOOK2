@@ -26,6 +26,7 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public SearchResult getAllByKeyword(String keyword, String orderby, String category) throws Exception {
         log.info(keyword + orderby + category);
+        keyword = keyword.replaceAll("\\s","");
         List<SearchProductMapperDTO> searchedList = searchMapper.selectProductsByKeyword(keyword);
         List<SearchProductMapperDTO> filteredList;
         SearchResult searchResult = null;
@@ -75,6 +76,8 @@ public class SearchServiceImpl implements SearchService {
                 .categoryCount(filteredList.size()).countByCategory(countByCategory)
                 .currentCategorySequence(categorySequence).currentCategoryName(categoryName).orderBy(orderby)
                 .searchList(filteredList).build();
+
+        log.warn(searchResult.toString());
         return searchResult;
     }
 

@@ -198,7 +198,7 @@
 					<c:forEach items="${selectCategory}" var="product">
 						<div class="col-lg-4 col-md-6 col-sm-6">
 							<a
-								href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}">
+								href="/product-detail/${product.sequence}">
 								<div class="product__item">
 									<div class="product__item__pic set-bg "
 										data-setbg="${product.productImgurl}" style="height: 350px">

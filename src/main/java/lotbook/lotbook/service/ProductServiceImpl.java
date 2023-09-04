@@ -15,6 +15,7 @@ import lotbook.lotbook.repository.ReviewMapper;
 import org.springframework.stereotype.Service;
 
 import static lotbook.lotbook.enums.ErrorCode.ERROR_CODE_1;
+import static lotbook.lotbook.enums.ErrorCode.PRODUCT_DETAIL_ERROR_1;
 
 
 @Service
@@ -33,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDetailWithReviews getProductDetail(long sequence) throws CustomException {
             Product product = productMapper.selectProductBySequence(sequence);
             if (product == null) {
-                throw new CustomException(ERROR_CODE_1);
+                throw new CustomException(PRODUCT_DETAIL_ERROR_1);
             }
 
             ProductRelatedNameMapperDTO relatedName = productMapper.selectRelatedNameAndCategoryByProductSequence(sequence);
