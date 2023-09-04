@@ -164,6 +164,7 @@ public class ProductServiceImpl implements ProductService {
             product.setPrice(newPrice);
         }
 
+
         return highProducts;
     }
 
