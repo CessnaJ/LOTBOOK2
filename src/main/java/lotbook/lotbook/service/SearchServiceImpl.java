@@ -75,6 +75,8 @@ public class SearchServiceImpl implements SearchService {
                 .categoryCount(filteredList.size()).countByCategory(countByCategory)
                 .currentCategorySequence(categorySequence).currentCategoryName(categoryName).orderBy(orderby)
                 .searchList(filteredList).build();
+
+        log.warn(searchResult.toString());
         return searchResult;
     }
 

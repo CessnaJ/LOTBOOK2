@@ -460,8 +460,8 @@
  		     `${productDetail.productImgurl }`,
  		     //TODO : 추후 배포 url로 변경
  		     link: {
- 		       mobileWebUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
- 		       webUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
+ 		       mobileWebUrl: `http://127.0.0.1/product-detail/${productDetail.sequence}`,
+ 		       webUrl: `http://127.0.0.1/product-detail/${productDetail.sequence}`,
  		     },
  		   },
  		   commerce: {
@@ -474,8 +474,8 @@
  		     {
  		       title: '구매하기',
  		       link: {
- 		         mobileWebUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
- 		         webUrl:`http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
+ 		         mobileWebUrl: `http://127.0.0.1/product-detail/${productDetail.sequence}`,
+ 		         webUrl:`http://127.0.0.1/product-detail/${productDetail.sequence}`,
  		       },
  		     },
  		   ],
@@ -594,7 +594,7 @@
        }
        var count = Number($('#product-count').val());
        // Redirect to the checkout page with the specified count and product ID
-       window.location.href = 'main.bit?view=checkoutbuynow&count=' + count + '&productId=' + productId + '&memberSeq=' + memberSeq;
+       window.location.href = '/checkout/api/checkoutbuynow&count=' + 1 + '&productId=' + productSeq + '&memberSeq=' + memberSeq;
    }
    
    

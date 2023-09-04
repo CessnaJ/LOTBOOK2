@@ -414,7 +414,7 @@
 
 			// window.location.href = 'search.bit?view=search&keyword=' + keyword
 			// 		+ '&orderby=popular'
-			window.location.href = 'search.bit?view=search&keyword=' + encodedKeyword
+			window.location.href = '/search?keyword=' + encodedKeyword
 					+ '&orderby=popular'
 		}
 		const recentViewList = document.getElementById("recentViewList");
