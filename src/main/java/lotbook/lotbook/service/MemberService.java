@@ -5,8 +5,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface MemberService {
-    Member get(Member mem);
     int register(Member mem);
-    boolean isEmailDuplicate(String emailToCheck);
+    int modify(Member v);
+    Member get(Member mem);
+    Member getById(int k);
     int modifyInfo(Member v);
+    int updatePoint(long v);
+    int updatePointConfirm(Member v);
+    Member checkDuplicateEmail(String emailToCheck);
 }

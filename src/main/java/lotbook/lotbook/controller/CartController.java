@@ -30,8 +30,7 @@ public class CartController {
     private final OrderDetailService orderDetailService;
 
     @GetMapping(value = "/shopingCart")
-    public String ShopingCartPage(Model model, @RequestParam long memberSequence) {
-        log.warn("장바구니 상세 페이지");
+    public String ShopingCartPage(Model model, @RequestParam long memberSeq) {
         model.addAttribute("center", "shoping-cart");
 
         List<Cart> cartList = new ArrayList<>();
@@ -39,7 +38,7 @@ public class CartController {
         model.addAttribute("myCartList", null);
         model.addAttribute("myCartProductList", null);
 
-        Cart cart = Cart.builder().memberSequence(memberSequence).build();
+        Cart cart = Cart.builder().memberSequence(memberSeq).build();
 
         try {
             cartList = cartService.getAll(cart);
@@ -47,7 +46,7 @@ public class CartController {
             productList = cartService.getProductInfo(cart);
             model.addAttribute("myCartProductList", productList);
 
-            int cartCount = cartService.getCartCount(memberSequence);
+            int cartCount = cartService.getCartCount(memberSeq);
             model.addAttribute("cartCount", cartCount);
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,7 +138,6 @@ public class CartController {
         Member loggedInUser = (Member) session.getAttribute("logincust");
 
         model.addAttribute("center", "checkout-result");
-        log.warn("!!!!!" + cartToOrder.getAddressDetail());
 
         Order order = Order.builder().receiverName(cartToOrder.getReceiverName()).orderPhone(cartToOrder.getOrderPhone())
                 .vendorMessage(cartToOrder.getVendorMessage()).addressDetail(cartToOrder.getAddressDetail()).streetAddress(cartToOrder.getStreetAddress())
@@ -166,38 +164,33 @@ public class CartController {
                 Product product = productService.get((int) cart.getProductSequence());
 
                 try {
-
-
                     OrderDetail orderDetail = OrderDetail.builder()
                             .orderSequence(orderList.get(0).getSequence()).orderDetailProduct(product)
                             .count(cart.getCount())
                             .productPoint(product.getPointAccumulationRate() * 0.01 * product.getPrice())
-                            .productPrice(product.getPrice()).productSequence(product.getSequence()).build();
+                            .productPrice((int) ((product.getPrice() * (1 - product.getDiscountRate() * 0.01)) - (product.getPrice() * (1 - (product.getDiscountRate()) * 0.01))%10)).productSequence(product.getSequence()).build();
                     totalPoint += (int) (product.getPointAccumulationRate() * 0.01 * cart.getCount() * product.getPrice());
-                    totalPrice += product.getPrice() * cart.getCount();
+                    totalPrice += (int) (product.getPrice() * (1 - (product.getDiscountRate()) * 0.01))  * cart.getCount();
+
                     orderDetailService.register(orderDetail);
                     orderDetailList.add(orderDetail);
 
                     cartService.remove(tempCart);
                     int cartCount = cartService.getCartCount(cartToOrder.getMemberSequence());
-                    request.setAttribute("cartCount", cartCount);
+                    session.setAttribute("cartCount", cartCount);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             model.addAttribute("orderResult", order);
-            log.warn("order: " + order.toString());
             model.addAttribute("orderDetailResult", orderDetailList);
-            log.warn("orderDetailReesult: " + orderDetailList);
             model.addAttribute("totalPoint", totalPoint);
-            log.warn(String.valueOf(totalPoint));
-            model.addAttribute("totalPrice", totalPrice);
-            log.warn(String.valueOf(totalPrice));
+            model.addAttribute("totalPrice", totalPrice - totalPrice%10);
             model.addAttribute("usedPoint", cartToOrder.getUsePoint());
 
             // 포인트 사용
             Point point = Point.builder().point(cartToOrder.getUsePoint()).state(PointStateEnum.USED).memberSequence(cartToOrder.getMemberSequence()).build();
-            pointService.regisster(point);
+            pointService.register(point);
             pointService.modify(point);
 
 

@@ -97,7 +97,7 @@
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus">
-						<li><a href="/page/main"
+						<li><a href="/main"
 							style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li class="active"><a href="category.bit?view=1"
 							style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
@@ -437,7 +437,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 				<a
-					href="main.bit?view=shopping-cart&memberSeq=${logincust.sequence}"
+					href="/cart/shopingCart?memberSeq=${logincust.sequence}"
 					class="btn btn-danger">장바구니로 가기</a>
 			</div>
 		</div>
@@ -460,8 +460,8 @@
  		     `${productDetail.productImgurl }`,
  		     //TODO : 추후 배포 url로 변경
  		     link: {
- 		       mobileWebUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
- 		       webUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
+ 		       mobileWebUrl: `http://127.0.0.1/product-detail/${productDetail.sequence}`,
+ 		       webUrl: `http://127.0.0.1/product-detail/${productDetail.sequence}`,
  		     },
  		   },
  		   commerce: {
@@ -474,8 +474,8 @@
  		     {
  		       title: '구매하기',
  		       link: {
- 		         mobileWebUrl: `http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
- 		         webUrl:`http://127.0.0.1/lotbook/product-detail.bit?view=shop-details&sequence=${productDetail.sequence}`,
+ 		         mobileWebUrl: `http://127.0.0.1/product-detail/${productDetail.sequence}`,
+ 		         webUrl:`http://127.0.0.1/product-detail/${productDetail.sequence}`,
  		       },
  		     },
  		   ],
@@ -556,46 +556,55 @@
          }
       }
    });
-   
+
    let count = 1;
    
    function addToCart(productSeq, memberSeq) {
       if (memberSeq === undefined) {
            alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-           window.location.href = 'main.bit?view=signin';
+           window.location.href = '/page/signin';
            
            return;
        }
       
       var count = Number($('#product-count').val());
       console.log(productSeq, memberSeq, count)
-      
-      $.ajax({
-         url:'rest.bit?view=addToCart&productSequence=' + productSeq + '&count=' + count + '&memberSeq=' + memberSeq,
-         success:function(result){
-            console.log(result);
-            if (result === 0) {
-               alert("카트에 넣는 도중 오류가 발생했습니다. 다시 시도해주세요.");
-            } else {
-                $('#addToCartModal').modal('show');
-               
-            }
-         }
-      });
+
+
+	   axios.post('/api/addToCart', {
+		   memberSequence: memberSeq,
+		   productSequence: productSeq,
+		   count: count
+	   })
+			   .then(function (response) {
+				   console.log(response);
+				   if (!response.data) { // If the data is 0 or null or undefined...
+					   alert("카트에 추가하지 못했습니다. 다시 시도해주세요.");
+					   return;
+				   }
+
+				   $('#addToCartModal').modal('show');
+			   })
+			   .catch(function (error) {
+				   console.log(error);
+				   alert("카트에 넣는 도중 오류가 발생했습니다. 다시 시도해주세요.")
+			   });
    }
    
    function checkOutBuyNow(productId, memberSeq) {
        var count = Number($('#productQuantity').val());
        if (memberSeq === undefined) {
            alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-           window.location.href = 'main.bit?view=signin';
+           window.location.href = '/page/signin';
            
            return;
        }
        var count = Number($('#product-count').val());
        // Redirect to the checkout page with the specified count and product ID
-       window.location.href = 'main.bit?view=checkoutbuynow&count=' + count + '&productId=' + productId + '&memberSeq=' + memberSeq;
-   }
+       window.location.href = '/checkout/api/checkoutbuynow?count=' + count + '&productId=' + productId + '&memberSeq=' + memberSeq;
+
+
+			   }
    
    
     

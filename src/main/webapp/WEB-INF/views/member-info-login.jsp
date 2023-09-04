@@ -51,7 +51,7 @@
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus" >
-						<li><a href="/page/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
+						<li><a href="/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
 						<li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>

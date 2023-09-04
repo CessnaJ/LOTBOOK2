@@ -73,9 +73,9 @@
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus">
-						<li><a href="/page/main"
+						<li><a href="/main"
 							style="font-size: 20px; font-weight: 700;">홈</a></li>
-						<li class="active"><a href="category.bit?view=1"
+						<li class="active"><a href="/category/1"
 							style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
 						<li><a href="/page/contact"
 							   style="font-size: 20px; font-weight: 700;">고객센터</a></li>
@@ -265,7 +265,7 @@
 										style="border-top: 1px solid #d5d5d5; transition: box-shadow 0.3s, cursor 0.3s;"
 										onmouseover="this.style.cursor='pointer'; this.style.boxShadow='0px 4px 8px rgba(0, 0, 0, 0.1)'"
 										onmouseout="this.style.cursor='default'; this.style.boxShadow='none'"
-										onclick="redirectToProductDetail(${item.sequence}); return false;">
+										onclick="redirectToProductDetail(${item.productSequence}); return false;">
 
 										<div class="mr-4 shoping__cart__item">
 											<img src="${item.productImgurl }" class="img-fluid rounded-3"
@@ -325,10 +325,10 @@
 												<c:when test="${item.getStock() > 0}">
 													<a href="#"
 														class="primary-btn cart-btn cart-btn-right mb-2"
-														onclick='addToCart(${item.sequence}, ${logincust.sequence}); event.stopPropagation(); return false;'>장바구니에
+														onclick='addToCart(${item.productSequence}, 1, ${logincust.sequence}); event.stopPropagation(); return false;'>장바구니에
 														넣기</a>
 													<a href="#" class="primary-btn text-white btn"
-														onclick='checkOutBuyNow(${item.sequence}, ${logincust.sequence}); event.stopPropagation(); return false;'>바로
+														onclick='checkOutBuyNow(${item.productSequence}, ${logincust.sequence}); event.stopPropagation(); return false;'>바로
 														구매</a>
 												</c:when>
 												<c:otherwise>
@@ -390,7 +390,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 				<a
-					href="main.bit?view=shopping-cart&memberSeq=${logincust.sequence}"
+					href="/cart/shopingCart?memberSeq=${logincust.sequence}"
 					class="btn btn-danger">장바구니로 가기</a>
 			</div>
 		</div>
@@ -398,7 +398,7 @@
 </div>
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 		
 		$(document).ready(function () {
@@ -485,7 +485,7 @@
         
         
         function redirectToProductDetail(sequence) {
-            var productDetailURL = 'product-detail.bit?view=shop-details&sequence=' + sequence;
+            var productDetailURL = '/product-detail/' + sequence;
             window.location.href = productDetailURL;
         }
         
@@ -496,26 +496,30 @@
     		});
     	});
     	
-    	function addToCart(productSeq, memberSeq) {
-    		if (memberSeq === undefined) {
+    	function addToCart(productSeq, count, memberSeq) {
+			if (memberSeq === undefined) {
     	        alert("로그인이 필요합니다.");
     	        return;
     	    }
-    		
-    		
-    		
-    		$.ajax({
-    			url:'rest.bit?view=addToCart&productSequence=' + productSeq + '&count=' + 1 + '&memberSeq=' + memberSeq,
-    			success:function(result){
-    				
-    				if (result === 0) {
-    					alert("카트에 넣는 도중 오류가 발생했습니다. 다시 시도해주세요.");
-    				} else {
-    					 $('#addToCartModal').modal('show');
-    					
-    				}
-    			}
-    		});
+
+			axios.post('/api/addToCart', {
+				memberSequence: memberSeq,
+				productSequence: productSeq,
+				count: count
+			})
+					.then(function (response) {
+						console.log(response);
+						if (!response.data) {
+							alert("카트에 추가하지 못했습니다. 다시 시도해주세요.");
+							return;
+						}
+
+						$('#addToCartModal').modal('show');
+					})
+					.catch(function (error) {
+						console.log(error);
+						alert("카트에 넣는 도중 오류가 발생했습니다. 다시 시도해주세요.")
+					});
     	}
     	
     	function checkOutBuyNow(productSeq, memberSeq) {
@@ -525,7 +529,7 @@
     	        return;
     	    }
     	    // Redirect to the checkout page with the specified count and product ID
-    	    window.location.href = 'main.bit?view=checkoutbuynow&count=' + 1 + '&productId=' + productSeq + '&memberSeq=' + memberSeq;
+    	    window.location.href = '/checkout/api/checkoutbuynow?count=' + 1 + '&productId=' + productSeq + '&memberSeq=' + memberSeq;
     	}
     	
         // 이하, 페이지네이션 관련 코드

@@ -59,7 +59,7 @@ console.log("hi");
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus" >
-						<li class="active"><a href="/page/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
+						<li class="active"><a href="/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
 						<li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
@@ -110,7 +110,7 @@ console.log("hi");
 				</div>
 				<div>
 					<a
-						href="/lotbook/product-detail.bit?view=shop-details&sequence=264">
+						href="/product-detail/264">
 						<img class="hero__item" src="/img/banner.png">
 					</a>
 
@@ -140,7 +140,7 @@ console.log("hi");
 						<c:forEach items="${popularProducts }" var="product">
 							<div class="col-lg-3">
 								<a
-									href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}">
+									href="/product-detail/${product.sequence}">
 									<div class="categories__item set-bg"
 										data-setbg="${product.productImgurl }" style="width: 200px;">
 									</div>
@@ -165,14 +165,14 @@ console.log("hi");
 			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="banner__pic" data-aos="fade-right" data-aos-duration="1000">
 					<a
-						href="/lotbook/product-detail.bit?view=shop-details&sequence=250">
+						href="/product-detail/250">
 					<img src="/img/banner/banner01.jpg" style="max-height: 100%" alt=""></a>
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="banner__pic" data-aos="fade-left" data-aos-duration="1000">
 					<a
-						href="/lotbook/product-detail.bit?view=shop-details&sequence=1">
+						href="/product-detail/1">
 					<img src="/img/banner/banner02.jpg" alt=""></a>
 				</div>
 			</div>
@@ -197,7 +197,7 @@ console.log("hi");
 							<c:forEach items="${LatestProducts}" var="product" begin="0" end="2">
 								<div class="col-lg-12">
 									<a
-										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
+										href="/product-detail/${product.sequence}"
 										class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${product.productImgurl}" alt="">
@@ -218,7 +218,7 @@ console.log("hi");
 							<c:forEach items="${LatestProducts}" var="product" begin="3" end="5">
 								<div class="col-lg-12">
 									<a
-										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
+										href="/product-detail/${product.sequence}"
 										class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${product.productImgurl}" alt="">
@@ -246,7 +246,7 @@ console.log("hi");
 							<c:forEach items="${PointProducts}" var="product" begin="0" end="2">
 								<div class="col-lg-12">
 									<a
-										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
+										href="/product-detail/${product.sequence}"
 										class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${product.productImgurl}" alt="">
@@ -267,7 +267,7 @@ console.log("hi");
 							<c:forEach items="${PointProducts}" var="product" begin="3" end="5">
 								<div class="col-lg-12">
 									<a
-										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
+										href="/product-detail/${product.sequence}"
 										class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${product.productImgurl}" alt="">
@@ -295,7 +295,7 @@ console.log("hi");
 							<c:forEach items="${DiscountrProducts}" var="product" begin="0" end="2">
 								<div class="col-lg-12">
 									<a
-										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
+										href="/product-detail/${product.sequence}"
 										class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${product.productImgurl}" alt="">
@@ -316,7 +316,7 @@ console.log("hi");
 							<c:forEach items="${DiscountrProducts}" var="product" begin="3" end="5">
 								<div class="col-lg-12">
 									<a
-										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
+										href="/product-detail/${product.sequence}"
 										class="latest-product__item">
 										<div class="latest-product__item__pic">
 											<img src="${product.productImgurl}" alt="">

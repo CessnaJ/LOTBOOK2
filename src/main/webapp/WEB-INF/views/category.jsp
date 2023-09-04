@@ -48,7 +48,7 @@
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus" >
-						<li><a href="/page/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
+						<li><a href="/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li class="active"><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
 						<li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
@@ -198,7 +198,7 @@
 					<c:forEach items="${selectCategory}" var="product">
 						<div class="col-lg-4 col-md-6 col-sm-6">
 							<a
-								href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}">
+								href="/product-detail/${product.sequence}">
 								<div class="product__item">
 									<div class="product__item__pic set-bg "
 										data-setbg="${product.productImgurl}" style="height: 350px">

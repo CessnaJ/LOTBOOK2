@@ -88,7 +88,6 @@ function use_point(value, totalPrice, myPoint) {
                      <li class="active"><a
                              href="/mypage?memberSeq=${logincust.sequence }"><i
                              class="fa fa-user"></i> 마이페이지</a></li>
-                     <li class=""><a href="member.bit?view=logout"><i
                      <li class=""><a href="/member/logout"><i
                            class="fa fa-user"></i> 로그아웃</a></li>
                   </c:when>
@@ -113,7 +112,7 @@ function use_point(value, totalPrice, myPoint) {
          <div class="col-lg-6">
             <nav class="header__menu">
                <ul id="header__menus" >
-                  <li><a href="/page/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
+                  <li><a href="/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
                   <li><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
                   <li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
                </ul>

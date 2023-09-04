@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SearchProductMapperDTO {
-	private long sequence;
+	private long productSequence;
 	private String productImgurl;
 	private String name;
 	private int price;

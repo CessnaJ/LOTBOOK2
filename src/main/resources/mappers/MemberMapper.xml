@@ -2,21 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="lotbook.lotbook.repository.MemberMapper">
 
-
-	<select id="select" parameterType="member" resultType="lotbook.lotbook.dto.entity.Member">
+	<!-- 이메일로 회원정보 조회 -->
+	<select id="select" parameterType="lotbook.lotbook.dto.entity.Member" resultType="lotbook.lotbook.dto.entity.Member">
 		SELECT * FROM member WHERE email=#{email}
 	</select>
 
-	<select id="selectMemberBySequence" parameterType="int" resultType="lotbook.lotbook.dto.entity.Member">
+	<!-- 회원정보 조회 -->
+	<select id="selectById" parameterType="int" resultType="lotbook.lotbook.dto.entity.Member">
 		SELECT * FROM member WHERE sequence=#{sequence}
 	</select>
 
+	<update id="update" parameterType="lotbook.lotbook.dto.entity.Member">
+		UPDATE member SET last_login_at=now() WHERE sequence=#{sequence}
+	</update>
+
+	<!-- 회원정보 수정 -->
+	<update id="updateInfo" parameterType="lotbook.lotbook.dto.entity.Member">
+		UPDATE member SET hashed_pwd=#{hashedPwd}, name=#{name}, member_phone=#{memberPhone}, zipcode=#{zipcode}, street_address=#{streetAddress}, address_detail=#{addressDetail} WHERE sequence=#{sequence}
+	</update>
+
+	<update id="updatePoint" parameterType="long">
+		UPDATE member SET accumulated_point = accumulated_point + 500 WHERE sequence=#{sequence}
+	</update>
+
+	<!-- 회원 추가 -->
+	<insert id="insertMember" parameterType="lotbook.lotbook.dto.entity.Member">
+		INSERT INTO member(email,hashed_pwd,name,member_phone,zipcode,street_address,address_detail,created_at) VALUES (#{email},#{hashedPwd},#{name},#{memberPhone},#{zipcode},#{streetAddress},#{addressDetail},now())
+	</insert>
+
+	<!-- 중복 이메일 검사 -->
 	<select id="emailCheck" parameterType="String" resultType="lotbook.lotbook.dto.entity.Member">
 		SELECT email FROM member WHERE email = #{emailToCheck}
 	</select>
 
-	<update id="updateInfo" parameterType="lotbook.lotbook.dto.entity.Member">
-		UPDATE member SET hashed_pwd=#{hashedPwd}, name=#{name}, member_phone=#{memberPhone}, zipcode=#{zipcode}, street_address=#{streetAddress}, address_detail=#{addressDetail} WHERE sequence=#{sequence}
+	<update id="updatePointConfirm" parameterType="lotbook.lotbook.dto.entity.Member">
+		UPDATE member SET accumulated_point = accumulated_point + ${accumulatedPoint} WHERE sequence=#{sequence}
 	</update>
 
 </mapper>

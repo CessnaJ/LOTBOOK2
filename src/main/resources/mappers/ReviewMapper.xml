@@ -11,6 +11,35 @@
                  INNER JOIN member as m ON m.sequence = r.member_sequence
         WHERE product_sequence = #{sequence} AND is_deleted = 0;
     </select>
+
+    <select id="selectReviewsByMember" resultType="lotbook.lotbook.dto.response.ReviewDetails" parameterType="long">
+        SELECT sequence, rating, comment, created_at, updated_at, is_deleted, member_sequence, product_sequence
+        FROM review
+        WHERE member_sequence = #{sequence} AND is_deleted = 0
+    </select>
+
+    <insert id="insert" parameterType="lotbook.lotbook.dto.entity.Review">
+        INSERT INTO review (rating, comment, created_at, updated_at, member_sequence, product_sequence, orderdetail_sequence) VALUES (#{rating}, #{comment}, now(), now(), #{memberSequence}, #{productSequence}, #{orderdetailSequence})
+    </insert>
+
+    <update id="update" parameterType="lotbook.lotbook.dto.entity.Review">
+        UPDATE review SET rating=#{rating}, comment=#{comment}, updated_at=now() WHERE sequence=#{sequence}
+    </update>
+
+    <update id="updateReviewState" parameterType="lotbook.lotbook.dto.entity.Review">
+        UPDATE review SET is_deleted=1 WHERE sequence=#{sequence}
+    </update>
+
+    <select id="selectReviewByOrderdetail" parameterType="lotbook.lotbook.dto.entity.Review" resultType="lotbook.lotbook.dto.entity.Review">
+        SELECT *
+        FROM review
+        WHERE orderdetail_sequence = #{orderdetailSequence}
+    </select>
+
+
+
+
+
 	
 	
 	

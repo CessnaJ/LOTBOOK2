@@ -2,11 +2,15 @@ package lotbook.lotbook.service;
 
 import lombok.RequiredArgsConstructor;
 import lotbook.lotbook.dto.entity.Order;
+import lotbook.lotbook.exception.CustomException;
 import lotbook.lotbook.repository.OrderMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static lotbook.lotbook.enums.ErrorCode.*;
+
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -20,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
             resOrder = orderMapper.select(order);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("ER3002");
+            throw new CustomException(ORDER_ERROR_2);
         }
 
         return resOrder;
@@ -33,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
             orders = orderMapper.selectall(order);
         } catch(Exception e) {
             e.printStackTrace();
-            throw new Exception("추후 에러코드 추가 - order 전체 조회 에러");
+            throw new CustomException(ORDER_ERROR_7);
         }
         return orders;
     }
@@ -46,8 +50,7 @@ public class OrderServiceImpl implements OrderService {
             result = orderMapper.insert(order);
         } catch (Exception e) {
             e.printStackTrace();
-
-            throw new Exception("ER3001");
+            throw new CustomException(ORDER_ERROR_1);
         }
 
         return result;

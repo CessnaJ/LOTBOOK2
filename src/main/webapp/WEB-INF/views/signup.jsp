@@ -70,7 +70,7 @@
 					<c:choose>
 						<c:when test="${logincust != null }">
 							<li class="active"><a
-								href="main.bit?view=mypage&memberSeq=${logincust.sequence }"><i
+								href="/mypage?memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
 							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
@@ -96,7 +96,7 @@
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus">
-						<li class="active"><a href="/page/main"
+						<li class="active"><a href="/main"
 							style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li><a href="category.bit?view=1"
 							style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
@@ -293,32 +293,30 @@ $(document)
 	    const emailInput = document.getElementById("email");
 	    const email = emailInput.value;
 
-	    $.ajax({
-	        url: "/rest/api/checkDuplicateEmail&email=" + email,
-	        method: "GET",
-	        success: function(data) {
-	        	const messageElement = document.getElementById("email_message");
-	            const registerButton = document.getElementById("register_btn");
-	            const emailInput = document.getElementById("email");
-	            console.log(data.isDuplicate);
-	            if (data.isDuplicate === false) {
-	            	messageElement.innerText = "사용 가능한 이메일입니다.";
-	                messageElement.style.color = "green";
-	            } else if (data.isDuplicate === true) {
-	            	 messageElement.innerText = "중복된 이메일입니다. 다시 입력해 주세요.";
-	            	 emailInput.value = "";
-	                 messageElement.style.color = "red";
-	            } else {
-	                console.log(data);
-	                alert("오류가 발생했습니다.");
-	            }
-	        },
-	        error: function(error) {
-	            console.log(error);	
-	            console.log("에러입니다.");
-	        }
-	    });
+		axios
+			.get("/api/checkDuplicateEmail?email=" + email)
+			.then((response) => {
+				const messageElement = document.getElementById("email_message");
+				const registerButton = document.getElementById("register_btn");
+				const emailInput = document.getElementById("email");
+				console.log(response.data); // 응답 데이터는 response.data에서 얻을 수 있습니다.
 
+				if (response.data === false) {
+					messageElement.innerText = "사용 가능한 이메일입니다.";
+					messageElement.style.color = "green";
+				} else if (response.data === true) {
+					messageElement.innerText = "중복된 이메일입니다. 다시 입력해 주세요.";
+					emailInput.value = "";
+					messageElement.style.color = "red";
+				} else {
+					console.log(response.data);
+					alert("오류가 발생했습니다.");
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+				console.log("에러입니다.");
+			});
 	}
 
 
