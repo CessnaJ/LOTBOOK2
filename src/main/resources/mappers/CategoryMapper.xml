@@ -11,7 +11,4 @@
         WHERE parent_category = #{sequence}
     </select>
 
-
-
-
 </mapper>

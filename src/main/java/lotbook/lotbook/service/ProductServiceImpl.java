@@ -16,6 +16,7 @@ import lotbook.lotbook.repository.ReviewMapper;
 import org.springframework.stereotype.Service;
 
 import static lotbook.lotbook.enums.ErrorCode.ERROR_CODE_1;
+import static lotbook.lotbook.enums.ErrorCode.PRODUCT_DETAIL_ERROR_1;
 
 
 @Service
@@ -26,59 +27,59 @@ public class ProductServiceImpl implements ProductService {
     private final ReviewMapper reviewMapper;
 
     @Override
-	public Product get(int sequence) {
+    public Product get(int sequence) {
         return productMapper.selectProductBySequence(sequence);
-	}
+    }
 
     @Override
     public ProductDetailWithReviews getProductDetail(long sequence) throws CustomException {
-            Product product = productMapper.selectProductBySequence(sequence);
-            if (product == null) {
-                throw new CustomException(ERROR_CODE_1);
-            }
-
-            ProductRelatedNameMapperDTO relatedName = productMapper.selectRelatedNameAndCategoryByProductSequence(sequence);
-            List<ReviewWithNameMapperDTO> reviews = reviewMapper.selectReviewsByProductSequence(sequence);
-            double avgRating = 0;
-
-            if (!reviews.isEmpty()) {
-                avgRating = reviews.stream().mapToInt(ReviewWithNameMapperDTO::getRating).average().orElse(0.0);
-            }
-            int discountedPrice = (product.getPrice() * (int) (100.0 - product.getDiscountRate()) / 100) / 10 * 10;
-            int pointAccumulation = (int) (product.getPrice() * product.getPointAccumulationRate() / 100);
-
-            return ProductDetailWithReviews.builder()
-                    .sequence(product.getSequence())
-                    .productImgurl(product.getProductImgurl())
-                    .productDetailImgurl(product.getProductDetailImgurl())
-                    .name(product.getName())
-                    .originalPrice(product.getPrice())
-                    .discountRate(product.getDiscountRate())
-                    .price(discountedPrice)
-                    .content(product.getContent())
-                    .stock(product.getStock())
-                    .createdAt(product.getCreatedAt())
-                    .pointAccumulationRate(product.getPointAccumulationRate())
-                    .pointAccumulation(pointAccumulation)
-                    .salesCount(product.getSalesCount())
-                    // TODO: ENUM type handler-from mybatis
-                    .state(ProductStateEnum.ACTIVE)
-                    .authorSequence(product.getAuthorSequence())
-                    .authorName(relatedName.getAuthorName())
-                    .publisherSequence(product.getPublisherSequence())
-                    .publisherName(relatedName.getPublisherName())
-                    .mainCategorySequence(relatedName.getMainCategorySequence())
-                    .mainCategoryName(relatedName.getMainCategoryName())
-                    .subCategorySequence(relatedName.getSubCategorySequence())
-                    .subCategoryName(relatedName.getSubCategoryName())
-                    // TODO: reviewer name handling using dto with optional
-                    .reviews(reviews)
-                    .averageRating(avgRating)
-                    .build();
-
-
+        Product product = productMapper.selectProductBySequence(sequence);
+        if (product == null) {
+            throw new CustomException(PRODUCT_DETAIL_ERROR_1);
         }
-    
+
+        ProductRelatedNameMapperDTO relatedName = productMapper.selectRelatedNameAndCategoryByProductSequence(sequence);
+        List<ReviewWithNameMapperDTO> reviews = reviewMapper.selectReviewsByProductSequence(sequence);
+        double avgRating = 0;
+
+        if (!reviews.isEmpty()) {
+            avgRating = reviews.stream().mapToInt(ReviewWithNameMapperDTO::getRating).average().orElse(0.0);
+        }
+        int discountedPrice = (product.getPrice() * (int) (100.0 - product.getDiscountRate()) / 100) / 10 * 10;
+        int pointAccumulation = (int) (product.getPrice() * product.getPointAccumulationRate() / 100);
+
+        return ProductDetailWithReviews.builder()
+                .sequence(product.getSequence())
+                .productImgurl(product.getProductImgurl())
+                .productDetailImgurl(product.getProductDetailImgurl())
+                .name(product.getName())
+                .originalPrice(product.getPrice())
+                .discountRate(product.getDiscountRate())
+                .price(discountedPrice)
+                .content(product.getContent())
+                .stock(product.getStock())
+                .createdAt(product.getCreatedAt())
+                .pointAccumulationRate(product.getPointAccumulationRate())
+                .pointAccumulation(pointAccumulation)
+                .salesCount(product.getSalesCount())
+                // TODO: ENUM type handler-from mybatis
+                .state(ProductStateEnum.ACTIVE)
+                .authorSequence(product.getAuthorSequence())
+                .authorName(relatedName.getAuthorName())
+                .publisherSequence(product.getPublisherSequence())
+                .publisherName(relatedName.getPublisherName())
+                .mainCategorySequence(relatedName.getMainCategorySequence())
+                .mainCategoryName(relatedName.getMainCategoryName())
+                .subCategorySequence(relatedName.getSubCategorySequence())
+                .subCategoryName(relatedName.getSubCategoryName())
+                // TODO: reviewer name handling using dto with optional
+                .reviews(reviews)
+                .averageRating(avgRating)
+                .build();
+
+
+    }
+
     public int updateByProductKeyWithSalesCount(OrderDetail v) throws Exception {
         int result = 0;
         try {
@@ -90,6 +91,20 @@ public class ProductServiceImpl implements ProductService {
         }
         return result;
     }
+
+    @Override
+    public int updateByProductKeyWithOrderDetail(OrderDetail v) throws Exception {
+        int result = 0;
+        try {
+            result = productMapper.updateByProductKeyWithOrderDetail(v);
+
+        } catch (Exception e) {
+            e.getStackTrace();
+            throw new Exception("주문 상태 변경 에러");
+        }
+        return result;
+    }
+
 
     @Override
     public List<CategoryProductWithReviewDTO> getPopular() {

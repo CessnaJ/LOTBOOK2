@@ -16,6 +16,8 @@ public interface ProductMapper {
     
     int updateByProductKeyWithSalesCount(OrderDetail v);
 
+    int updateByProductKeyWithOrderDetail(OrderDetail v);
+
     List<CategoryProductWithReviewDTO> getPopular();
     List<CategoryProductWithReviewDTO> getLatest();
     List<CategoryProductWithReviewDTO> getHighPoint();

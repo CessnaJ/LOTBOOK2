@@ -4,12 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%--<%
-String[] BestSeller = request.getParameterValues("BestSeller");
-String[] Latest = request.getParameterValues("Latest");
-String[] BigPoint = request.getParameterValues("BigPoint");
-String[] BigDiscount = request.getParameterValues("BigDiscount");
-%>--%>
 
 <jsp:include page="popup.jsp" />
 

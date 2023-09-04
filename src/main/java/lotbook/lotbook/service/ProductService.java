@@ -15,8 +15,10 @@ public interface ProductService {
     Product get(int sequence);
 
     ProductDetailWithReviews getProductDetail(long sequence) throws CustomException;
-    
+
     int updateByProductKeyWithSalesCount(OrderDetail v) throws Exception;
+
+    int updateByProductKeyWithOrderDetail(OrderDetail v) throws Exception;
 
 
     List<CategoryProductWithReviewDTO> getPopular();
