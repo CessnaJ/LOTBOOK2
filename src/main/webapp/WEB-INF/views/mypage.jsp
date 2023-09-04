@@ -212,7 +212,7 @@
 					<c:choose>
 						<c:when test="${logincust != null }">
 							<li class="active"><a
-									href="/mypage?memberSeq=${logincust.sequence }"><i
+									href="/main/mypage?memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
 							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
@@ -326,7 +326,7 @@
 				<h4>${logincust.accumulatedPoint }</h4>
 			</div>
 			<button type="submit" class="site-btn"
-					onclick="location.href='member.bit?view=myinfo'">회원 정보 수정</button>
+					onclick="location.href='/member/myinfo'">회원 정보 수정</button>
 		</div>
 	</div>
 </section>

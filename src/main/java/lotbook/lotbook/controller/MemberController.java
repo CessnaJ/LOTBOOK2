@@ -84,7 +84,6 @@ public class MemberController {
 
     @PostMapping(value = "/signup")
     public String signup(Model model, SignupDto signupDto) {
-        System.out.println("회원가입!");
         String password = bCryptPasswordEncoder.encode(signupDto.getPassword());
         signupDto.setPassword(password);
 
@@ -107,7 +106,7 @@ public class MemberController {
             int memberSeq = pointService.getMemberSeq();
 
             point = Point.builder().point(1000).state(PointStateEnum.REGISTERED).memberSequence(memberSeq).build();
-            pointService.regisster(point);
+            pointService.register(point);
             pointService.modify(point);
 
         } catch (Exception e) {
