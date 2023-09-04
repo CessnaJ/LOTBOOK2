@@ -20,9 +20,9 @@ request.setCharacterEncoding("UTF-8");
 					<c:choose>
 						<c:when test="${logincust != null }">
 							<li class="active"><a
-								href="main.bit?view=mypage&memberSeq=${logincust.sequence }"><i
+									href="/mypage?memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
-							<li class=""><a href="member.bit?view=logout"><i
+							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
@@ -40,7 +40,7 @@ request.setCharacterEncoding("UTF-8");
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/page/main"><img src="/img/logo.png" alt=""></a>
+					<a href="/main"><img src="/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -60,7 +60,7 @@ request.setCharacterEncoding("UTF-8");
 						<div class="header__cart">
 							<ul>
 								<li><a
-									href="main.bit?view=shopping-cart&memberSeq=${logincust.sequence }"><i
+										href="/cart/shopingCart?memberSeq=${logincust.sequence }"><i
 										class="fa fa-shopping-bag"></i> <span>${cartCount }</span></a></li>
 							</ul>
 						</div>

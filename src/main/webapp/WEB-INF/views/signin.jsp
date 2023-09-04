@@ -31,7 +31,7 @@ $(document).ready(function(){
 							<c:when test="${logincust != null }">
 								<li class="active"><a href="main.bit?view=mypage&memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
-		                        <li class=""><a href="member.bit?view=logout"><i
+		                        <li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
 							</c:when>
 							<c:otherwise>
@@ -50,7 +50,7 @@ $(document).ready(function(){
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="/page/main"><img src="/img/logo.png" alt=""></a>
+						<a href="/main"><img src="/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">

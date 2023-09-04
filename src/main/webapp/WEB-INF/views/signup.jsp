@@ -72,7 +72,7 @@
 							<li class="active"><a
 								href="main.bit?view=mypage&memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
-							<li class=""><a href="member.bit?view=logout"><i
+							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
@@ -90,7 +90,7 @@
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/page/main"><img src="/img/logo.png" alt=""></a>
+					<a href="/main"><img src="/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -125,7 +125,7 @@
 </header>
 
 
-<form id="register_form" method="post" action="member.bit"
+<form id="register_form" method="post" action="/member/signup"
 	onsubmit="return validateForm();">
 	<input type="hidden" name="view" value="signup" />
 	<div class="d-flex flex-row justify-content-center ">
@@ -236,7 +236,7 @@
 				<button type="submit" id="register_btn" class="site-btn"
 					name="submit">회원가입</button>
 				<input type="button" id="cancel_btn" class="btn btn-secondary"
-					onclick="location.href='main.bit'" value="취소"
+					onclick="location.href='/page/main'" value="취소"
 					style="width: 7.5rem; height: 2.9rem; border-radius: 0px; font: 14px Cairo;">
 			</div>
 		</div>
@@ -293,32 +293,30 @@ $(document)
 	    const emailInput = document.getElementById("email");
 	    const email = emailInput.value;
 
-	    $.ajax({
-	        url: "/lotbook/member.bit?view=checkDuplicateEmail&email=" + email,
-	        method: "GET",
-	        success: function(data) {
-	        	const messageElement = document.getElementById("email_message");
-	            const registerButton = document.getElementById("register_btn");
-	            const emailInput = document.getElementById("email");
-	            console.log(data.isDuplicate);
-	            if (data.isDuplicate === false) {
-	            	messageElement.innerText = "사용 가능한 이메일입니다.";
-	                messageElement.style.color = "green";
-	            } else if (data.isDuplicate === true) {
-	            	 messageElement.innerText = "중복된 이메일입니다. 다시 입력해 주세요.";
-	            	 emailInput.value = "";
-	                 messageElement.style.color = "red";
-	            } else {
-	                console.log(data);
-	                alert("오류가 발생했습니다.");
-	            }
-	        },
-	        error: function(error) {
-	            console.log(error);	
-	            console.log("에러입니다.");
-	        }
-	    });
+		axios
+			.get("/api/checkDuplicateEmail?email=" + email)
+			.then((response) => {
+				const messageElement = document.getElementById("email_message");
+				const registerButton = document.getElementById("register_btn");
+				const emailInput = document.getElementById("email");
+				console.log(response.data); // 응답 데이터는 response.data에서 얻을 수 있습니다.
 
+				if (response.data === false) {
+					messageElement.innerText = "사용 가능한 이메일입니다.";
+					messageElement.style.color = "green";
+				} else if (response.data === true) {
+					messageElement.innerText = "중복된 이메일입니다. 다시 입력해 주세요.";
+					emailInput.value = "";
+					messageElement.style.color = "red";
+				} else {
+					console.log(response.data);
+					alert("오류가 발생했습니다.");
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+				console.log("에러입니다.");
+			});
 	}
 
 

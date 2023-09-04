@@ -71,9 +71,9 @@
 					<c:choose>
 						<c:when test="${logincust != null }">
 							<li class="active"><a
-								href="main.bit?view=mypage&memberSeq=${logincust.sequence }"><i
+									href="/mypage?memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
-							<li class=""><a href="member.bit?view=logout"><i
+							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
@@ -91,7 +91,7 @@
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/page/main"><img src="/img/logo.png" alt=""></a>
+					<a href="/main"><img src="/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -112,7 +112,7 @@
 						<div class="header__cart">
 							<ul>
 								<li><a
-									href="main.bit?view=shopping-cart&memberSeq=${logincust.sequence }"><i
+										href="/cart/shopingCart?memberSeq=${logincust.sequence }"><i
 										class="fa fa-shopping-bag"></i> <span>${cartCount }</span></a></li>
 							</ul>
 						</div>
@@ -437,7 +437,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 				<a
-					href="main.bit?view=shopping-cart&memberSeq=${logincust.sequence}"
+					href="/cart/shopingCart?memberSeq=${logincust.sequence}"
 					class="btn btn-danger">장바구니로 가기</a>
 			</div>
 		</div>
@@ -556,46 +556,55 @@
          }
       }
    });
-   
+
    let count = 1;
    
    function addToCart(productSeq, memberSeq) {
       if (memberSeq === undefined) {
            alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-           window.location.href = 'main.bit?view=signin';
+           window.location.href = '/page/signin';
            
            return;
        }
       
       var count = Number($('#product-count').val());
       console.log(productSeq, memberSeq, count)
-      
-      $.ajax({
-         url:'rest.bit?view=addToCart&productSequence=' + productSeq + '&count=' + count + '&memberSeq=' + memberSeq,
-         success:function(result){
-            console.log(result);
-            if (result === 0) {
-               alert("카트에 넣는 도중 오류가 발생했습니다. 다시 시도해주세요.");
-            } else {
-                $('#addToCartModal').modal('show');
-               
-            }
-         }
-      });
+
+
+	   axios.post('/api/addToCart', {
+		   memberSequence: memberSeq,
+		   productSequence: productSeq,
+		   count: count
+	   })
+			   .then(function (response) {
+				   console.log(response);
+				   if (!response.data) { // If the data is 0 or null or undefined...
+					   alert("카트에 추가하지 못했습니다. 다시 시도해주세요.");
+					   return;
+				   }
+
+				   $('#addToCartModal').modal('show');
+			   })
+			   .catch(function (error) {
+				   console.log(error);
+				   alert("카트에 넣는 도중 오류가 발생했습니다. 다시 시도해주세요.")
+			   });
    }
    
    function checkOutBuyNow(productId, memberSeq) {
        var count = Number($('#productQuantity').val());
        if (memberSeq === undefined) {
            alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-           window.location.href = 'main.bit?view=signin';
+           window.location.href = '/page/signin';
            
            return;
        }
        var count = Number($('#product-count').val());
        // Redirect to the checkout page with the specified count and product ID
-       window.location.href = '/checkout/api/checkoutbuynow&count=' + 1 + '&productId=' + productSeq + '&memberSeq=' + memberSeq;
-   }
+       window.location.href = '/checkout/api/checkoutbuynow?count=' + count + '&productId=' + productId + '&memberSeq=' + memberSeq;
+
+
+			   }
    
    
     

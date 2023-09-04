@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="${pageContext.request.contextPath}/page/main"><img src="${pageContext.request.contextPath}/img/logo.png" alt=""></a>
+                    <a href="/main"><img src="/img/logo.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -59,13 +59,6 @@
         </div>
     </div>
 </header>
-
-<script>
-    AOS.init({
-        easing: 'ease-out-back',
-        duration: 1000
-    });
-</script>
 
 <!-- Header Section End -->
 <!-- Hero Section Begin -->

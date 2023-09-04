@@ -46,7 +46,8 @@
 				<ul>
 					<c:choose>
 						<c:when test="${logincust != null }">
-							<li class="active"><a href="/mypage"><i
+							<li class="active"><a
+									href="/mypage?memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
 							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
@@ -66,7 +67,7 @@
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/page/main"><img src="/img/logo.png" alt="로고이미지"></a>
+					<a href="/main"><img src="/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -86,7 +87,9 @@
 					<div class="col-lg-3">
 						<div class="header__cart">
 							<ul>
-								<li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+								<li><a
+										href="/cart/shopingCart?memberSeq=${logincust.sequence }"><i
+										class="fa fa-shopping-bag"></i> <span>${cartCount }</span></a></li>
 							</ul>
 						</div>
 					</div>
@@ -322,7 +325,7 @@
 												<c:when test="${item.getStock() > 0}">
 													<a href="#"
 														class="primary-btn cart-btn cart-btn-right mb-2"
-														onclick='addToCart(${item.productSequence}, ${logincust.sequence}); event.stopPropagation(); return false;'>장바구니에
+														onclick='addToCart(${item.productSequence}, 1, ${logincust.sequence}); event.stopPropagation(); return false;'>장바구니에
 														넣기</a>
 													<a href="#" class="primary-btn text-white btn"
 														onclick='checkOutBuyNow(${item.productSequence}, ${logincust.sequence}); event.stopPropagation(); return false;'>바로
@@ -395,7 +398,7 @@
 </div>
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 		
 		$(document).ready(function () {
@@ -493,26 +496,30 @@
     		});
     	});
     	
-    	function addToCart(productSeq, memberSeq) {
-    		if (memberSeq === undefined) {
+    	function addToCart(productSeq, count, memberSeq) {
+			if (memberSeq === undefined) {
     	        alert("로그인이 필요합니다.");
     	        return;
     	    }
-    		
-    		
-    		
-    		$.ajax({
-    			url:'rest.bit?view=addToCart&productSequence=' + productSeq + '&count=' + 1 + '&memberSeq=' + memberSeq,
-    			success:function(result){
-    				
-    				if (result === 0) {
-    					alert("카트에 넣는 도중 오류가 발생했습니다. 다시 시도해주세요.");
-    				} else {
-    					 $('#addToCartModal').modal('show');
-    					
-    				}
-    			}
-    		});
+
+			axios.post('/api/addToCart', {
+				memberSequence: memberSeq,
+				productSequence: productSeq,
+				count: count
+			})
+					.then(function (response) {
+						console.log(response);
+						if (!response.data) {
+							alert("카트에 추가하지 못했습니다. 다시 시도해주세요.");
+							return;
+						}
+
+						$('#addToCartModal').modal('show');
+					})
+					.catch(function (error) {
+						console.log(error);
+						alert("카트에 넣는 도중 오류가 발생했습니다. 다시 시도해주세요.")
+					});
     	}
     	
     	function checkOutBuyNow(productSeq, memberSeq) {
@@ -522,7 +529,7 @@
     	        return;
     	    }
     	    // Redirect to the checkout page with the specified count and product ID
-    	    window.location.href = '/checkout/api/checkoutbuynow&count=' + 1 + '&productId=' + productSeq + '&memberSeq=' + memberSeq;
+    	    window.location.href = '/checkout/api/checkoutbuynow?count=' + 1 + '&productId=' + productSeq + '&memberSeq=' + memberSeq;
     	}
     	
         // 이하, 페이지네이션 관련 코드

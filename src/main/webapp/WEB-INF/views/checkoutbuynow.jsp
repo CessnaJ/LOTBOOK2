@@ -14,7 +14,7 @@ String[] orderProductList = request.getParameterValues("orderProductList");
 
 function get_my_info(name, email, memberPhone, zipcode, streetAddress, addressDetail) {
 	const checkbox = document.getElementById("check_box");
-
+	console.log("name", name);
 	if (checkbox.checked) {
 		document.getElementById("custName").value = name;
 		document.getElementById("custEmail").value = email;
@@ -68,9 +68,9 @@ function use_point(value, totalPrice, myPoint) {
 					<c:choose>
 						<c:when test="${logincust != null }">
 							<li class="active"><a
-								href="main.bit?view=mypage&memberSeq=${logincust.sequence }"><i
+									href="/mypage?memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
-							<li class=""><a href="member.bit?view=logout"><i
+							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
@@ -88,7 +88,7 @@ function use_point(value, totalPrice, myPoint) {
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/page/main"><img src="/img/logo.png" alt=""></a>
+					<a href="/main"><img src="/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -106,7 +106,7 @@ function use_point(value, totalPrice, myPoint) {
 						<div class="header__cart">
 							<ul>
 								<li><a
-									href="main.bit?view=shopping-cart&memberSeq=${logincust.sequence }"><i
+										href="/cart/shopingCart?memberSeq=${logincust.sequence }"><i
 										class="fa fa-shopping-bag"></i> <span>${cartCount }</span></a></li>
 							</ul>
 						</div>
@@ -174,18 +174,21 @@ function use_point(value, totalPrice, myPoint) {
 			<h4>결제 확인서</h4>
 				<form
 				id="register_form"
-				action="main.bit?view=checkout-result&cmd=2&count=${count}&price=${res.price}&point=${res.pointAccumulationRate}&productId=${productId}"
-				method="post">
+				action="/checkout/api/checkout-result?count=${count}&price=${res.price}&pointAccumulationRate=${res.pointAccumulationRate}&productId=${productId}"
+				method="post"
+				>
+					<input style="display: none;" id="productSequences" name="sequences" value="${sequences }">
+					<input style="display: none;" id="memberSequence" name="memberSequence" value="${logincust.sequence }">
 				<span style="display: none;" id="pointAccumulationRate">${res.pointAccumulationRate }</span>
 				<span style="display: none;" id="productId">${productId }</span>
 				<input type="hidden" name="view" value="checkout-result" />
 				<div class="row">
 					<div class="col-lg-8 col-md-6">
-						<div class="d-flex flex-col align-items-center">
+						<p class="d-flex flex-col align-items-center">
 							<input id="check_box" type="checkbox" class="mb-3 text-dark"
 								onclick="get_my_info('${logincust.name }', '${logincust.email }', '${logincust.memberPhone }', '${logincust.zipcode }', '${logincust.streetAddress }', '${logincust.addressDetail }')">
-							<p class="ml-2 text-muted">내 정보 불러오기</p>
-						</div>
+							<label for="check_box" class="ml-2 text-muted" style="position: relative; top:-2px;">내 정보 불러오기</label>
+						</p>
 						<div class="row">
 							<div class="col-lg-8 col-md-6">
 								<div class="checkout__input">
@@ -286,14 +289,14 @@ function use_point(value, totalPrice, myPoint) {
 						</div>
 					</div>
 					<div class="checkout__order__total">
-						총 결제 금액 
+						총 결제 금액 (원)
 						<span id="totalPrice">
 							${orderProductList[fn:length(orderProductList) - 1].totalPrice }
-	                    </span>원
+	                    </span>
 					</div>
 					<button type="submit" class="site-btn">주문하기</button>
 					
-					<img src="/img/payment-kakao.png" style="margin-top:10px;"  alt="kakao 결제" onClick={requestPay()}>
+					<img src="/img/payment-kakao.png" style="margin-top:10px; cursor: pointer;"  alt="kakao 결제" onClick={requestPay()} >
 				</div>
 			</div>
 		</div>
@@ -311,7 +314,6 @@ $(document).ready(function(){
 			});	
 	
 	IMP.init("imp56873007");
-
 	  
 })
 
@@ -330,9 +332,43 @@ function requestPay() {
 	var receiverAddress = document.getElementById("sample6_address").value;
 	var receiverDetailAddress = document.getElementById("sample6_detailAddress").value;
 	var receiverMessage = document.getElementById("sample6_extraAddress").value;
-	
-	  
-    IMP.request_pay({
+
+	var form = document.createElement('form');
+	form.setAttribute('method', 'post');
+
+	form.setAttribute('action', "/checkout/api/checkout-result?count=${count}&price=${res.price}&pointAccumulationRate=${res.pointAccumulationRate}&productId=${productId}");
+
+	var obj3 = document.createElement('input');
+	obj3.setAttribute('name', 'receiverName');
+	obj3.setAttribute('value', receiverName);
+	var obj4 = document.createElement('input');
+	obj4.setAttribute('name', 'orderPhone');
+	obj4.setAttribute('value', receiverPhone);
+	var obj5 = document.createElement('input');
+	obj5.setAttribute('name', 'zipcode');
+	obj5.setAttribute('value', receiverPostCode);
+	var obj6 = document.createElement('input');
+	obj6.setAttribute('name', 'streetAddress');
+	obj6.setAttribute('value', receiverAddress);
+	var obj7 = document.createElement('input');
+	obj7.setAttribute('name', 'addressDetail');
+	obj7.setAttribute('value', receiverDetailAddress);
+	var obj8 = document.createElement('input');
+	obj8.setAttribute('name', 'vendorMessage');
+	obj8.setAttribute('value', receiverMessage);
+	var obj9 = document.createElement('input');
+	obj9.setAttribute('name', 'email');
+	obj9.setAttribute('value', receiverEmail);
+	var obj10 = document.createElement('input');
+	obj10.setAttribute('name', 'usePoint');
+	obj10.setAttribute('value', document.getElementById("usePoint").value);
+
+
+	form.append( obj3, obj4, obj5, obj6, obj7, obj8, obj9, obj10);
+
+	document.body.appendChild(form);
+
+	IMP.request_pay({
         pg : 'kakaopay',
         pay_method : 'card',
         merchant_uid: 'merchant_' + new Date().getTime(), 
@@ -345,17 +381,10 @@ function requestPay() {
         buyer_postcode :receiverPostCode
     }, function (rsp) { // callback
     	console.log(rsp);
-
-    	location.href="main.bit?view=checkout-result&cmd=2&name=" + encodeURIComponent(productName) + "&count=" + productCount + "&price=" + totalPrice + "&point=" + pointAccumulationRate + "&productId=" + productId
-		+ "&input__receiverName=" + receiverName
-		+ "&input__phone=" + receiverPhone
-		+ "&input__zipcode=" + receiverPostCode
-		+ "&input__street_address=" + receiverAddress
-		+ "&input__address_detail=" + receiverDetailAddress
-		+ "&input__vendor_message=" + receiverMessage
-		+ "&input__email=" + receiverEmail
-		+ "&usePoint=" + document.getElementById("usePoint").value;
-         //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+		if(rsp.success){
+			form.submit();
+			//rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+		}
     });
 }
 
