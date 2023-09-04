@@ -70,7 +70,7 @@ public class CheckoutController {
     }
 
     @PostMapping("/api/checkout-result")
-    public String CheckoutResultPage(Model model, @RequestParam long count, @RequestParam int price, @RequestParam double pointAccumulationRate, @RequestParam long productId, HttpServletRequest request) throws Exception {
+    public String CheckoutResultPage(Model model, @RequestParam long count, @RequestParam int price, @RequestParam double pointAccumulationRate, @RequestParam long productId, @RequestParam double discountRate, HttpServletRequest request) throws Exception {
         model.addAttribute("center", "checkout-result");
         HttpSession session = request.getSession();
         Member loggedInUser = (Member) session.getAttribute("logincust");
@@ -102,7 +102,7 @@ public class CheckoutController {
                         .getAll(Order.builder().memberSequence(loggedInUser.getSequence()).build());
 
                 OrderDetail orderDetail = OrderDetail.builder().orderSequence(orderList.get(0).getSequence())
-                        .count((int) count).productPoint(pointAccumulationRate * 0.01 * count * price).productPrice(price)
+                        .count((int) count).productPoint(pointAccumulationRate * 0.01 * count * price).productPrice((int) ((price * (1 - discountRate * 0.01)) - (price * (1 - (discountRate) * 0.01))%10))
                         .productSequence(productId).build();
 
 
@@ -127,7 +127,7 @@ public class CheckoutController {
                     orderDetail.get(j).setOrderDetailProduct(productService.get((int) orderDetail.get(j).getProductSequence()));
 
 
-                    totalPrice += orderDetail.get(j).getProductPrice() * ( 1 - product.getDiscountRate() * 0.01) * count;
+                    totalPrice += orderDetail.get(j).getProductPrice() * count;
                     totalPoint += orderDetail.get(j).getProductPoint() * count;
                 }
 

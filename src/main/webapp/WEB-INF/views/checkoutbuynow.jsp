@@ -174,7 +174,7 @@ function use_point(value, totalPrice, myPoint) {
 			<h4>결제 확인서</h4>
 				<form
 				id="register_form"
-				action="/checkout/api/checkout-result?count=${count}&price=${res.price}&pointAccumulationRate=${res.pointAccumulationRate}&productId=${productId}"
+				action="/checkout/api/checkout-result?count=${count}&price=${res.price}&pointAccumulationRate=${res.pointAccumulationRate}&productId=${productId}&discountRate=${res.discountRate}"
 				method="post"
 				>
 					<input style="display: none;" id="productSequences" name="sequences" value="${sequences }">

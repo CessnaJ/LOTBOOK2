@@ -189,7 +189,7 @@ request.setCharacterEncoding("UTF-8");
 
 <script type="text/javascript">
 function goHome() {
-	location.href="main.bit";
+	location.href="/main";
 }
 $(document).ready(function() {
 	emailjs.init("BeCe_Kl2PZg0CGUoO");		
