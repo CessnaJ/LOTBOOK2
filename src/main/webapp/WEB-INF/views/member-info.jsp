@@ -39,7 +39,7 @@
 <script>
 function redirectToMyPage() {
     var memberSeq = ${logincust.sequence}; // 로그인 사용자의 sequence 값을 가져와 사용
-    window.location.href = "/main/mypage?memberSeq=" + memberSeq;
+    window.location.href = "/mypage?memberSeq=" + memberSeq;
 }
 </script>
 <!-- Header Section Begin -->
