@@ -16,4 +16,20 @@ public class MemberServiceImpl implements MemberService {
     public Member get(Member mem){
         return memberMapper.select(mem);
     }
+
+    public int register(Member mem){
+        return memberMapper.insertMember(mem);
+    }
+
+    @Override
+    public boolean isEmailDuplicate(String emailToCheck) {
+        return memberMapper.emailCheck(emailToCheck);
+    }
+
+    @Override
+    public int modifyInfo(Member v) {
+        return memberMapper.updateInfo(v);
+    }
+
+
 }

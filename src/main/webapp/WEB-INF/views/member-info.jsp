@@ -54,7 +54,7 @@ function redirectToMyPage() {
 							<li class="active"><a
 									href="/mypage?memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
-							<li class=""><a href="member.bit?view=logout"><i
+							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
@@ -155,8 +155,7 @@ function redirectToMyPage() {
 	<div class="container">
 		<div class="checkout__form">
 			<h4>회원 정보 수정</h4>
-			<form action="member.bit" method="post">
-				<input type="hidden" name="view" value="updateinfoimpl">
+			<form action="/member/updateinfoimpl" method="post">
 				<div class="col-lg-6">
 					<div class="checkout__input">
 						<p>
