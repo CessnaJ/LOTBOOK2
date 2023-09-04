@@ -371,7 +371,7 @@
 		} else {
 			axios.get('/api/changeCount?sequence=' + sequence + '&productSequence=' + productSeq + '&count=' + (count+1) + '&memberSequence=' + memberSeq)
 					.then(function(result) {
-						if (result === 0) {
+						if (result.data === 0) {
 							alert("재고 이상의 상품을 담을 수 없습니다!");
 						} else {
 							$('#product-count' + sequence).text(result.data);

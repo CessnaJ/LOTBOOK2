@@ -60,13 +60,6 @@
     </div>
 </header>
 
-<script>
-    AOS.init({
-        easing: 'ease-out-back',
-        duration: 1000
-    });
-</script>
-
 <!-- Header Section End -->
 <!-- Hero Section Begin -->
 <section class="hero hero-normal">

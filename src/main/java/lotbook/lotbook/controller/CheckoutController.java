@@ -123,9 +123,11 @@ public class CheckoutController {
                 orderDetail = orderDetailService.get(orderList.get(0).getSequence());
 
                 for (int j = 0; j < orderDetail.size(); j++) {
-                    Product product = Product.builder().sequence(orderDetail.get(j).getProductSequence()).build();
+                    Product product = productService.get((int) orderDetail.get(j).getProductSequence());
                     orderDetail.get(j).setOrderDetailProduct(productService.get((int) orderDetail.get(j).getProductSequence()));
-                    totalPrice += orderDetail.get(j).getProductPrice() * ( 1 - pointAccumulationRate * 0.01) * count;
+
+
+                    totalPrice += orderDetail.get(j).getProductPrice() * ( 1 - product.getDiscountRate() * 0.01) * count;
                     totalPoint += orderDetail.get(j).getProductPoint() * count;
                 }
 
