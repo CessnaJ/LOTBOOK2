@@ -85,10 +85,9 @@ function use_point(value, totalPrice, myPoint) {
             <ul>
                <c:choose>
                   <c:when test="${logincust != null }">
-                     <li class="active"><a
-                             href="/main/mypage?memberSeq=${logincust.sequence }"><i
-                             class="fa fa-user"></i> 마이페이지</a></li>
-                     <li class=""><a href="member.bit?view=logout"><i
+                  <li class="active"><a
+                          href="/mypage?memberSeq=${logincust.sequence }"><i
+                          class="fa fa-user"></i> 마이페이지</a></li>
                      <li class=""><a href="/member/logout"><i
                            class="fa fa-user"></i> 로그아웃</a></li>
                   </c:when>

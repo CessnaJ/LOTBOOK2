@@ -8,4 +8,9 @@ import java.util.List;
 public interface OrderDetailMapper {
     int insert(OrderDetail v);
     List<OrderDetailResponse> selectAll(long orderId);
+
+    OrderDetail selectOne(OrderDetail v);
+
+    int modify(OrderDetail v);
+
 }

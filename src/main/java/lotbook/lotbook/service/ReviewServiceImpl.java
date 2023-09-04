@@ -70,7 +70,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public List<ReviewDetails> get(Member member) throws Exception {
+    public List<ReviewDetails> get(long member) throws Exception {
         List<ReviewDetails> reviewDetail = new ArrayList<>();
         try {
             reviewDetail = reviewMapper.selectReviewsByMember(member);

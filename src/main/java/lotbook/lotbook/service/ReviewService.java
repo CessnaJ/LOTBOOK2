@@ -14,5 +14,5 @@ public interface ReviewService {
     int remove(Review k) throws Exception;
     Review get(Review k) throws Exception;
     List<Review> get() throws Exception;
-    List<ReviewDetails> get(Member member) throws Exception;
+    List<ReviewDetails> get(long member) throws Exception;
 }
