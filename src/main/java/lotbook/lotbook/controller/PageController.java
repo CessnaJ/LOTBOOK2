@@ -10,12 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/page")
 public class PageController  {
-    @GetMapping(value = "/main")
-    public String DefaultMainPage(Model model) {
-        model.addAttribute("center", "main");
-        return "index";
-    }
-
     @GetMapping(value = "/signin")
     public String DefaultSigninPage(Model model) {
         model.addAttribute("center", "signin");
