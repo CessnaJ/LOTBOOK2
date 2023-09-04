@@ -164,15 +164,14 @@ public class CartController {
                 Product product = productService.get((int) cart.getProductSequence());
 
                 try {
-
-
                     OrderDetail orderDetail = OrderDetail.builder()
                             .orderSequence(orderList.get(0).getSequence()).orderDetailProduct(product)
                             .count(cart.getCount())
                             .productPoint(product.getPointAccumulationRate() * 0.01 * product.getPrice())
                             .productPrice(product.getPrice()).productSequence(product.getSequence()).build();
                     totalPoint += (int) (product.getPointAccumulationRate() * 0.01 * cart.getCount() * product.getPrice());
-                    totalPrice += product.getPrice() * cart.getCount();
+                    totalPrice += (int) (product.getPrice() * (1 - (product.getDiscountRate()) * 0.01))  * cart.getCount();
+
                     orderDetailService.register(orderDetail);
                     orderDetailList.add(orderDetail);
 
@@ -186,7 +185,7 @@ public class CartController {
             model.addAttribute("orderResult", order);
             model.addAttribute("orderDetailResult", orderDetailList);
             model.addAttribute("totalPoint", totalPoint);
-            model.addAttribute("totalPrice", totalPrice);
+            model.addAttribute("totalPrice", totalPrice - totalPrice%10);
             model.addAttribute("usedPoint", cartToOrder.getUsePoint());
 
             // 포인트 사용
