@@ -86,8 +86,9 @@ function use_point(value, totalPrice, myPoint) {
                <c:choose>
                   <c:when test="${logincust != null }">
                      <li class="active"><a
-                        href="main.bit?view=mypage&memberSeq=${logincust.sequence }"><i
-                           class="fa fa-user"></i> 마이페이지</a></li>
+                             href="/mypage?memberSeq=${logincust.sequence }"><i
+                             class="fa fa-user"></i> 마이페이지</a></li>
+                     <li class=""><a href="member.bit?view=logout"><i
                      <li class=""><a href="/member/logout"><i
                            class="fa fa-user"></i> 로그아웃</a></li>
                   </c:when>
@@ -374,19 +375,7 @@ function requestPay() {
    obj10.setAttribute('name', 'usePoint');
    obj10.setAttribute('value', document.getElementById("usePoint").value);
 
-   // objs.setAttribute('sequences', sequences);
-   // objs.setAttribute('receiverName', receiverName);
-   // objs.setAttribute('orderPhone', receiverPhone);
-   // objs.setAttribute('zipcode', receiverPostCode);
-   // objs.setAttribute('streetAddress', receiverAddress);
-   // objs.setAttribute('addressDetail', receiverDetailAddress);
-   // objs.setAttribute('vendorMessage', receiverMessage);
-   // objs.setAttribute('email', receiverEmail);
-   // objs.setAttribute('usePoint', document.getElementById("usePoint").value);
-
    form.append(obj1, obj2, obj3, obj4, obj5, obj6, obj7, obj8, obj9, obj10);
-
-   console.log(form);
    document.body.appendChild(form);
 
     IMP.request_pay({

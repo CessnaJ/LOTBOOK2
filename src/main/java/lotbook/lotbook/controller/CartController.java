@@ -30,7 +30,7 @@ public class CartController {
     private final OrderDetailService orderDetailService;
 
     @GetMapping(value = "/shopingCart")
-    public String ShopingCartPage(Model model, @RequestParam long memberSeq) {
+    public String ShopingCartPage(Model model, @RequestParam long memberSequence) {
         log.warn("장바구니 상세 페이지");
         model.addAttribute("center", "shoping-cart");
 
@@ -39,7 +39,7 @@ public class CartController {
         model.addAttribute("myCartList", null);
         model.addAttribute("myCartProductList", null);
 
-        Cart cart = Cart.builder().memberSequence(memberSeq).build();
+        Cart cart = Cart.builder().memberSequence(memberSequence).build();
 
         try {
             cartList = cartService.getAll(cart);
@@ -47,7 +47,7 @@ public class CartController {
             productList = cartService.getProductInfo(cart);
             model.addAttribute("myCartProductList", productList);
 
-            int cartCount = cartService.getCartCount(memberSeq);
+            int cartCount = cartService.getCartCount(memberSequence);
             model.addAttribute("cartCount", cartCount);
         } catch (Exception e) {
             e.printStackTrace();

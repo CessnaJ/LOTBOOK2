@@ -20,9 +20,9 @@
 </script>
 <meta charset="UTF-8">
 <style>
-font-family: SF Pro KR, SF Pro Display, SF Pro Icons, AOS Icons, Apple Gothic,
-	HY Gulim, MalgunGothic, HY Dotum, Lexi Gulim, Helvetica Neue, Helvetica,
-	Arial, sans-serif ; 
+	/*font-family: SF Pro KR, SF Pro Display, SF Pro Icons, AOS Icons, Apple Gothic,*/
+	/*HY Gulim, MalgunGothic, HY Dotum, Lexi Gulim, Helvetica Neue, Helvetica,*/
+	/*Arial, sans-serif ; */
 	
 .layerPopup img {
 	width: 100%;
