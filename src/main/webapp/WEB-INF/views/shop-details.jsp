@@ -162,7 +162,7 @@
 				<div class="breadcrumb__text">
 					<h2>${ productDetail.name }</h2>
 					<div class="breadcrumb__option">
-						<a href="index.jsp">Home</a> <a href="./category?view=${productDetail.mainCategorySequence }">${productDetail.mainCategoryName }</a>
+						<a href="/main">Home</a> <a href="./category?view=${productDetail.mainCategorySequence }">${productDetail.mainCategoryName }</a>
 						<a href="./category?view=${productDetail.subCategorySequence }">${productDetail.subCategoryName }</a>
 						<!-- TODO: 클릭시, 카테고리 검색으로 넘기기  -->
 					</div>
