@@ -198,48 +198,48 @@
 
 <!-- Header Section Begin -->
 <header class="header">
-    <div class="header__top">
-        <div class="container">
-            <nav class="header__menu header__top__right mobile-menu"
-                 style="padding: 5px 0">
-                <ul>
-                    <c:choose>
-                        <c:when test="${logincust != null }">
-                            <li class="active"><a
-                                    href="/mypage?memberSeq=${logincust.sequence }"><i
-                                    class="fa fa-user"></i> 마이페이지</a></li>
-                            <li class=""><a href="/member/logout"><i
-                                    class="fa fa-user"></i> 로그아웃</a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="active"><a href="/page/signin"><i
-                                    class="fa fa-user"></i> 로그인</a></li>
-                            <li class=""><a href="/page/signup"><i
-                                    class="fa fa-user"></i> 회원가입</a></li>
-                        </c:otherwise>
-                    </c:choose>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="header__logo">
-                    <a href="/main"><img src="/img/logo.png" alt=""></a>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <nav class="header__menu">
-                    <ul id="header__menus">
-                        <li><a href="main.bit" style="font-size: 20px; font-weight: 700;">홈</a></li>
-                        <li><a href="category.bit?view=1" style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
-                        <li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <c:choose>
-                <c:when test="${logincust != null }">
+	<div class="header__top">
+		<div class="container">
+			<nav class="header__menu header__top__right mobile-menu"
+				 style="padding: 5px 0">
+				<ul>
+					<c:choose>
+						<c:when test="${logincust != null }">
+							<li class="active"><a
+									href="/mypage?memberSeq=${logincust.sequence }"><i
+									class="fa fa-user"></i> 마이페이지</a></li>
+							<li class=""><a href="/member/logout"><i
+									class="fa fa-user"></i> 로그아웃</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="active"><a href="/page/signin"><i
+									class="fa fa-user"></i> 로그인</a></li>
+							<li class=""><a href="/page/signup"><i
+									class="fa fa-user"></i> 회원가입</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="header__logo">
+					<a href="/main"><img src="/img/logo.png" alt=""></a>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<nav class="header__menu">
+					<ul id="header__menus" >
+						<li><a href="/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
+						<li><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
+						<li><a href="/page/contact"  style="font-size: 20px; font-weight: 700;">고객센터</a></li>
+					</ul>
+				</nav>
+			</div>
+			<c:choose>
+				<c:when test="${logincust != null }">
 
                     <div class="col-lg-3">
                         <div class="header__cart">
