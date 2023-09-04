@@ -50,4 +50,31 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         }
         return orderDetail;
     }
+
+    @Override
+    public OrderDetail get(OrderDetail v) {
+        OrderDetail orderDetail = null;
+
+        try {
+            orderDetail = orderDetailMapper.selectOne(v);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CustomException(ORDER_ERROR_2);
+        }
+
+        return orderDetail;
+    }
+
+    @Override
+    public int modify(OrderDetail v) {
+        int result = 0;
+
+        try {
+            result = orderDetailMapper.modify(v);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CustomException(ORDER_ERROR_1);
+        }
+        return result;
+    }
 }

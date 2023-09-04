@@ -91,4 +91,17 @@ public class ProductServiceImpl implements ProductService {
         return result;
     }
 
+    @Override
+    public int updateByProductKeyWithOrderDetail(OrderDetail v) throws Exception {
+        int result = 0;
+        try {
+            result = productMapper.updateByProductKeyWithOrderDetail(v);
+
+        } catch (Exception e) {
+            e.getStackTrace();
+            throw new Exception("주문 상태 변경 에러");
+        }
+        return result;
+    }
+
 }

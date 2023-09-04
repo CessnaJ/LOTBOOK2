@@ -5,9 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String[] myCartList = request.getParameterValues("myCartList");
-	String[] myCartProductList = request.getParameterValues("myCartProductList");
-	String[] myOrderList = request.getParameterValues("myOrderList");
 %>
 <style>
 	#modal {
@@ -681,7 +678,7 @@
 <script>
 	function clickOrderDetailBtn(state, sequence, productSequence, count) {
 		console.log(state, sequence, productSequence, count);
-		location.href="main.bit?view=changeOrderState&state=" + state + "&sequence=" + sequence + "&productSeq=" + productSequence + "&count=" + count;
+		location.href="/mypage/changeOrderState?state=" + state + "&sequence=" + sequence + "&productSequence=" + productSequence + "&count=" + count;
 	}
 
 	var totalPrice = 0;

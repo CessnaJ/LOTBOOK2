@@ -10,5 +10,9 @@ import java.util.List;
 public interface OrderDetailService {
     int register(OrderDetail o) throws Exception;
     List<OrderDetailResponse> get(long orderId) throws Exception;
+
+    OrderDetail get(OrderDetail v);
+
+    int modify(OrderDetail v);
 }
 

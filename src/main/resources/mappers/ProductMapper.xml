@@ -30,4 +30,7 @@
         UPDATE `product` SET sales_count = sales_count + #{count}, stock = stock - #{count} WHERE sequence = ${productSequence};
     </update>
 
+    <update id="updateByProductKeyWithOrderDetail" parameterType="lotbook.lotbook.dto.entity.OrderDetail">
+        UPDATE `product` SET sales_count = sales_count - #{count}, stock = stock + #{count} WHERE sequence = ${productSequence};
+    </update>
 </mapper>
