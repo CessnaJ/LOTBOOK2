@@ -108,22 +108,63 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<CategoryProductWithReviewDTO> getPopular() {
-        return productMapper.getPopular();
+
+        List<CategoryProductWithReviewDTO> popularProducts = productMapper.getPopular();
+
+        for (CategoryProductWithReviewDTO product : popularProducts) {
+            int currentPrice = product.getPrice();
+            double discountRate = product.getDiscountRate();
+            int newPrice = (int) (currentPrice * (1 - discountRate / 100));
+            newPrice = (newPrice / 10) * 10;
+            product.setPrice(newPrice);
+        }
+
+        return popularProducts;
     }
 
     @Override
     public List<CategoryProductWithReviewDTO> getLatest() {
-        return productMapper.getLatest();
+        List<CategoryProductWithReviewDTO> latestProducts = productMapper.getLatest();
+
+        for (CategoryProductWithReviewDTO product : latestProducts) {
+            int currentPrice = product.getPrice();
+            double discountRate = product.getDiscountRate();
+            int newPrice = (int) (currentPrice * (1 - discountRate / 100));
+            newPrice = (newPrice / 10) * 10;
+            product.setPrice(newPrice);
+        }
+
+        return latestProducts;
     }
 
     @Override
     public List<CategoryProductWithReviewDTO> getHighPoint() {
-        return productMapper.getHighPoint();
+        List<CategoryProductWithReviewDTO> pointProducts = productMapper.getHighPoint();
+
+        for (CategoryProductWithReviewDTO product : pointProducts) {
+            int currentPrice = product.getPrice();
+            double discountRate = product.getDiscountRate();
+            int newPrice = (int) (currentPrice * (1 - discountRate / 100));
+            newPrice = (newPrice / 10) * 10;
+            product.setPrice(newPrice);
+        }
+
+        return pointProducts;
     }
 
     @Override
     public List<CategoryProductWithReviewDTO> getHighDiscount() {
-        return productMapper.getHighDiscount();
+        List<CategoryProductWithReviewDTO> highProducts = productMapper.getHighDiscount();
+
+        for (CategoryProductWithReviewDTO product : highProducts) {
+            int currentPrice = product.getPrice();
+            double discountRate = product.getDiscountRate();
+            int newPrice = (int) (currentPrice * (1 - discountRate / 100));
+            newPrice = (newPrice / 10) * 10;
+            product.setPrice(newPrice);
+        }
+
+        return highProducts;
     }
 
 }
