@@ -22,12 +22,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean isEmailDuplicate(String emailToCheck) {
+    public Member checkDuplicateEmail(String emailToCheck) {
         return memberMapper.emailCheck(emailToCheck);
     }
 
     @Override
-    public int modifyInfo(Member v) {
+    public int modify(Member v) {
         return memberMapper.updateInfo(v);
     }
 

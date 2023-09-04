@@ -2,9 +2,10 @@ package lotbook.lotbook.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lotbook.lotbook.service.MemberService;
 import lotbook.lotbook.dto.entity.Cart;
+import lotbook.lotbook.dto.entity.Member;
 import lotbook.lotbook.service.CartService;
+import lotbook.lotbook.service.MemberService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,9 +43,11 @@ public class AxiosController {
         return result;
     }
 
-    @GetMapping(value="/api/checkDuplicateEmail")
+    @GetMapping(value="/checkDuplicateEmail")
     @ResponseBody
-    public boolean checkDuplicateEmail(Model model, @RequestParam String email) {
-        return memberService.isEmailDuplicate(email);
+    public boolean checkDuplicateEmail(@RequestParam String email) {
+        System.out.println("찾아옴!!");
+        Member member = memberService.checkDuplicateEmail(email);
+        return member!=null;
     }
 }
