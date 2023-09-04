@@ -3,10 +3,13 @@ package lotbook.lotbook.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lotbook.lotbook.dto.entity.Member;
+import lotbook.lotbook.dto.entity.Point;
 import lotbook.lotbook.dto.request.LoginRequest;
 import lotbook.lotbook.dto.request.SignupDto;
+import lotbook.lotbook.enums.PointStateEnum;
 import lotbook.lotbook.service.CartService;
 import lotbook.lotbook.service.MemberService;
+import lotbook.lotbook.service.PointService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +31,7 @@ public class MemberController {
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     private final MemberService memberService;
     private final CartService cartService;
+    private final PointService pointService;
 
     @PostMapping(value = "/login")
     public String login(Model model, LoginRequest loginDto, HttpServletRequest request) {
@@ -78,8 +82,9 @@ public class MemberController {
         return "index";
     }
 
-    @GetMapping(value = "/signup")
+    @PostMapping(value = "/signup")
     public String signup(Model model, SignupDto signupDto) {
+        System.out.println("회원가입!");
         String password = bCryptPasswordEncoder.encode(signupDto.getPassword());
         signupDto.setPassword(password);
 
@@ -98,12 +103,12 @@ public class MemberController {
             model.addAttribute("center", "signin");
             model.addAttribute("msg", "회원가입을 축하합니다! 로그인을 진행해주세요 :)");
 
-            /*Point point = null;
-            int memberSeq = pointServiceImpl.getMemberSeq();
+            Point point = null;
+            int memberSeq = pointService.getMemberSeq();
 
             point = Point.builder().point(1000).state(PointStateEnum.REGISTERED).memberSequence(memberSeq).build();
-            pointServiceImpl.register(point);
-            pointServiceImpl.modify(point);*/
+            pointService.regisster(point);
+            pointService.modify(point);
 
         } catch (Exception e) {
             e.printStackTrace();
