@@ -293,32 +293,30 @@ $(document)
 	    const emailInput = document.getElementById("email");
 	    const email = emailInput.value;
 
-	    $.ajax({
-	        url: "/api/checkDuplicateEmail?email=" + email,
-	        method: "GET",
-	        success: function(data) {
-	        	const messageElement = document.getElementById("email_message");
-	            const registerButton = document.getElementById("register_btn");
-	            const emailInput = document.getElementById("email");
-	            console.log(data);
-	            if (data === false) {
-	            	messageElement.innerText = "사용 가능한 이메일입니다.";
-	                messageElement.style.color = "green";
-	            } else if (data === true) {
-	            	 messageElement.innerText = "중복된 이메일입니다. 다시 입력해 주세요.";
-	            	 emailInput.value = "";
-	                 messageElement.style.color = "red";
-	            } else {
-	                console.log(data);
-	                alert("오류가 발생했습니다.");
-	            }
-	        },
-	        error: function(error) {
-	            console.log(error);	
-	            console.log("에러입니다.");
-	        }
-	    });
+		axios
+			.get("/api/checkDuplicateEmail?email=" + email)
+			.then((response) => {
+				const messageElement = document.getElementById("email_message");
+				const registerButton = document.getElementById("register_btn");
+				const emailInput = document.getElementById("email");
+				console.log(response.data); // 응답 데이터는 response.data에서 얻을 수 있습니다.
 
+				if (response.data === false) {
+					messageElement.innerText = "사용 가능한 이메일입니다.";
+					messageElement.style.color = "green";
+				} else if (response.data === true) {
+					messageElement.innerText = "중복된 이메일입니다. 다시 입력해 주세요.";
+					emailInput.value = "";
+					messageElement.style.color = "red";
+				} else {
+					console.log(response.data);
+					alert("오류가 발생했습니다.");
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+				console.log("에러입니다.");
+			});
 	}
 
 
