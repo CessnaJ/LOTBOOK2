@@ -14,7 +14,7 @@ String[] orderProductList = request.getParameterValues("orderProductList");
 
 function get_my_info(name, email, memberPhone, zipcode, streetAddress, addressDetail) {
 	const checkbox = document.getElementById("check_box");
-
+	console.log("name", name);
 	if (checkbox.checked) {
 		document.getElementById("custName").value = name;
 		document.getElementById("custEmail").value = email;
@@ -174,18 +174,19 @@ function use_point(value, totalPrice, myPoint) {
 			<h4>결제 확인서</h4>
 				<form
 				id="register_form"
-				action="main.bit?view=checkout-result&cmd=2&count=${count}&price=${res.price}&point=${res.pointAccumulationRate}&productId=${productId}"
-				method="post">
+				action="/checkout/api/checkout-result?cmd=2&count=${count}&price=${res.price}&pointAccumulationRate=${res.pointAccumulationRate}&productId=${productId}"
+				method="post"
+				>
 				<span style="display: none;" id="pointAccumulationRate">${res.pointAccumulationRate }</span>
 				<span style="display: none;" id="productId">${productId }</span>
 				<input type="hidden" name="view" value="checkout-result" />
 				<div class="row">
 					<div class="col-lg-8 col-md-6">
-						<div class="d-flex flex-col align-items-center">
+						<p class="d-flex flex-col align-items-center">
 							<input id="check_box" type="checkbox" class="mb-3 text-dark"
 								onclick="get_my_info('${logincust.name }', '${logincust.email }', '${logincust.memberPhone }', '${logincust.zipcode }', '${logincust.streetAddress }', '${logincust.addressDetail }')">
-							<p class="ml-2 text-muted">내 정보 불러오기</p>
-						</div>
+							<label for="check_box" class="ml-2 text-muted" style="position: relative; top:-2px;">내 정보 불러오기</label>
+						</p>
 						<div class="row">
 							<div class="col-lg-8 col-md-6">
 								<div class="checkout__input">
@@ -286,14 +287,14 @@ function use_point(value, totalPrice, myPoint) {
 						</div>
 					</div>
 					<div class="checkout__order__total">
-						총 결제 금액 
+						총 결제 금액 (원)
 						<span id="totalPrice">
 							${orderProductList[fn:length(orderProductList) - 1].totalPrice }
-	                    </span>원
+	                    </span>
 					</div>
 					<button type="submit" class="site-btn">주문하기</button>
 					
-					<img src="/img/payment-kakao.png" style="margin-top:10px;"  alt="kakao 결제" onClick={requestPay()}>
+					<img src="/img/payment-kakao.png" style="margin-top:10px; cursor: pointer;"  alt="kakao 결제" onClick={requestPay()} >
 				</div>
 			</div>
 		</div>
@@ -345,17 +346,18 @@ function requestPay() {
         buyer_postcode :receiverPostCode
     }, function (rsp) { // callback
     	console.log(rsp);
-
-    	location.href="main.bit?view=checkout-result&cmd=2&name=" + encodeURIComponent(productName) + "&count=" + productCount + "&price=" + totalPrice + "&point=" + pointAccumulationRate + "&productId=" + productId
-		+ "&input__receiverName=" + receiverName
-		+ "&input__phone=" + receiverPhone
-		+ "&input__zipcode=" + receiverPostCode
-		+ "&input__street_address=" + receiverAddress
-		+ "&input__address_detail=" + receiverDetailAddress
-		+ "&input__vendor_message=" + receiverMessage
-		+ "&input__email=" + receiverEmail
-		+ "&usePoint=" + document.getElementById("usePoint").value;
-         //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+		if(rsp.success){
+			location.href="main.bit?view=checkout-result&cmd=2&name=" + encodeURIComponent(productName) + "&count=" + productCount + "&price=" + totalPrice + "&pointAccumulationRate=" + pointAccumulationRate + "&productId=" + productId
+					+ "&input__receiverName=" + receiverName
+					+ "&input__phone=" + receiverPhone
+					+ "&input__zipcode=" + receiverPostCode
+					+ "&input__street_address=" + receiverAddress
+					+ "&input__address_detail=" + receiverDetailAddress
+					+ "&input__vendor_message=" + receiverMessage
+					+ "&input__email=" + receiverEmail
+					+ "&usePoint=" + document.getElementById("usePoint").value;
+			//rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+		}
     });
 }
 

@@ -594,7 +594,7 @@
        }
        var count = Number($('#product-count').val());
        // Redirect to the checkout page with the specified count and product ID
-       window.location.href = 'main.bit?view=checkoutbuynow&count=' + count + '&productId=' + productId + '&memberSeq=' + memberSeq;
+       window.location.href = '/checkout/api/checkoutbuynow?count=' + count + '&productId=' + productId + '&memberSeq=' + memberSeq;
    }
    
    

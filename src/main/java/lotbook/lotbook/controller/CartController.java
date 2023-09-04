@@ -191,7 +191,7 @@ public class CartController {
 
             // 포인트 사용
             Point point = Point.builder().point(cartToOrder.getUsePoint()).state(PointStateEnum.USED).memberSequence(cartToOrder.getMemberSequence()).build();
-            pointService.regisster(point);
+            pointService.register(point);
             pointService.modify(point);
 
 
