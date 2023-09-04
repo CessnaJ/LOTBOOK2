@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewWithNameMapper{
+public class ReviewWithNameMapperDTO {
 	private long sequence;
 	private int rating;
 	private String comment;

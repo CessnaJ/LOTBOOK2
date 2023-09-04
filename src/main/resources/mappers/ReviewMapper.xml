@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="lotbook.lotbook.repository.ReviewMapper">
 
-    <select id="selectReviewsByProductSequence" parameterType="long" resultType="lotbook.lotbook.dto.mapper.ReviewWithNameMapper">
+    <select id="selectReviewsByProductSequence" parameterType="long" resultType="lotbook.lotbook.dto.mapper.ReviewWithNameMapperDTO">
         SELECT
             r.sequence, r.rating, r.comment, r.created_at, r.updated_at,
             r.is_deleted, r.member_sequence, r.product_sequence,

@@ -1,8 +1,10 @@
 package lotbook.lotbook.repository;
 
-import lotbook.lotbook.dto.entity.Product;
+import lotbook.lotbook.dto.mapper.ReviewWithNameMapperDTO;
+
+import java.util.List;
 
 public interface ReviewMapper {
-    Product selectReviewsByProductSequence(long productSequence);
+    List<ReviewWithNameMapperDTO> selectReviewsByProductSequence(long productSequence);
 
 }
