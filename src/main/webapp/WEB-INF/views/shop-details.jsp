@@ -91,7 +91,7 @@
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="header__logo">
-					<a href="/page/main"><img src="/img/logo.png" alt=""></a>
+					<a href="/main"><img src="/img/logo.png" alt=""></a>
 				</div>
 			</div>
 			<div class="col-lg-6">
@@ -594,7 +594,7 @@
        }
        var count = Number($('#product-count').val());
        // Redirect to the checkout page with the specified count and product ID
-       window.location.href = 'main.bit?view=checkoutbuynow&count=' + count + '&productId=' + productId + '&memberSeq=' + memberSeq;
+       window.location.href = '/checkout/api/checkoutbuynow?count=' + count + '&productId=' + productId + '&memberSeq=' + memberSeq;
    }
    
    
