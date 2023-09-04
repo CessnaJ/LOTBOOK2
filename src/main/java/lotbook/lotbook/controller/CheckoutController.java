@@ -89,7 +89,7 @@ public class CheckoutController {
         Order order = Order.builder().receiverName(receiver_name).orderPhone(order_phone)
                 .vendorMessage(vendor_message).addressDetail(address_detail).streetAddress(street_address)
                 .receiverEmail(email).zipcode(zipcode).memberSequence(Long.parseLong(String.valueOf(loggedInUser.getSequence()))).build();
-//        String cmd = request.getParameter("cmd");
+
         int usePoint = Integer.parseInt(request.getParameter("usePoint")) * -1;
 
         int totalPoint = 0;
@@ -160,12 +160,6 @@ public class CheckoutController {
             // 바로 구매한 경우
             try {
                 orderService.register(order);
-//
-//                int count = Integer.parseInt(request.getParameter("count"));
-//                int productId = Integer.parseInt(request.getParameter("productId"));
-//                double pointAccumulationRate = Double.valueOf(request.getParameter("point"));
-//                Integer price = Integer.parseInt(request.getParameter("price"));
-
 
                 List<Order> orderList = orderService
                         .getAll(Order.builder().memberSequence(loggedInUser.getSequence()).build());
