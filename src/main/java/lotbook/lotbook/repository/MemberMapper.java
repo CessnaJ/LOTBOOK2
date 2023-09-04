@@ -9,7 +9,7 @@ public interface MemberMapper {
 
     List<Member> selectAllMembers();
 
-    Member selectMemberBySequence(int sequence);
+    Member selectById(int sequence);
 
     int insertMember(Member member);
 

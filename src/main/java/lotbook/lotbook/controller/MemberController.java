@@ -84,7 +84,6 @@ public class MemberController {
 
     @PostMapping(value = "/signup")
     public String signup(Model model, SignupDto signupDto) {
-        System.out.println("회원가입!");
         String password = bCryptPasswordEncoder.encode(signupDto.getPassword());
         signupDto.setPassword(password);
 

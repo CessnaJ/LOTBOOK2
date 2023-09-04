@@ -39,7 +39,7 @@
 <script>
 function redirectToMyPage() {
     var memberSeq = ${logincust.sequence}; // 로그인 사용자의 sequence 값을 가져와 사용
-    window.location.href = "main.bit?view=mypage&memberSeq=" + memberSeq;
+    window.location.href = "/main/mypage?memberSeq=" + memberSeq;
 }
 </script>
 <!-- Header Section Begin -->
@@ -52,7 +52,7 @@ function redirectToMyPage() {
 					<c:choose>
 						<c:when test="${logincust != null }">
 							<li class="active"><a
-									href="/mypage?memberSeq=${logincust.sequence }"><i
+									href="/main/mypage?memberSeq=${logincust.sequence }"><i
 									class="fa fa-user"></i> 마이페이지</a></li>
 							<li class=""><a href="/member/logout"><i
 									class="fa fa-user"></i> 로그아웃</a></li>
