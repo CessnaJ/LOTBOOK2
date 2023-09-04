@@ -160,55 +160,109 @@
 								<div class="shoping__cart__table">
 									<table>
 										<tbody>
-											<c:forEach items="${myCartProductList }" var="product">	
-												<tr>
-													<td>
-														<input id="cart_checkbox${product.sequence }" type="checkbox" onclick="is_checked(${product.sequence }, ${product.count }, ${product.price }, ${product.discountRate }, ${product.pointAccumulationRate }, ${product.stock }, '${product.name }')">
-													</td>
-													<td class="d-flex flex-col ml-4" style="margin-right: 20px; width: 500px; text-align: left; font-weight: 700; font-size: 18px;"><img
-														src="${product.productImgurl }" alt="" style="width: 85px;">
-														<div class="mt-4 ml-4">
-															${product.name }
-															<p class="small mb-0">${product.content.substring(0, 60) }...</p>
-															<div class="d-flex flex-col mt-2">
-									                          <p class="text-warning font-weight-bold">
-									                          	<c:set var="discount" value="${product.discountRate }"/>
-																<fmt:formatNumber type="number" value="${discount}" />
-																% 할인
-															  </p>
-															  &nbsp;&nbsp;&nbsp;&nbsp;
-															  <p class="font-italic text-dark">총 누적 포인트: </p>
-															  &nbsp;&nbsp;&nbsp;
-															  <p class="font-italic text-danger" id="point${product.sequence }">
-															  	<c:set var="totalPoint" value="${((product.price * product.count) * product.pointAccumulationRate * 0.01) - ((product.price * product.count) * product.pointAccumulationRate * 0.01)%11 }"/>
-									  							<fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPoint}"/>
-															  </p>
-															  &nbsp;
-															  <p class="font-italic text-dark">점</p>
-									                          </div>
-															</div>
-													</td>
-													<td style="font-size: 15px; color: #1c1c1c; font-weight: 300; width: 200px">
-														<c:set var="price" value="${(product.price * ((100 - product.discountRate) * 0.01)) - ((product.price * ((100 - product.discountRate) * 0.01)))%10 }"/>
-														<fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/>
-														원
-													</td>
-													<td class="col-1">
-														<div class="d-flex flex-row align-items-center bg-light">
-								                          	<span class="p-3 text-dark btn" onclick="reduceCount(${product.sequence}, ${product.productSequence}, ${logincust.sequence }, ${product.price }, ${product.discountRate }, ${product.pointAccumulationRate })">-</span>
-								                          	<h5 class="fw-normal mb-0 ml-2" id="product-count${product.sequence }">${product.count }</h5>
-								                        	<span class="p-3 text-dark btn" onclick="addCount(${product.sequence}, ${product.productSequence}, ${logincust.sequence }, ${product.price }, ${product.discountRate }, ${product.pointAccumulationRate })">+</span>
-								                        </div>
-													</td>
-													<td style="font-size: 18px; color: #1c1c1c; font-weight: 700; width: 400px" id="price${product.sequence }">
-														<c:set var="price" value="${(product.price * ((100 - product.discountRate) * 0.01)) * product.count - ((product.price * ((100 - product.discountRate) * 0.01)) * product.count)%10 }"/>
-														<fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/>
-														원
-													</td>
-													<td class="shoping__cart__item__close">
-														<span class="icon_close" onclick="open_modal(${product.sequence}, ${logincust.sequence }, '${product.name }')"></span>
-													</td>
-												</tr>
+											<c:forEach items="${myCartProductList }" var="product">
+												<c:choose>
+													<c:when test="${product.stock < product.count}">
+														<tr style="background-color: #dfe0e1; z-index: 50;">
+															<td>
+
+															</td>
+															<td class="d-flex flex-col ml-4" style="margin-right: 20px; width: 500px; text-align: left; font-weight: 700; font-size: 18px;"><img
+																	src="${product.productImgurl }" alt="" style="width: 85px;">
+																<div class="mt-4 ml-4">
+																		${product.name }
+																	<p class="small mb-0">${product.content.substring(0, 60) }...</p>
+																	<div class="d-flex flex-col mt-2">
+																		<p class="text-warning font-weight-bold">
+																			<c:set var="discount" value="${product.discountRate }"/>
+																			<fmt:formatNumber type="number" value="${discount}" />
+																			% 할인
+																		</p>
+																		&nbsp;&nbsp;&nbsp;&nbsp;
+																		<p class="font-italic text-dark">총 누적 포인트: </p>
+																		&nbsp;&nbsp;&nbsp;
+																		<p class="font-italic text-danger" id="point${product.sequence }">
+																			<c:set var="totalPoint" value="${((product.price * product.count) * product.pointAccumulationRate * 0.01) - ((product.price * product.count) * product.pointAccumulationRate * 0.01)%11 }"/>
+																			<fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPoint}"/>
+																		</p>
+																		&nbsp;
+																		<p class="font-italic text-dark">점</p>
+																	</div>
+																</div>
+															</td>
+															<td style="font-size: 15px; color: #1c1c1c; font-weight: 300; width: 200px">
+																<c:set var="price" value="${(product.price * ((100 - product.discountRate) * 0.01)) - ((product.price * ((100 - product.discountRate) * 0.01)))%10 }"/>
+																<fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/>
+																원
+															</td>
+															<td class="col-1">
+																<div class="d-flex flex-row align-items-center bg-light">
+																	<span class="p-3 text-dark btn" onclick="reduceCount(${product.sequence}, ${product.productSequence}, ${logincust.sequence }, ${product.price }, ${product.discountRate }, ${product.pointAccumulationRate })">-</span>
+																	<h5 class="fw-normal mb-0 ml-2" id="product-count${product.sequence }">${product.count }</h5>
+																	<span class="p-3 text-dark btn" onclick="addCount(${product.sequence}, ${product.productSequence}, ${logincust.sequence }, ${product.price }, ${product.discountRate }, ${product.pointAccumulationRate })">+</span>
+																</div>
+															</td>
+															<td style="font-size: 18px; color: #1c1c1c; font-weight: 700; width: 400px" id="price${product.sequence }">
+																<c:set var="price" value="${(product.price * ((100 - product.discountRate) * 0.01)) * product.count - ((product.price * ((100 - product.discountRate) * 0.01)) * product.count)%10 }"/>
+																<fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/>
+																원
+															</td>
+															<td class="shoping__cart__item__close">
+
+															</td>
+														</tr>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td>
+																<input id="cart_checkbox${product.sequence }" type="checkbox" onclick="is_checked(${product.sequence }, ${product.count }, ${product.price }, ${product.discountRate }, ${product.pointAccumulationRate }, ${product.stock }, '${product.name }')">
+															</td>
+															<td class="d-flex flex-col ml-4" style="margin-right: 20px; width: 500px; text-align: left; font-weight: 700; font-size: 18px;"><img
+																	src="${product.productImgurl }" alt="" style="width: 85px;">
+																<div class="mt-4 ml-4">
+																		${product.name }
+																	<p class="small mb-0">${product.content.substring(0, 60) }...</p>
+																	<div class="d-flex flex-col mt-2">
+																		<p class="text-warning font-weight-bold">
+																			<c:set var="discount" value="${product.discountRate }"/>
+																			<fmt:formatNumber type="number" value="${discount}" />
+																			% 할인
+																		</p>
+																		&nbsp;&nbsp;&nbsp;&nbsp;
+																		<p class="font-italic text-dark">총 누적 포인트: </p>
+																		&nbsp;&nbsp;&nbsp;
+																		<p class="font-italic text-danger" id="point${product.sequence }">
+																			<c:set var="totalPoint" value="${((product.price * product.count) * product.pointAccumulationRate * 0.01) - ((product.price * product.count) * product.pointAccumulationRate * 0.01)%11 }"/>
+																			<fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPoint}"/>
+																		</p>
+																		&nbsp;
+																		<p class="font-italic text-dark">점</p>
+																	</div>
+																</div>
+															</td>
+															<td style="font-size: 15px; color: #1c1c1c; font-weight: 300; width: 200px">
+																<c:set var="price" value="${(product.price * ((100 - product.discountRate) * 0.01)) - ((product.price * ((100 - product.discountRate) * 0.01)))%10 }"/>
+																<fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/>
+																원
+															</td>
+															<td class="col-1">
+																<div class="d-flex flex-row align-items-center bg-light">
+																	<span class="p-3 text-dark btn" onclick="reduceCount(${product.sequence}, ${product.productSequence}, ${logincust.sequence }, ${product.price }, ${product.discountRate }, ${product.pointAccumulationRate })">-</span>
+																	<h5 class="fw-normal mb-0 ml-2" id="product-count${product.sequence }">${product.count }</h5>
+																	<span class="p-3 text-dark btn" onclick="addCount(${product.sequence}, ${product.productSequence}, ${logincust.sequence }, ${product.price }, ${product.discountRate }, ${product.pointAccumulationRate })">+</span>
+																</div>
+															</td>
+															<td style="font-size: 18px; color: #1c1c1c; font-weight: 700; width: 400px" id="price${product.sequence }">
+																<c:set var="price" value="${(product.price * ((100 - product.discountRate) * 0.01)) * product.count - ((product.price * ((100 - product.discountRate) * 0.01)) * product.count)%10 }"/>
+																<fmt:formatNumber type="number" maxFractionDigits="3" value="${price}"/>
+																원
+															</td>
+															<td class="shoping__cart__item__close">
+																<span class="icon_close" onclick="open_modal(${product.sequence}, ${logincust.sequence }, '${product.name }')"></span>
+															</td>
+														</tr>
+													</c:otherwise>
+												</c:choose>
 											</c:forEach>
 										</tbody>
 									</table>
