@@ -24,7 +24,7 @@ public class MypageController {
 
     @GetMapping
     public String myPage(Model model, @RequestParam long memberSeq, HttpServletRequest request) {
-        request.setAttribute("center", "mypage");
+        model.addAttribute("center", "mypage");
 
         List<Cart> cartList = new ArrayList<>();
         List<CartProduct> productList = new ArrayList<>();
@@ -38,6 +38,9 @@ public class MypageController {
             request.setAttribute("myCartList", cartList);
             productList = cartService.getProductInfo(cart);
             request.setAttribute("myCartProductList", productList);
+
+            int cartCount = cartService.getCartCount(memberSeq);
+            request.setAttribute("cartCount", cartCount);
         } catch (Exception e) {
             e.printStackTrace();
         }
