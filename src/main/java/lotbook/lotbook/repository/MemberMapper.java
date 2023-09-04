@@ -16,7 +16,7 @@ public interface MemberMapper {
     int updateMember(Member member);
 
     int deleteMember(int sequence);
-    boolean emailCheck(String emailToCheck);
+    Member emailCheck(String emailToCheck);
     int updateInfo(Member v);
 
 }

@@ -294,17 +294,17 @@ $(document)
 	    const email = emailInput.value;
 
 	    $.ajax({
-	        url: "/rest/api/checkDuplicateEmail&email=" + email,
+	        url: "/api/checkDuplicateEmail?email=" + email,
 	        method: "GET",
 	        success: function(data) {
 	        	const messageElement = document.getElementById("email_message");
 	            const registerButton = document.getElementById("register_btn");
 	            const emailInput = document.getElementById("email");
-	            console.log(data.isDuplicate);
-	            if (data.isDuplicate === false) {
+	            console.log(data);
+	            if (data === false) {
 	            	messageElement.innerText = "사용 가능한 이메일입니다.";
 	                messageElement.style.color = "green";
-	            } else if (data.isDuplicate === true) {
+	            } else if (data === true) {
 	            	 messageElement.innerText = "중복된 이메일입니다. 다시 입력해 주세요.";
 	            	 emailInput.value = "";
 	                 messageElement.style.color = "red";

@@ -10,7 +10,10 @@ import lotbook.lotbook.service.MemberService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -161,7 +164,7 @@ public class MemberController {
                 .build();
 
         try {
-            memberService.modifyInfo(newMemberInfo);
+            memberService.modify(newMemberInfo);
         } catch (Exception e) {
             e.printStackTrace();
         }
