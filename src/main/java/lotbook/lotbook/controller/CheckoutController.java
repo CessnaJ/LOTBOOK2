@@ -70,7 +70,7 @@ public class CheckoutController {
     }
 
     @PostMapping("/api/checkout-result")
-    public String CheckoutResultPage(Model model,@RequestParam String cmd, @RequestParam long count, @RequestParam int price, @RequestParam double pointAccumulationRate, @RequestParam long productId, HttpServletRequest request) throws Exception {
+    public String CheckoutResultPage(Model model, @RequestParam long count, @RequestParam int price, @RequestParam double pointAccumulationRate, @RequestParam long productId, HttpServletRequest request) throws Exception {
         model.addAttribute("center", "checkout-result");
         HttpSession session = request.getSession();
         Member loggedInUser = (Member) session.getAttribute("logincust");
@@ -94,69 +94,6 @@ public class CheckoutController {
 
         int totalPoint = 0;
         int totalPrice = 0;
-        if (cmd.equals("1")) {
-            // cart에서 구매한 경우
-            String parameter = request.getParameter("sequences");
-
-            String[] cartSequences = parameter.split(","); // 구매한 카트 물품들
-
-            try {
-                orderService.register(order);
-
-                // memberId에 해당하는 가장 최근 order sequence
-                List<Order> orderList = orderService
-                        .getAll(Order.builder().memberSequence(Long.parseLong(String.valueOf(loggedInUser.getSequence()))).build());
-                List<OrderDetail> orderDetailList = new ArrayList<>();
-
-                // TODO : Order sequence에 해당하는 OrderDetail 채우기
-                for (int i = 0; i < cartSequences.length; i++) {
-                    Cart tempCart = Cart.builder().sequence(Long.parseLong(cartSequences[i])).build();
-                    Cart cart = cartService.get(tempCart);
-
-                    // 이전에는 Product 전체로 get을 했어야했지만 이제는 productSequence만으로도 가능
-//                    Product tempProduct = Product.builder().sequence(cart.getProductSequence()).build();
-                    Product product = productService.get((int) cart.getProductSequence());
-
-                    try {
-                        OrderDetail orderDetail = OrderDetail.builder()
-                                .orderSequence(orderList.get(0).getSequence()).orderDetailProduct(product)
-                                .count(cart.getCount())
-                                .productPoint(product.getPointAccumulationRate() * 0.01 * product.getPrice())
-                                .productPrice(product.getPrice()).productSequence(product.getSequence()).build();
-                        totalPoint += product.getPointAccumulationRate() * 0.01 * cart.getCount()
-                                * product.getPrice();
-                        totalPrice += product.getPrice() * cart.getCount();
-                        orderDetailService.register(orderDetail);
-                        orderDetailList.add(orderDetail);
-
-                        cartService.remove(tempCart);
-                        int cartCount = cartService.getCartCount(Long.parseLong(String.valueOf(loggedInUser.getSequence())));
-                        request.setAttribute("cartCount", cartCount);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-
-                request.setAttribute("orderResult", order);
-                request.setAttribute("orderDetailResult", orderDetailList);
-                request.setAttribute("totalPoint", totalPoint);
-                request.setAttribute("totalPrice", totalPrice);
-                request.setAttribute("usedPoint", usePoint);
-
-                // 포인트 사용
-                Point point = Point.builder().point(usePoint).state(PointStateEnum.USED).memberSequence(loggedInUser.getSequence()).build();
-                pointService.register(point);
-                pointService.modify(point);
-
-
-                Member updatedUserInfo = memberService.get(Member.builder().email(loggedInUser.getEmail()).build());
-                session.setAttribute("logincust", updatedUserInfo);
-
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        } else if (cmd.equals("2")) {
             // 바로 구매한 경우
             try {
                 orderService.register(order);
@@ -188,14 +125,14 @@ public class CheckoutController {
                 for (int j = 0; j < orderDetail.size(); j++) {
                     Product product = Product.builder().sequence(orderDetail.get(j).getProductSequence()).build();
                     orderDetail.get(j).setOrderDetailProduct(productService.get((int) orderDetail.get(j).getProductSequence()));
-                    totalPrice += orderDetail.get(j).getProductPrice();
-                    totalPoint += orderDetail.get(j).getProductPoint();
+                    totalPrice += orderDetail.get(j).getProductPrice() * ( 1 - pointAccumulationRate * 0.01) * count;
+                    totalPoint += orderDetail.get(j).getProductPoint() * count;
                 }
 
-                log.info("orderDetail"+  orderDetail);
+
                 // 방금 생성된 orderDetail List
                 request.setAttribute("orderDetailResult", orderDetail);
-                request.setAttribute("totalPrice", totalPrice);
+                request.setAttribute("totalPrice", totalPrice - totalPrice % 10);
                 request.setAttribute("totalPoint", totalPoint);
                 request.setAttribute("usedPoint", usePoint);
 
@@ -212,7 +149,7 @@ public class CheckoutController {
                 e1.printStackTrace();
             }
 
-        }
+//        }
         return "index";
     }
 }
