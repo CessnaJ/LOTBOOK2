@@ -12,9 +12,15 @@ public enum ErrorCode {
 
     CART_ERROR_1("E8000", "장바구니 에러"),
 
-    CART_ERROR_2("E8001", "장바구니 에러 - 재고 부족");
+    CART_ERROR_2("E8001", "장바구니 에러 - 재고 부족"),
 
-
+    ORDER_ERROR_1("E3001", "주문 에러 - 주문 실패"),
+    ORDER_ERROR_2("E3002", "주문 에러 - 주문 조회 실패"),
+    ORDER_ERROR_3("E3003", "주문 에러 - 주문 상세 삽입 실패"),
+    ORDER_ERROR_4("E3004", "주문 에러 - 주문 상세 수정 실패"),
+    ORDER_ERROR_5("E3005", "주문 에러 - 주문 상세 조회(단건) 실패"),
+    ORDER_ERROR_6("E3006", "주문 에러 - 주문 상세 조회 실패"),
+    ORDER_ERROR_7("E3007", "주문 에러 - 주문 전체 조회 실패");
 
 
     private final String code;
