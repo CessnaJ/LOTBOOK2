@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewRequest {
+    private long sequence;
     private long memberSequence;
     private long productSequence;
     private long orderdetailSequence;

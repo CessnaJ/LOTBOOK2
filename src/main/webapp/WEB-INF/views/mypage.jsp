@@ -166,17 +166,15 @@
 
 						var formData = form.serialize();
 
-						$.ajax({
-							type: "POST",
-							url: form.attr("action"),
-							data: formData,
-							success: function(response){
-								alert("리뷰가 성공적으로 반영되었습니다!");
-								document.location.reload();
-							},
-							error: function(error) {
-							}
-						});
+						axios
+								.post(form.getAttribute("action"), formData)
+								.then((response) => {
+									alert("리뷰가 성공적으로 반영되었습니다!");
+									document.location.reload();
+								})
+								.catch((error) => {
+									// 오류 처리
+								});
 					}
 					else{
 						form.find("#alert-2").css("display", "block");
@@ -215,9 +213,9 @@
 									class="fa fa-user"></i> 로그아웃</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="active"><a href="main.bit?view=signin"><i
+							<li class="active"><a href="/page/signin"><i
 									class="fa fa-user"></i> 로그인</a></li>
-							<li class=""><a href="main.bit?view=signup"><i
+							<li class=""><a href="/page/signup"><i
 									class="fa fa-user"></i> 회원가입</a></li>
 						</c:otherwise>
 					</c:choose>
@@ -558,8 +556,8 @@
 								</div>
 								<div id="reviewCollapse-${order.sequence}-${orderDetail.sequence}"
 									 class="collapse">
-									<form name="frm" id="ratingForm" action="review.bit">
-										<input type="hidden" name="cmd" value="register"> <input
+									<form name="frm" id="ratingForm" action="/review/register">
+										<input
 											type="hidden" name="memberSequence"
 											value="${logincust.sequence }"> <input type="hidden"
 																				   name="productSequence" value="${orderDetail.productSequence}">
@@ -641,8 +639,7 @@
 								</div>
 							</div>
 							<div id="reviewList-${review.sequence}">
-								<form id="review-edit-${review.sequence }" action="review.bit" method="post" onsubmit="event.preventDefault();">
-									<input type="hidden" name="cmd" value="update">
+								<form id="review-edit-${review.sequence }" action="/review/update" method="post" onsubmit="event.preventDefault();">
 									<input type="hidden" name="sequence" value="${review.sequence }">
 									<input
 											type="hidden" name="memberSequence"
@@ -688,8 +685,7 @@
 											onclick="cancelEdit()"
 									>취소</button>
 								</form>
-								<form id="review-delete-${review.sequence }" action="review.bit" method="post">
-									<input type="hidden" name="cmd" value="delete">
+								<form id="review-delete-${review.sequence }" action="/review/delete" method="post">
 									<input type="hidden" name="sequence" value="${review.sequence }">
 									<i class="fa fa-trash-o" aria-hidden="true" style="position:absolute; right: 5%; top:10%; cursor:pointer; font-size: 130%;" onclick="confirmDelete(${review.sequence });"></i>
 								</form>
