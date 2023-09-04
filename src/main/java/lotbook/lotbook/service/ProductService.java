@@ -15,4 +15,6 @@ public interface ProductService {
     
     int updateByProductKeyWithSalesCount(OrderDetail v) throws Exception;
 
+    int updateByProductKeyWithOrderDetail(OrderDetail v) throws Exception;
+
 }

@@ -13,6 +13,6 @@ public interface ReviewMapper {
     int update(Review v);
     int delete(Review k);
     Review select(Review k);
-    List<ReviewDetails> selectReviewsByMember(Member k);
+    List<ReviewDetails> selectReviewsByMember(long k);
     Review selectReviewByOrderdetail(Review k);
 }

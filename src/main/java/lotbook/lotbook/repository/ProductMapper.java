@@ -13,4 +13,6 @@ public interface ProductMapper {
     
     int updateByProductKeyWithSalesCount(OrderDetail v);
 
+    int updateByProductKeyWithOrderDetail(OrderDetail v);
+
 }
