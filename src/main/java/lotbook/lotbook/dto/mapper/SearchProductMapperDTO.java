@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchProductMapper {
+public class SearchProductMapperDTO {
 	private long sequence;
 	private String productImgurl;
 	private String name;

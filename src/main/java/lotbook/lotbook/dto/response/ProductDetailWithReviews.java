@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lotbook.lotbook.dto.mapper.ReviewWithNameMapper;
+import lotbook.lotbook.dto.mapper.ReviewWithNameMapperDTO;
 import lotbook.lotbook.enums.ProductStateEnum;
 
 
@@ -45,7 +45,7 @@ public class ProductDetailWithReviews {
 	
 	
 	
-	private List<ReviewWithNameMapper> reviews;
+	private List<ReviewWithNameMapperDTO> reviews;
 	private double averageRating;
 
 }
