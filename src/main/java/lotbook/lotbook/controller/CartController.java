@@ -30,8 +30,7 @@ public class CartController {
     private final OrderDetailService orderDetailService;
 
     @GetMapping(value = "/shopingCart")
-    public String ShopingCartPage(Model model, @RequestParam long memberSequence) {
-        log.warn("장바구니 상세 페이지");
+    public String ShopingCartPage(Model model, @RequestParam long memberSeq) {
         model.addAttribute("center", "shoping-cart");
 
         List<Cart> cartList = new ArrayList<>();
@@ -39,7 +38,7 @@ public class CartController {
         model.addAttribute("myCartList", null);
         model.addAttribute("myCartProductList", null);
 
-        Cart cart = Cart.builder().memberSequence(memberSequence).build();
+        Cart cart = Cart.builder().memberSequence(memberSeq).build();
 
         try {
             cartList = cartService.getAll(cart);
@@ -47,7 +46,7 @@ public class CartController {
             productList = cartService.getProductInfo(cart);
             model.addAttribute("myCartProductList", productList);
 
-            int cartCount = cartService.getCartCount(memberSequence);
+            int cartCount = cartService.getCartCount(memberSeq);
             model.addAttribute("cartCount", cartCount);
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,7 +138,6 @@ public class CartController {
         Member loggedInUser = (Member) session.getAttribute("logincust");
 
         model.addAttribute("center", "checkout-result");
-        log.warn("!!!!!" + cartToOrder.getAddressDetail());
 
         Order order = Order.builder().receiverName(cartToOrder.getReceiverName()).orderPhone(cartToOrder.getOrderPhone())
                 .vendorMessage(cartToOrder.getVendorMessage()).addressDetail(cartToOrder.getAddressDetail()).streetAddress(cartToOrder.getStreetAddress())
@@ -180,19 +178,15 @@ public class CartController {
 
                     cartService.remove(tempCart);
                     int cartCount = cartService.getCartCount(cartToOrder.getMemberSequence());
-                    request.setAttribute("cartCount", cartCount);
+                    session.setAttribute("cartCount", cartCount);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             model.addAttribute("orderResult", order);
-            log.warn("order: " + order.toString());
             model.addAttribute("orderDetailResult", orderDetailList);
-            log.warn("orderDetailReesult: " + orderDetailList);
             model.addAttribute("totalPoint", totalPoint);
-            log.warn(String.valueOf(totalPoint));
             model.addAttribute("totalPrice", totalPrice);
-            log.warn(String.valueOf(totalPrice));
             model.addAttribute("usedPoint", cartToOrder.getUsePoint());
 
             // 포인트 사용

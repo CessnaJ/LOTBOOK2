@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Slf4j
@@ -25,6 +26,7 @@ public class MypageController {
     @GetMapping
     public String myPage(Model model, @RequestParam long memberSeq, HttpServletRequest request) {
         model.addAttribute("center", "mypage");
+        HttpSession session = request.getSession();
 
         List<Cart> cartList = new ArrayList<>();
         List<CartProduct> productList = new ArrayList<>();
@@ -40,7 +42,7 @@ public class MypageController {
             request.setAttribute("myCartProductList", productList);
 
             int cartCount = cartService.getCartCount(memberSeq);
-            request.setAttribute("cartCount", cartCount);
+            session.setAttribute("cartCount", cartCount);
         } catch (Exception e) {
             e.printStackTrace();
         }

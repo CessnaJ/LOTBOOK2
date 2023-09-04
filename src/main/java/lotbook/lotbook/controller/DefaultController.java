@@ -11,6 +11,7 @@ public class DefaultController {
     @GetMapping
     public String DefaultMainPage(Model model) {
         model.addAttribute("center", "main");
+
         return "index";
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -22,10 +23,13 @@ public class MainController {
     @GetMapping
     public String DefaultMainPage(Model model, HttpServletRequest request) {
         model.addAttribute("center", "main");
+        HttpSession session = request.getSession();
+        Member mem = (Member) session.getAttribute("logincust");
 
-        Member mem = (Member) request.getAttribute("logincust");
         Long memberSeq = (long) 0;
-        if (mem != null) Long.parseLong(String.valueOf(mem.getSequence()));
+        if (mem != null) {
+            memberSeq = Long.parseLong(String.valueOf(mem.getSequence()));
+        }
 
         int cartCount = 0;
         try {
@@ -34,7 +38,7 @@ public class MainController {
             throw new RuntimeException(e);
         }
 
-        request.setAttribute("cartCount", cartCount);
+        session.setAttribute("cartCount", cartCount);
         return "index";
     }
 }
