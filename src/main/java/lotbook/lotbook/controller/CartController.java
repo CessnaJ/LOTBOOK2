@@ -168,7 +168,7 @@ public class CartController {
                             .orderSequence(orderList.get(0).getSequence()).orderDetailProduct(product)
                             .count(cart.getCount())
                             .productPoint(product.getPointAccumulationRate() * 0.01 * product.getPrice())
-                            .productPrice(product.getPrice()).productSequence(product.getSequence()).build();
+                            .productPrice((int) ((product.getPrice() * (1 - product.getDiscountRate() * 0.01)) - (product.getPrice() * (1 - (product.getDiscountRate()) * 0.01))%10)).productSequence(product.getSequence()).build();
                     totalPoint += (int) (product.getPointAccumulationRate() * 0.01 * cart.getCount() * product.getPrice());
                     totalPrice += (int) (product.getPrice() * (1 - (product.getDiscountRate()) * 0.01))  * cart.getCount();
 
