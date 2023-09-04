@@ -26,6 +26,7 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public SearchResult getAllByKeyword(String keyword, String orderby, String category) throws Exception {
         log.info(keyword + orderby + category);
+        keyword = keyword.replaceAll("\\s","");
         List<SearchProductMapperDTO> searchedList = searchMapper.selectProductsByKeyword(keyword);
         List<SearchProductMapperDTO> filteredList;
         SearchResult searchResult = null;
