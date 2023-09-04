@@ -12,6 +12,14 @@ public class MemberServiceImpl implements MemberService {
     private final MemberMapper memberMapper;
 
     @Override
+    public int register(Member mem){
+        return memberMapper.insertMember(mem);
+    }
+    @Override
+    public int modify(Member v) {
+        return memberMapper.update(v);
+    }
+    @Override
     public Member get(Member mem){
         return memberMapper.select(mem);
     }
@@ -23,21 +31,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int modifyInfo(Member v) {
-        return 0;
-    }
-
-    @Override
-    public int updatePoint(long memberSequence) {
-        return 0;
-    }
-
-    @Override
-    public int updatePointConfirm(Member v) {
-        return 0;
-    }
-
-    public int register(Member mem){
-        return memberMapper.insertMember(mem);
+        return memberMapper.updateInfo(v);
     }
 
     @Override
@@ -46,9 +40,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public int modify(Member v) {
-        return memberMapper.updateInfo(v);
+    public int updatePoint(long k) {
+        return memberMapper.updatePoint(k);
     }
+
+    @Override
+    public int updatePointConfirm(Member k) {
+        return memberMapper.updatePointConfirm(k);
+    }
+
+
+
 
 
 }
