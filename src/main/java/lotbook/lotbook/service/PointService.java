@@ -6,7 +6,7 @@ import java.util.List;
 
 @Service
 public interface PointService {
-    int insert(Point v) throws Exception;
+    int regisster(Point v) throws Exception;
     int modify(Point v) throws Exception;
     int getMemberSeq() throws Exception;
     List<Point> getAll(Point v) throws Exception;

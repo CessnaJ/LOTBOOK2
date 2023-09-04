@@ -15,7 +15,7 @@ public class PointServiceImpl implements PointService {
     private final PointMapper pointMapper;
 
     @Override
-    public int insert(Point v) throws Exception {
+    public int regisster(Point v) throws Exception {
         int result = 0;
         try {
             result = pointMapper.insert(v);
