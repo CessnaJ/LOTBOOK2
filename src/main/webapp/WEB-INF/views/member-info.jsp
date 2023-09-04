@@ -39,7 +39,7 @@
 <script>
 function redirectToMyPage() {
     var memberSeq = ${logincust.sequence}; // 로그인 사용자의 sequence 값을 가져와 사용
-    window.location.href = "/main/mypage?memberSeq=" + memberSeq;
+    window.location.href = "/mypage?memberSeq=" + memberSeq;
 }
 </script>
 <!-- Header Section Begin -->
@@ -78,7 +78,7 @@ function redirectToMyPage() {
 			<div class="col-lg-6">
 				<nav class="header__menu">
 					<ul id="header__menus" >
-						<li><a href="/page/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
+						<li><a href="/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
 						<li><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
 						<li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
