@@ -3,6 +3,8 @@ package lotbook.lotbook.service;
 import lombok.RequiredArgsConstructor;
 import lotbook.lotbook.dto.entity.Cart;
 import lotbook.lotbook.dto.response.CartProduct;
+import lotbook.lotbook.enums.ErrorCode;
+import lotbook.lotbook.exception.CustomException;
 import lotbook.lotbook.repository.CartMapper;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ public class CartServiceImpl implements CartService {
             int stock = cartMapper.checkProductStock(cart);
 
             if (stock < cart.getCount()) {
-                throw new Exception("장바구니 담기 에러 - 재고 부족");
+                throw new CustomException(ErrorCode.CART_ERROR_2);
             }
 
             int dupSeq = cartMapper.checkDuplicatedProduct(cart);
@@ -33,8 +35,7 @@ public class CartServiceImpl implements CartService {
                 result = cartMapper.updateDuplicatedProduct(cart);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("장바구니 담기 에러");
+            throw new CustomException(ErrorCode.CART_ERROR_1);
         }
 
         return result;
@@ -48,12 +49,12 @@ public class CartServiceImpl implements CartService {
             int stock = cartMapper.checkProductStock(cart);
 
             if (stock < cart.getCount()) {
-                throw new Exception("장바구니 담기 에러 - 재고 부족");
+                throw new CustomException(ErrorCode.CART_ERROR_2);
             }
 
             result = cartMapper.updateCartProductCount(cart);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new CustomException(ErrorCode.CART_ERROR_1);
         }
         return result;
     }
@@ -65,7 +66,7 @@ public class CartServiceImpl implements CartService {
         try {
             result = cartMapper.updateCartState(cart);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new CustomException(ErrorCode.CART_ERROR_1);
         }
         return result;
     }
@@ -77,8 +78,7 @@ public class CartServiceImpl implements CartService {
         try {
             cartResult = cartMapper.selectCartDetail(cart);
         } catch(Exception e) {
-            e.printStackTrace();
-            throw new Exception("장바구니 단건 조회 에러");
+            throw new CustomException(ErrorCode.CART_ERROR_1);
         }
 
         return cartResult;
@@ -91,8 +91,7 @@ public class CartServiceImpl implements CartService {
         try {
             cartProduct = cartMapper.selectedCartProductInfo(cart);
         } catch(Exception e) {
-            e.printStackTrace();
-            throw new Exception("장바구니 상품 정보 조회 에러");
+            throw new CustomException(ErrorCode.CART_ERROR_1);
         }
 
         return cartProduct;
@@ -104,8 +103,7 @@ public class CartServiceImpl implements CartService {
         try {
             count = cartMapper.getCartCount(sequence);
         } catch(Exception e) {
-            e.printStackTrace();
-            throw new Exception("장바구니 개수 조회 에러");
+            throw new CustomException(ErrorCode.CART_ERROR_1);
         }
         return count;
     }
@@ -117,8 +115,7 @@ public class CartServiceImpl implements CartService {
             cartList = cartMapper.selectCartAll(cart);
 
         } catch(Exception e) {
-            e.printStackTrace();
-            throw new Exception("장바구니 전체 조회 에러");
+            throw new CustomException(ErrorCode.CART_ERROR_1);
         }
         return cartList;
     }
@@ -129,8 +126,7 @@ public class CartServiceImpl implements CartService {
         try {
             product = cartMapper.selectProductInfo(cart);
         } catch(Exception e) {
-            e.printStackTrace();
-            throw new Exception("장바구니 상품 정보 조회 에러");
+            throw new CustomException(ErrorCode.CART_ERROR_1);
         }
         return product;
     }
