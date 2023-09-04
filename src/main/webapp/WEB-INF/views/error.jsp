@@ -100,7 +100,7 @@
                 <div class="breadcrumb__text">
                     <h2>에러페이지</h2>
                     <div class="breadcrumb__option">
-                        <a href="index.jsp">Home</a> <span>에러발생</span>
+                        <a href="/main">Home</a> <span>에러발생</span>
                     </div>
                 </div>
             </div>

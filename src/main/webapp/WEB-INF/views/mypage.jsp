@@ -298,7 +298,7 @@
 				<div class="breadcrumb__text">
 					<h2>마이페이지</h2>
 					<div class="breadcrumb__option">
-						<a href="./index.jsp">Home</a> <span>mypage</span>
+						<a href="/main">Home</a> <span>mypage</span>
 					</div>
 				</div>
 			</div>
