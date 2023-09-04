@@ -109,7 +109,7 @@ AOS.init({
 				<div class="breadcrumb__text">
 					<h2>고객센터</h2>
 					<div class="breadcrumb__option">
-						<a href="index.jsp">Home</a> <span>고객센터</span>
+						<a href="/main">Home</a> <span>고객센터</span>
 					</div>
 				</div>
 			</div>

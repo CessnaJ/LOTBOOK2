@@ -135,7 +135,7 @@
 				<div class="breadcrumb__text">
 					<h2>장바구니</h2>
 					<div class="breadcrumb__option">
-						<a href="index.jsp">Home</a> <span>Shopping Cart</span>
+						<a href="/main">Home</a> <span>Shopping Cart</span>
 					</div>
 				</div>
 			</div>

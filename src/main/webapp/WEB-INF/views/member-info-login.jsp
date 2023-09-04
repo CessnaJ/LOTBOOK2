@@ -113,7 +113,7 @@
 				<div class="breadcrumb__text">
 					<h2>회원정보</h2>
 					<div class="breadcrumb__option">
-						<a href="index.jsp">Home</a> <span>member-info</span>
+						<a href="/main">Home</a> <span>member-info</span>
 					</div>
 				</div>
 			</div>

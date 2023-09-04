@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta property="og:title" content="LOTBOOK">
-<meta property="og:url" content="http://main.lotbook.kro.kr/index.jsp">
+<meta property="og:url" content="http://main.lotbook.kro.kr/main">
 <meta property="og:image" content="https://github.com/Hyevvy/lotbook/assets/72402747/cdd38456-7c67-4d54-b4b9-e66d7cd9099b">
 <meta property="og:description" content="오늘의 이야기, 내일을 엽니다.">
 <meta name="description" content="오늘의 이야기, 내일을 엽니다.">
