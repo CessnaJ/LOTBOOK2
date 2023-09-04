@@ -67,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
                 .reviews(reviews)
                 .averageRating(avgRating)
                 .build();
-    
+    }
     
     public int updateByProductKeyWithSalesCount(OrderDetail v) throws Exception {
         int result = 0;
