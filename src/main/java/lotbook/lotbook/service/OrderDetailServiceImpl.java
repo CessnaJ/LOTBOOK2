@@ -3,12 +3,15 @@ package lotbook.lotbook.service;
 import lombok.RequiredArgsConstructor;
 import lotbook.lotbook.dto.entity.OrderDetail;
 import lotbook.lotbook.dto.response.OrderDetailResponse;
+import lotbook.lotbook.exception.CustomException;
 import lotbook.lotbook.repository.OrderDetailMapper;
 import lotbook.lotbook.repository.ProductMapper;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
+
+import static lotbook.lotbook.enums.ErrorCode.*;
 
 
 @Slf4j
@@ -27,27 +30,23 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                 productMapper.updateByProductKeyWithSalesCount(v);
 
             } else {
-                throw new Exception("ER3002");
+                throw new CustomException(ORDER_ERROR_2);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("ER3003");
+            throw new CustomException(ORDER_ERROR_3);
         }
         return result;
     }
 
     @Override
     public List<OrderDetailResponse> get(long orderId) throws Exception {
-//        System.out.println("Mapper에서 orderId- " + orderId);
-        log.info("Mapper에서 orderDetail"+  orderId);
         List<OrderDetailResponse> orderDetail;
         try {
             orderDetail = orderDetailMapper.selectAll(orderId);
-
-            System.out.println("Mapper에서 - " + orderDetail);
         } catch(Exception e) {
             e.printStackTrace();
-            throw new Exception("ER3006");
+            throw new CustomException(ORDER_ERROR_2);
         }
         return orderDetail;
     }
