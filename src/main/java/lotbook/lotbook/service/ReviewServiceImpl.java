@@ -1,7 +1,6 @@
 package lotbook.lotbook.service;
 
 import lombok.RequiredArgsConstructor;
-import lotbook.lotbook.dto.entity.Member;
 import lotbook.lotbook.dto.entity.Review;
 import lotbook.lotbook.dto.response.ReviewDetails;
 import lotbook.lotbook.repository.ReviewMapper;
@@ -42,7 +41,7 @@ public class ReviewServiceImpl implements ReviewService{
     public int remove(Review k) throws Exception {
         int result = 0;
         try {
-            result = reviewMapper.delete(k);
+            result = reviewMapper.updateReviewState(k);
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("ER7003 - 리뷰 삭제 에러");

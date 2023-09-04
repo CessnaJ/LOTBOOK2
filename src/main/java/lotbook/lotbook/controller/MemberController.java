@@ -173,11 +173,10 @@ public class MemberController {
             e.printStackTrace();
         }
 
-            // MainController 생기기 전에
-//        redirectAttributes.addAttribute("memberSeq", sequence);
-//        return "redirect:/main/mypage";
-        model.addAttribute("center", "member-info-login");
-        return "index";
+        redirectAttributes.addAttribute("memberSeq", sequence);
+        return "redirect:/main/mypage";
+//        model.addAttribute("center", "member-info-login");
+//        return "index";
     }
 
 

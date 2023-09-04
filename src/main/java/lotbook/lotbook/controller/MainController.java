@@ -53,7 +53,6 @@ public class MainController {
     }
     @GetMapping("/mypage")
     public String myPage(Model model, @RequestParam("memberSeq") String memberSeq){
-
         List<Cart> cartList = new ArrayList<>();
         List<CartProduct> productList = new ArrayList<>();
         model.addAttribute("myCartList", null);
