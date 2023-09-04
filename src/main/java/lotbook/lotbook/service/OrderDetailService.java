@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface OrderDetailService {
-    int insert(OrderDetail o) throws Exception;
+    int register(OrderDetail o) throws Exception;
 }
