@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lotbook.lotbook.dto.entity.OrderDetail;
 import lotbook.lotbook.dto.entity.Product;
+import lotbook.lotbook.dto.mapper.CategoryProductWithReviewDTO;
 import lotbook.lotbook.dto.mapper.ProductRelatedNameMapperDTO;
 import lotbook.lotbook.dto.mapper.ReviewWithNameMapperDTO;
 import lotbook.lotbook.dto.response.ProductDetailWithReviews;
@@ -88,6 +89,26 @@ public class ProductServiceImpl implements ProductService {
             throw new Exception("베스트셀러 책 검색 에러");
         }
         return result;
+    }
+
+    @Override
+    public List<CategoryProductWithReviewDTO> getPopular() {
+        return productMapper.getPopular();
+    }
+
+    @Override
+    public List<CategoryProductWithReviewDTO> getLatest() {
+        return productMapper.getLatest();
+    }
+
+    @Override
+    public List<CategoryProductWithReviewDTO> getHighPoint() {
+        return productMapper.getHighPoint();
+    }
+
+    @Override
+    public List<CategoryProductWithReviewDTO> getHighDiscount() {
+        return productMapper.getHighDiscount();
     }
 
 }

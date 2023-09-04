@@ -4,6 +4,12 @@
 <!DOCTYPE html>
 <html lang="zxx">
 
+
+<script>
+	console.log(${popularProducts});
+</script>
+
+
 <head>
 <meta charset="UTF-8">
 <meta property="og:title" content="LOTBOOK">

@@ -30,4 +30,20 @@
         UPDATE `product` SET sales_count = sales_count + #{count}, stock = stock - #{count} WHERE sequence = ${productSequence};
     </update>
 
+    <select id="getLatest" resultType="lotbook.lotbook.dto.mapper.CategoryProductWithReviewDTO">
+        SELECT * FROM product ORDER BY created_at DESC LIMIT 6;
+    </select>
+
+    <select id="getHighPoint" resultType="lotbook.lotbook.dto.mapper.CategoryProductWithReviewDTO">
+        SELECT * FROM product ORDER BY point_accumulation_rate DESC LIMIT 6;
+    </select>
+
+    <select id="getHighDiscount" resultType="lotbook.lotbook.dto.mapper.CategoryProductWithReviewDTO">
+        SELECT * FROM product ORDER BY discount_rate DESC LIMIT 6;
+    </select>
+
+    <select id="getPopular" resultType="lotbook.lotbook.dto.mapper.CategoryProductWithReviewDTO">
+        SELECT DISTINCT * FROM product ORDER BY sales_count DESC LIMIT 6;
+    </select>
+
 </mapper>

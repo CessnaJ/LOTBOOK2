@@ -4,12 +4,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
+<%--<%
 String[] BestSeller = request.getParameterValues("BestSeller");
 String[] Latest = request.getParameterValues("Latest");
 String[] BigPoint = request.getParameterValues("BigPoint");
 String[] BigDiscount = request.getParameterValues("BigDiscount");
-%>
+%>--%>
 
 <jsp:include page="popup.jsp" />
 
@@ -18,6 +18,9 @@ AOS.init({
 	easing: 'ease-out-back',
 	duration: 1000
 	});
+
+console.log("hi");
+
 </script>
 
 <!-- Header Section Begin -->
@@ -80,6 +83,7 @@ AOS.init({
 		</div>
 	</div>
 </header>
+
 <!-- Header Section End -->
 <!-- Hero Section Begin -->
 <section class="hero">
@@ -133,7 +137,7 @@ AOS.init({
 			<div class="container">
 				<div class="row">
 					<div class="categories__slider owl-carousel">
-						<c:forEach items="${BestSeller }" var="product">
+						<c:forEach items="${popularProducts }" var="product">
 							<div class="col-lg-3">
 								<a
 									href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}">
@@ -190,7 +194,7 @@ AOS.init({
 					<h4>따끈따끈 신작✨</h4>
 					<div class="latest-product__slider owl-carousel">
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${Latest}" var="product" begin="0" end="2">
+							<c:forEach items="${LatestProducts}" var="product" begin="0" end="2">
 								<div class="col-lg-12">
 									<a
 										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
@@ -211,7 +215,7 @@ AOS.init({
 							</c:forEach>
 						</div>
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${Latest}" var="product" begin="3" end="5">
+							<c:forEach items="${LatestProducts}" var="product" begin="3" end="5">
 								<div class="col-lg-12">
 									<a
 										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
@@ -239,7 +243,7 @@ AOS.init({
 					<h4>포인트 팡팡🎉</h4>
 					<div class="latest-product__slider owl-carousel">
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${BigPoint}" var="product" begin="0" end="2">
+							<c:forEach items="${PointProducts}" var="product" begin="0" end="2">
 								<div class="col-lg-12">
 									<a
 										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
@@ -260,7 +264,7 @@ AOS.init({
 							</c:forEach>
 						</div>
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${BigPoint}" var="product" begin="3" end="5">
+							<c:forEach items="${PointProducts}" var="product" begin="3" end="5">
 								<div class="col-lg-12">
 									<a
 										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
@@ -288,7 +292,7 @@ AOS.init({
 					<h4>사장님이 미쳤어요😆</h4>
 					<div class="latest-product__slider owl-carousel">
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${BigDiscount}" var="product" begin="0" end="2">
+							<c:forEach items="${DiscountrProducts}" var="product" begin="0" end="2">
 								<div class="col-lg-12">
 									<a
 										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
@@ -309,7 +313,7 @@ AOS.init({
 							</c:forEach>
 						</div>
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${BigDiscount}" var="product" begin="3" end="5">
+							<c:forEach items="${DiscountrProducts}" var="product" begin="3" end="5">
 								<div class="col-lg-12">
 									<a
 										href="/lotbook/product-detail.bit?view=shop-details&sequence=${product.sequence}"
