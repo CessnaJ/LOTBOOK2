@@ -174,9 +174,11 @@ function use_point(value, totalPrice, myPoint) {
 			<h4>결제 확인서</h4>
 				<form
 				id="register_form"
-				action="/checkout/api/checkout-result?cmd=2&count=${count}&price=${res.price}&pointAccumulationRate=${res.pointAccumulationRate}&productId=${productId}"
+				action="/checkout/api/checkout-result?count=${count}&price=${res.price}&pointAccumulationRate=${res.pointAccumulationRate}&productId=${productId}"
 				method="post"
 				>
+					<input style="display: none;" id="productSequences" name="sequences" value="${sequences }">
+					<input style="display: none;" id="memberSequence" name="memberSequence" value="${logincust.sequence }">
 				<span style="display: none;" id="pointAccumulationRate">${res.pointAccumulationRate }</span>
 				<span style="display: none;" id="productId">${productId }</span>
 				<input type="hidden" name="view" value="checkout-result" />
@@ -312,7 +314,6 @@ $(document).ready(function(){
 			});	
 	
 	IMP.init("imp56873007");
-
 	  
 })
 
@@ -331,9 +332,43 @@ function requestPay() {
 	var receiverAddress = document.getElementById("sample6_address").value;
 	var receiverDetailAddress = document.getElementById("sample6_detailAddress").value;
 	var receiverMessage = document.getElementById("sample6_extraAddress").value;
-	
-	  
-    IMP.request_pay({
+
+	var form = document.createElement('form');
+	form.setAttribute('method', 'post');
+
+	form.setAttribute('action', "/checkout/api/checkout-result?count=${count}&price=${res.price}&pointAccumulationRate=${res.pointAccumulationRate}&productId=${productId}");
+
+	var obj3 = document.createElement('input');
+	obj3.setAttribute('name', 'receiverName');
+	obj3.setAttribute('value', receiverName);
+	var obj4 = document.createElement('input');
+	obj4.setAttribute('name', 'orderPhone');
+	obj4.setAttribute('value', receiverPhone);
+	var obj5 = document.createElement('input');
+	obj5.setAttribute('name', 'zipcode');
+	obj5.setAttribute('value', receiverPostCode);
+	var obj6 = document.createElement('input');
+	obj6.setAttribute('name', 'streetAddress');
+	obj6.setAttribute('value', receiverAddress);
+	var obj7 = document.createElement('input');
+	obj7.setAttribute('name', 'addressDetail');
+	obj7.setAttribute('value', receiverDetailAddress);
+	var obj8 = document.createElement('input');
+	obj8.setAttribute('name', 'vendorMessage');
+	obj8.setAttribute('value', receiverMessage);
+	var obj9 = document.createElement('input');
+	obj9.setAttribute('name', 'email');
+	obj9.setAttribute('value', receiverEmail);
+	var obj10 = document.createElement('input');
+	obj10.setAttribute('name', 'usePoint');
+	obj10.setAttribute('value', document.getElementById("usePoint").value);
+
+
+	form.append( obj3, obj4, obj5, obj6, obj7, obj8, obj9, obj10);
+
+	document.body.appendChild(form);
+
+	IMP.request_pay({
         pg : 'kakaopay',
         pay_method : 'card',
         merchant_uid: 'merchant_' + new Date().getTime(), 
@@ -347,15 +382,7 @@ function requestPay() {
     }, function (rsp) { // callback
     	console.log(rsp);
 		if(rsp.success){
-			location.href="main.bit?view=checkout-result&cmd=2&name=" + encodeURIComponent(productName) + "&count=" + productCount + "&price=" + totalPrice + "&pointAccumulationRate=" + pointAccumulationRate + "&productId=" + productId
-					+ "&input__receiverName=" + receiverName
-					+ "&input__phone=" + receiverPhone
-					+ "&input__zipcode=" + receiverPostCode
-					+ "&input__street_address=" + receiverAddress
-					+ "&input__address_detail=" + receiverDetailAddress
-					+ "&input__vendor_message=" + receiverMessage
-					+ "&input__email=" + receiverEmail
-					+ "&usePoint=" + document.getElementById("usePoint").value;
+			form.submit();
 			//rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
 		}
     });
