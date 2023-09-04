@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public int modifyInfo(Member v) {
-        return memberMapper.modifyInfo(v);
+        return memberMapper.updateInfo(v);
     }
 
 

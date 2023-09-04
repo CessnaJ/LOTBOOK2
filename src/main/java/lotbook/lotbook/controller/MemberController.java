@@ -145,7 +145,7 @@ public class MemberController {
     }
 
     @PostMapping(value="/updateinfoimpl")
-    public String updateinfoimpl(Model model, HttpSession session, @RequestBody SignupDto newInfo, RedirectAttributes redirectAttributes){
+    public String updateinfoimpl(Model model, HttpSession session, SignupDto newInfo, RedirectAttributes redirectAttributes){
         System.out.println(newInfo.toString());
         long sequence = (long)((Member)session.getAttribute("logincust")).getSequence();
         String password = bCryptPasswordEncoder.encode(newInfo.getPassword());
@@ -166,8 +166,10 @@ public class MemberController {
             e.printStackTrace();
         }
 
+            // MainController 생기기 전에
 //        redirectAttributes.addAttribute("memberSeq", sequence);
-//        return "redirect:/";
+//        return "redirect:/main/mypage";
+        model.addAttribute("center", "member-info-login");
         return "index";
     }
 
