@@ -10,10 +10,8 @@ public interface ProductService {
 
     Product get(int sequence);
 
-<<<<<<< HEAD
     ProductDetailWithReviews getProductDetail(long sequence);
-=======
+    
     int updateByProductKeyWithSalesCount(OrderDetail v) throws Exception;
->>>>>>> 6f30a70428d275e892548c98704b5c48a9ba811d
 
 }
