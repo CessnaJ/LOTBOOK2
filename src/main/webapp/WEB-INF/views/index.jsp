@@ -170,27 +170,35 @@
 		100% { left: 90%; opacity: 0;}
 	}
 	@keyframes fadeInUp {
-		0% {
-			opacity: 0;
-			transform: translateY(0);
-		}
-		to {
-			opacity: 1;
-			transform: translateZ(0);
-		}
+
+        0% {
+            opacity: 0;
+            transform: translateY(0);
+        }
+        to {
+            opacity: 1;
+            transform: translateZ(0);
+        }
+    }
+    @keyframes fadeOutDown {
+        0% {
+            opacity: 1;
+            transform: translateZ(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateY(0);
+            display: none;
+        }
+    }
+    #recentProdItem:hover {
+    	background-color: #f3f6fa;
+    }
+
+	#searchItem {
+		padding: 10px;
 	}
-	@keyframes fadeOutDown {
-		0% {
-			opacity: 1;
-			transform: translateZ(0);
-		}
-		to {
-			opacity: 0;
-			transform: translateY(0);
-			display: none;
-		}
-	}
-	#recentProdItem:hover {
+	#searchItem:hover {
 		background-color: #f3f6fa;
 	}
 </style>
@@ -318,6 +326,7 @@
 		}
 	})();
 
+
 	ChannelIO('boot', {
 		"pluginKey" : "f6848ac6-3a4e-4ac4-a882-836f1e79f1cc"
 	});
@@ -428,6 +437,38 @@
 			}, 500);
 		}
 	}
+  
+  var inputKeyword = document.getElementById("keyword");
+		inputKeyword.addEventListener("input", updateValue);
+
+		function updateValue(e) {
+			var keyword = e.target.value;
+			const keywordList = document.getElementById("searchList");
+			let encodedKeyword = "";
+			if (keyword.length >= 2) {
+				keyword = e.target.value;
+				encodedKeyword = encodeURIComponent(keyword);
+				keywordList.style.display = "block";
+				keywordList.innerHTML = '';
+
+				axios.get('/api/search?keyword=' + encodedKeyword + '&orderby=popular')
+						.then(function (result) {
+							if (result.data.searchList.length === 0) {
+								keywordList.innerHTML = '<div class="text-muted d-flex flex-col p-2" style="text-align: center;"> <i class="bi bi-info-circle-fill " style="margin-right: 10px; font-size: 20px;"></i> <div class="text-muted" style="font-size: 20px;">검색 결과가 없습니다.</div> </div>';
+							}
+							for (let i = 0; i < result.data.searchList.length; i++) {
+								var productName = document.createElement('div');
+								productName.innerHTML = '<div style="cursor: pointer;" id="searchItem" value="' + result.data.searchList[i].productSequence + '" onclick="goToDetail(' + result.data.searchList[i].productSequence + ')">' +
+										'<img style="width: 60px; margin-left: 15px; margin-right: 10px;" src=' + result.data.searchList[i].productImgurl + ' alt="" style="width: 20px;"> <span>' + ( result.data.searchList[i].name.length >= 20 ? result.data.searchList[i].name.substr(0, 20) + '...'  : result.data.searchList[i].name ) + '</span></div>';
+
+								keywordList.appendChild(productName);
+							}
+						});
+			} else {
+				keywordList.innerHTML = '';
+				keywordList.style.display = "none";
+			}
+		}
 </script>
 
 </body>

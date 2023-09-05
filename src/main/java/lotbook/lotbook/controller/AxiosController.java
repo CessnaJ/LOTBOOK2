@@ -7,9 +7,11 @@ import lotbook.lotbook.dto.entity.Member;
 import lotbook.lotbook.dto.entity.Review;
 import lotbook.lotbook.dto.request.AddToCartRequestDTO;
 import lotbook.lotbook.dto.request.ReviewRequest;
+import lotbook.lotbook.dto.response.SearchResult;
 import lotbook.lotbook.service.CartService;
 import lotbook.lotbook.service.MemberService;
 import lotbook.lotbook.service.ReviewService;
+import lotbook.lotbook.service.SearchService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,7 @@ public class AxiosController {
     private final CartService cartService;
     private final MemberService memberService;
     private final ReviewService reviewService;
+    private final SearchService searchService;
 
     @GetMapping(value = "/changeCount")
     @ResponseBody
@@ -117,5 +120,23 @@ public class AxiosController {
             result = false;
         }
         return result;
+    }
+
+    @GetMapping("/search")
+    public SearchResult SearchKeyword(@RequestParam String keyword, @RequestParam(required = false) String orderby, @RequestParam(required = false) String category, Model model) {
+        if (orderby == null) {
+            orderby = "popular";
+        }
+
+        SearchResult searchResult = null;
+        try {
+            searchResult = searchService.getAllByKeyword(keyword, orderby, category);
+            model.addAttribute("searchResult", searchResult);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return searchResult;
+
     }
 }
