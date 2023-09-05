@@ -391,6 +391,8 @@
 
 	});
 	function goToDetail(seq) {
+		inputKeyword.value = '';
+		document.getElementById("searchList").style.display = "none";
 		location.href="/product-detail/" + seq;
 	}
 	function search(keyword) {
@@ -437,12 +439,26 @@
 			}, 500);
 		}
 	}
-  
+  function initSearchBar() {
+	  inputKeyword.value = '';
+	  document.getElementById("searchList").style.display = "none";
+	  closeSearch.style.display = "none";
+  }
+
+  var closeSearch = document.getElementById("closeSearch");
+
   var inputKeyword = document.getElementById("keyword");
-		inputKeyword.addEventListener("input", updateValue);
+		inputKeyword.addEventListener("keyup", updateValue);
 
 		function updateValue(e) {
 			var keyword = e.target.value;
+
+			if (keyword !== "") {
+				closeSearch.style.display = "block";
+			} else {
+				closeSearch.style.display = "none";
+			}
+
 			const keywordList = document.getElementById("searchList");
 			let encodedKeyword = "";
 			if (keyword.length >= 2) {
