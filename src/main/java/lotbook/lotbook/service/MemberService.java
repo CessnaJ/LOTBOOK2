@@ -8,7 +8,7 @@ public interface MemberService {
     int register(Member mem);
     int modify(Member v);
     Member get(Member mem);
-    Member getById(int k);
+    Member getById(long k);
     int modifyInfo(Member v);
     int updatePoint(long v);
     int updatePointConfirm(Member v);
