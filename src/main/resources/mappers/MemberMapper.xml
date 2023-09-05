@@ -8,7 +8,7 @@
 	</select>
 
 	<!-- 회원정보 조회 -->
-	<select id="selectById" parameterType="int" resultType="lotbook.lotbook.dto.entity.Member">
+	<select id="selectById" parameterType="long" resultType="lotbook.lotbook.dto.entity.Member">
 		SELECT * FROM member WHERE sequence=#{sequence}
 	</select>
 

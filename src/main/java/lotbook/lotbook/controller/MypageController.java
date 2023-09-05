@@ -134,7 +134,7 @@ public class MypageController {
                 pointService.register(accumulatedPoint);
                 memberService.updatePoint(memberSeq);
 
-                Member memberInfo = memberService.getById((int) memberSeq);
+                Member memberInfo = memberService.getById(memberSeq);
                 session.setAttribute("logincust", memberInfo);
             }
 

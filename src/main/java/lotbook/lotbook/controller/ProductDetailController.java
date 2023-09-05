@@ -33,5 +33,4 @@ public class ProductDetailController {
         return "index";  // search.jsp 페이지로 이동시킴.
     }
 
-
 }

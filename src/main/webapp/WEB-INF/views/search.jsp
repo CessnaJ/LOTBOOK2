@@ -140,7 +140,7 @@
 				<div class="breadcrumb__text">
 					<h2>검색 결과</h2>
 					<div class="breadcrumb__option">
-						<a href="index.jsp">Home</a> <span>검색 결과</span>
+						<a href="/main">Home</a> <span>검색 결과</span>
 
 					</div>
 				</div>

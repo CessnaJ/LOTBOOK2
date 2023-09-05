@@ -112,7 +112,7 @@ request.setCharacterEncoding("UTF-8");
 				<div class="breadcrumb__text">
 					<h2>결제서</h2>
 					<div class="breadcrumb__option">
-						<a href="index.jsp">Home</a> <span>결제서</span>
+						<a href="/main">Home</a> <span>결제서</span>
 					</div>
 				</div>
 			</div>

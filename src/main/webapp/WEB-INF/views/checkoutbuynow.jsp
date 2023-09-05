@@ -159,7 +159,7 @@ function use_point(value, totalPrice, myPoint) {
 				<div class="breadcrumb__text">
 					<h2>결제 확인</h2>
 					<div class="breadcrumb__option">
-						<a href="index.jsp">Home</a> <span>결제 확인</span>
+						<a href="/main">Home</a> <span>결제 확인</span>
 					</div>
 				</div>
 			</div>
