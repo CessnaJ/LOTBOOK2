@@ -391,6 +391,8 @@
 
 	});
 	function goToDetail(seq) {
+		inputKeyword.value = '';
+		document.getElementById("searchList").style.display = "none";
 		location.href="/product-detail/" + seq;
 	}
 	function search(keyword) {
