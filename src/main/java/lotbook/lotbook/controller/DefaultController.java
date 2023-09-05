@@ -12,6 +12,6 @@ public class DefaultController {
     public String DefaultMainPage(Model model) {
         model.addAttribute("center", "main");
 
-        return "index";
+        return "redirect:/main";
     }
 }
