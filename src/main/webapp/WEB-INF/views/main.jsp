@@ -4,12 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-String[] BestSeller = request.getParameterValues("BestSeller");
-String[] Latest = request.getParameterValues("Latest");
-String[] BigPoint = request.getParameterValues("BigPoint");
-String[] BigDiscount = request.getParameterValues("BigDiscount");
-%>
 
 <jsp:include page="popup.jsp" />
 
@@ -18,6 +12,9 @@ AOS.init({
 	easing: 'ease-out-back',
 	duration: 1000
 	});
+
+console.log("hi");
+
 </script>
 
 <!-- Header Section Begin -->
@@ -57,7 +54,7 @@ AOS.init({
 				<nav class="header__menu">
 					<ul id="header__menus" >
 						<li class="active"><a href="/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
-						<li><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
+						<li><a href="/category?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
 						<li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
 				</nav>
@@ -80,6 +77,7 @@ AOS.init({
 		</div>
 	</div>
 </header>
+
 <!-- Header Section End -->
 <!-- Hero Section Begin -->
 <section class="hero">
@@ -93,13 +91,18 @@ AOS.init({
 					<jsp:include page="common_categories.jsp" />
 				</div>
 			</div>
+			<div id="searchList" style="width: 505px; overflow: auto; position: absolute; max-height: 400px; background-color: white; right: 470px; top: 190px; z-index: 100; display: none;">
+			</div>
 			<div class="col-lg-9">
 				<div class="hero__search">
-					<div class="hero__search__form">
-						<form action="#"
+					<div class="hero__search__form" style="position: relative;">
+						<form action="#" style="position: relative"
 							onsubmit="event.preventDefault(); search(document.getElementById('keyword').value);">
 							<div class="hero__search__categories">통합 검색</div>
-							<input type="text" id="keyword" placeholder="검색어를 입력해주세요">
+							<input type="text" id="keyword" placeholder="검색어를 입력해주세요" autocomplete="off">
+							<<button id="closeSearch" type="button" class="close" aria-label="Close" style="position: absolute; right: 100px; display: none;" onclick="initSearchBar()">
+								<span aria-hidden="true">&times;</span>
+							</button>
 							<button type="submit" class="site-btn">검색</button>
 						</form>
 					</div>
@@ -133,7 +136,7 @@ AOS.init({
 			<div class="container">
 				<div class="row">
 					<div class="categories__slider owl-carousel">
-						<c:forEach items="${BestSeller }" var="product">
+						<c:forEach items="${popularProducts }" var="product">
 							<div class="col-lg-3">
 								<a
 									href="/product-detail/${product.sequence}">
@@ -190,7 +193,7 @@ AOS.init({
 					<h4>따끈따끈 신작✨</h4>
 					<div class="latest-product__slider owl-carousel">
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${Latest}" var="product" begin="0" end="2">
+							<c:forEach items="${LatestProducts}" var="product" begin="0" end="2">
 								<div class="col-lg-12">
 									<a
 										href="/product-detail/${product.sequence}"
@@ -211,7 +214,7 @@ AOS.init({
 							</c:forEach>
 						</div>
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${Latest}" var="product" begin="3" end="5">
+							<c:forEach items="${LatestProducts}" var="product" begin="3" end="5">
 								<div class="col-lg-12">
 									<a
 										href="/product-detail/${product.sequence}"
@@ -239,7 +242,7 @@ AOS.init({
 					<h4>포인트 팡팡🎉</h4>
 					<div class="latest-product__slider owl-carousel">
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${BigPoint}" var="product" begin="0" end="2">
+							<c:forEach items="${PointProducts}" var="product" begin="0" end="2">
 								<div class="col-lg-12">
 									<a
 										href="/product-detail/${product.sequence}"
@@ -260,7 +263,7 @@ AOS.init({
 							</c:forEach>
 						</div>
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${BigPoint}" var="product" begin="3" end="5">
+							<c:forEach items="${PointProducts}" var="product" begin="3" end="5">
 								<div class="col-lg-12">
 									<a
 										href="/product-detail/${product.sequence}"
@@ -288,7 +291,7 @@ AOS.init({
 					<h4>사장님이 미쳤어요😆</h4>
 					<div class="latest-product__slider owl-carousel">
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${BigDiscount}" var="product" begin="0" end="2">
+							<c:forEach items="${DiscountrProducts}" var="product" begin="0" end="2">
 								<div class="col-lg-12">
 									<a
 										href="/product-detail/${product.sequence}"
@@ -309,7 +312,7 @@ AOS.init({
 							</c:forEach>
 						</div>
 						<div class="latest-prdouct__slider__item">
-							<c:forEach items="${BigDiscount}" var="product" begin="3" end="5">
+							<c:forEach items="${DiscountrProducts}" var="product" begin="3" end="5">
 								<div class="col-lg-12">
 									<a
 										href="/product-detail/${product.sequence}"

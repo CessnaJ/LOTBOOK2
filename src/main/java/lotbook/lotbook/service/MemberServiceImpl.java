@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member getById(int k) {
+    public Member getById(long k) {
         return memberMapper.selectById(k);
     }
 

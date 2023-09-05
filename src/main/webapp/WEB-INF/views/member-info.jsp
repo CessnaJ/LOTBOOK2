@@ -79,7 +79,7 @@ function redirectToMyPage() {
 				<nav class="header__menu">
 					<ul id="header__menus" >
 						<li><a href="/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
-						<li><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
+						<li><a href="/category?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
 						<li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
 				</nav>
@@ -114,18 +114,22 @@ function redirectToMyPage() {
 					<jsp:include page="common_categories.jsp" />
 				</div>
 			</div>
+			<div id="searchList" style="width: 505px; overflow: auto; position: absolute; max-height: 400px; background-color: white; right: 470px; top: 190px; z-index: 100; display: none;">
+			</div>
 			<div class="col-lg-9">
 				<div class="hero__search">
-					<div class="hero__search__form">
-						<form action="#"
-							onsubmit="event.preventDefault(); search(document.getElementById('keyword').value);">
+					<div class="hero__search__form" style="position: relative;">
+						<form action="#" style="position: relative"
+							  onsubmit="event.preventDefault(); search(document.getElementById('keyword').value);">
 							<div class="hero__search__categories">통합 검색</div>
-							<input type="text" id="keyword" placeholder="검색어를 입력해주세요">
+							<input type="text" id="keyword" placeholder="검색어를 입력해주세요" autocomplete="off">
+							<<button id="closeSearch" type="button" class="close" aria-label="Close" style="position: absolute; right: 100px; display: none;" onclick="initSearchBar()">
+							<span aria-hidden="true">&times;</span>
+						</button>
 							<button type="submit" class="site-btn">검색</button>
 						</form>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

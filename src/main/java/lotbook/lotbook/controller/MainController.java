@@ -3,6 +3,7 @@ package lotbook.lotbook.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lotbook.lotbook.dto.entity.*;
+import lotbook.lotbook.dto.mapper.CategoryProductWithReviewDTO;
 import lotbook.lotbook.dto.response.CartProduct;
 import lotbook.lotbook.dto.response.OrderDetailResponse;
 import lotbook.lotbook.dto.response.ReviewDetails;
@@ -35,6 +36,19 @@ public class MainController {
         model.addAttribute("center", "main");
         HttpSession session = request.getSession();
         Member mem = (Member) session.getAttribute("logincust");
+
+        model.addAttribute("center", "main");
+        List<CategoryProductWithReviewDTO> popularProducts = productService.getPopular();
+        model.addAttribute("popularProducts", popularProducts);
+
+        List<CategoryProductWithReviewDTO> LatestProducts = productService.getLatest();
+        model.addAttribute("LatestProducts", LatestProducts);
+
+        List<CategoryProductWithReviewDTO> DiscountrProducts = productService.getHighDiscount();
+        model.addAttribute("DiscountrProducts", DiscountrProducts);
+
+        List<CategoryProductWithReviewDTO> PointProducts = productService.getHighPoint();
+        model.addAttribute("PointProducts", PointProducts);
 
         Long memberSeq = (long) 0;
         if (mem != null) {
@@ -113,7 +127,7 @@ public class MainController {
 
             int cartCount = cartService.getCartCount(Long.parseLong(memberSeq));
             model.addAttribute("cartCount", cartCount);
-            
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -122,5 +136,4 @@ public class MainController {
         return "index";
     }
 }
-
 

@@ -4,7 +4,7 @@ import lotbook.lotbook.dto.entity.Member;
 
 public interface MemberMapper {
     Member select(Member member);
-    Member selectById(int sequence);
+    Member selectById(long sequence);
     int update(Member v);
     int updateInfo(Member v);
     int updatePoint(long k);

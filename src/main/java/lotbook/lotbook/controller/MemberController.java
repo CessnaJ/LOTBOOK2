@@ -168,7 +168,9 @@ public class MemberController {
                 .build();
 
         try {
-            memberService.modify(newMemberInfo);
+            memberService.modifyInfo(newMemberInfo);
+            Member updatedMemberInfo = memberService.getById(sequence);
+            session.setAttribute("logincust", updatedMemberInfo);
         } catch (Exception e) {
             e.printStackTrace();
         }
