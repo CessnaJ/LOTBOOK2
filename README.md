@@ -1,6 +1,6 @@
 ![image](https://github.com/Hyevvy/lotbook/assets/81145399/cc5d23d1-c9b4-46dc-a8a4-3ed73e95f5b9)
 
-# 📕 프로젝트 이름 : LOTBOOK
+# 📕 프로젝트 이름 : LOTBOOKV2
 
 ## 👨‍👩‍👦‍👦  팀원소개
 
