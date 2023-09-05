@@ -14,7 +14,7 @@
 
 ## 📖 프로젝트 소개
 
-도서 판매 **이커머스** 쇼핑몰몰
+도서 판매 **이커머스** 쇼핑몰
 
 ## 💻 사용언어, 기술스택
 ![Generic badge](https://img.shields.io/badge/intelij-CC0000?style=for-the-badge&logo=intlij) ![Generic badge](https://img.shields.io/badge/apachetomcat-goldenrod?style=for-the-badge&logo=apachetomcat&logoColor=white) ![Generic badge](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white) ![Generic badge](https://img.shields.io/badge/mybatis-seagreen?style=for-the-badge&logo=mybatis&logoColor=white)  ![Generic badge](https://img.shields.io/badge/java-red?style=for-the-badge&logo=java)  ![Generic badge](https://img.shields.io/badge/spring-white?style=for-the-badge&logo=spring)  ![Generic badge](https://img.shields.io/badge/gradle-lightgray?style=for-the-badge&logo=gradle)  ![Generic badge](https://img.shields.io/badge/bootstrap4-purple?style=for-the-badge&logo=bootstrap&logoColor=white) ![Generic badge](https://img.shields.io/badge/javascript-gray?style=for-the-badge&logo=javascript)  ![Generic badge](https://img.shields.io/badge/jquery-darkblue?style=for-the-badge&logo=jquery)  ![Generic badge](https://img.shields.io/badge/html5-orangered?style=for-the-badge&logo=html5&logoColor=white)  ![Generic badge](https://img.shields.io/badge/Amazonaws-black?style=for-the-badge&logo=amazonaws)   ![Generic badge](https://img.shields.io/badge/jsp-darkgreen?style=for-the-badge&logo=jsp)   ![Generic badge](https://img.shields.io/badge/axios-darkred?style=for-the-badge&logo=axios) ![Generic badge](https://img.shields.io/badge/emailjs-green?style=for-the-badge&logo=emailjs)  ![Generic badge](https://img.shields.io/badge/channeltalk-blue?style=for-the-badge&logo=channel) 
