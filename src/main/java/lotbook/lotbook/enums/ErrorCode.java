@@ -6,12 +6,12 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum ErrorCode {
-    ERROR_CODE_1("E001", "에러메세지를 이렇게 작성해주시면 됩니다."),
+    ERROR_CODE_1("E1001", "에러메세지를 이렇게 작성해주시면 됩니다."),
 
     PRODUCT_DETAIL_ERROR_1("E2001", "해당 상품정보가 없습니다."),
+    PRODUCT_DETAIL_ERROR_2("E2002", "상품정보를 받아오는 도중 문제가 생겼습니다."),
 
     CART_ERROR_1("E8000", "장바구니 에러"),
-
     CART_ERROR_2("E8001", "장바구니 에러 - 재고 부족"),
 
     ORDER_ERROR_1("E3001", "주문 에러 - 주문 실패"),

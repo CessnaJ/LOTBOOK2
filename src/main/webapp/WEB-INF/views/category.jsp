@@ -17,7 +17,7 @@
 	<div class="header__top">
 		<div class="container">
 			<nav class="header__menu header__top__right mobile-menu"
-				style="padding: 5px 0">
+				 style="padding: 5px 0">
 				<ul>
 					<c:choose>
 						<c:when test="${logincust != null }">
