@@ -276,10 +276,13 @@
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form" style="position: relative;">
-                        <form action="#"
+                        <form action="#" style="position: relative"
                               onsubmit="event.preventDefault(); search(document.getElementById('keyword').value);">
                             <div class="hero__search__categories">통합 검색</div>
                             <input type="text" id="keyword" placeholder="검색어를 입력해주세요" autocomplete="off">
+                            <<button id="closeSearch" type="button" class="close" aria-label="Close" style="position: absolute; right: 100px; display: none;" onclick="initSearchBar()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                             <button type="submit" class="site-btn">검색</button>
                         </form>
                     </div>
