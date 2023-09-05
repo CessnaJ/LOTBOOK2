@@ -4,18 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
-<%--<%@ page--%>
-<%--	import="app.dto.response.SearchResult, app.dto.mapper.SearchProductMapper, java.util.List"%>--%>
-
 <%--<%--%>
 <%--// ProductDetailWithReviews 객체 받아오기--%>
 <%--SearchResult searchResult = (SearchResult) request.getAttribute("searchResult");--%>
 <%--List<SearchProductMapper> searchedList = searchResult.getSearchList();--%>
 
-<%--int endPage = (int) Math.ceil((double) searchResult.getCategoryCount() / 9.0);--%>
-<%--pageContext.setAttribute("endPage", endPage);--%>
-<%--%>--%>
 
 
 <style type="text/css">
@@ -361,6 +354,8 @@
 		<div style="text-align: center;" class="product__pagination">
 
 
+
+			<c:set var="endPage" value="${Math.ceil(searchResult.categoryCount / 9.0)}"/>
 
 
 			<c:forEach begin="1" end="${endPage}" var="pageNum">
