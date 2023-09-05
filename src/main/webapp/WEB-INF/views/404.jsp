@@ -82,10 +82,11 @@
 <div class="page-wrap d-flex flex-row align-items-center">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12 text-center">
-                <span class="display-1 d-block">404</span>
-                <div class="mb-4 lead">The page you are looking for was not found.</div>
-                <a href="main.bit" class="btn btn-link">Back to Home</a>
+            <div class="col-md-12 text-center mt-5">
+                <span class="display-1 d-block mt-5">404</span>
+                <div class="mb-3 lead">올바르지 않은 경로입니다.</div>
+				<div class="mb-4 lead">URL을 다시 확인해주세요.</div>
+                <a href="/main" class="btn btn-link">Back to Home</a>
             </div>
         </div>
     </div>

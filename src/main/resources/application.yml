@@ -10,6 +10,10 @@ spring:
     jsp:
       servlet:
         check-interval: 0   # JSP 리로드 간격 설정 (0은 항상 리로드- 개발용)
+    throw-exception-if-no-handler-found: true   # 요청된 경로에 대해 핸들러가 없으면 예외를 발생시킴.
+  web:
+    resources:
+      add-mappings: false
 
 
 
