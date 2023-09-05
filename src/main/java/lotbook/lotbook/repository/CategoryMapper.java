@@ -14,4 +14,7 @@ public interface CategoryMapper {
     List<Integer> selectSubcategorySequences(int sequence);
 
 
+    List<CategoryProductWithReviewDTO> getBigCategory(String view, String orderby);
+
+    List<CategoryProductWithReviewDTO> getSmallCategory(String view, String orderby);
 }

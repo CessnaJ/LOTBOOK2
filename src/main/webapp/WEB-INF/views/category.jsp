@@ -49,7 +49,7 @@
 				<nav class="header__menu">
 					<ul id="header__menus" >
 						<li><a href="/main"  style="font-size: 20px; font-weight: 700;">홈</a></li>
-						<li class="active"><a href="category.bit?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
+						<li class="active"><a href="/category?view=1"  style="font-size: 20px; font-weight: 700;">도서 전체</a></li>
 						<li><a href="/page/contact" style="font-size: 20px; font-weight: 700;">고객센터</a></li>
 					</ul>
 				</nav>
@@ -190,14 +190,14 @@
 						<div class="col-lg-4 col-md-4">
 							<div class="filter__found">
 								<h6>
-									<span>${selectCategory.size()}</span> 개의 상품이 있습니다.
+									<span>${categoryResult.size()}</span> 개의 상품이 있습니다.
 								</h6>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<c:forEach items="${selectCategory}" var="product">
+					<c:forEach items="${categoryResult}" var="product">
 						<div class="col-lg-4 col-md-6 col-sm-6">
 							<a
 								href="/product-detail/${product.sequence}">
@@ -220,7 +220,7 @@
 					</c:forEach>
 				</div>
 				<div style="text-align: center;" class="product__pagination">
-					<c:set var="end" value="${selectCategory.size()/9}" />
+					<c:set var="end" value="${categoryResult.size()/9}" />
 
 					<c:forEach begin="1" end="${end}" var="pageNum">
 						<a style="margin: 0" href="javascript:void(0);" onclick="showPage(${pageNum})" id="btnNum${pageNum}">${pageNum} </a>
@@ -264,7 +264,7 @@ window.onload = setOrderByDropdownValue();
 
 var itemsPerPage = 9; // 페이지당 아이템 개수
 var currentPage = 1; // 현재 페이지 번호
-var totalItems = ${selectCategory.size()}; // 총 아이템 개수
+var totalItems = ${categoryResult.size()}; // 총 아이템 개수
 var totalPages = Math.ceil(totalItems / itemsPerPage); // 총 페이지 개수
 
 function setActiveButton(buttonId) {
