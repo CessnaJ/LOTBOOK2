@@ -193,6 +193,13 @@
     #recentProdItem:hover {
     	background-color: #f3f6fa;
     }
+
+	#searchItem {
+		padding: 10px;
+	}
+	#searchItem:hover {
+		background-color: #f3f6fa;
+	}
 </style>
 <body style="overflow-x: hidden;">
 	<!-- Page Preloder -->
@@ -382,6 +389,42 @@
 			
 		});
 		function goToDetail(seq) {
+			location.href="/product-detail/" + seq;
+		}
+
+		var inputKeyword = document.getElementById("keyword");
+		inputKeyword.addEventListener("input", updateValue);
+
+		function updateValue(e) {
+			var keyword = e.target.value;
+			const keywordList = document.getElementById("searchList");
+			let encodedKeyword = "";
+			if (keyword.length >= 2) {
+				keyword = e.target.value;
+				encodedKeyword = encodeURIComponent(keyword);
+				keywordList.style.display = "block";
+				keywordList.innerHTML = '';
+
+				axios.get('/api/search?keyword=' + encodedKeyword + '&orderby=popular')
+						.then(function (result) {
+							if (result.data.searchList.length === 0) {
+								keywordList.innerHTML = '<div class="text-muted d-flex flex-col p-2" style="text-align: center;"> <i class="bi bi-info-circle-fill " style="margin-right: 10px; font-size: 20px;"></i> <div class="text-muted" style="font-size: 20px;">검색 결과가 없습니다.</div> </div>';
+							}
+							for (let i = 0; i < result.data.searchList.length; i++) {
+								var productName = document.createElement('div');
+								productName.innerHTML = '<div style="cursor: pointer;" id="searchItem" value="' + result.data.searchList[i].productSequence + '" onclick="clickSearchItem(' + result.data.searchList[i].productSequence + ')">' +
+										'<img style="width: 60px; margin-left: 15px; margin-right: 10px;" src=' + result.data.searchList[i].productImgurl + ' alt="" style="width: 20px;"> <span>' + ( result.data.searchList[i].name.length >= 20 ? result.data.searchList[i].name.substr(0, 20) + '...'  : result.data.searchList[i].name ) + '</span></div>';
+
+								keywordList.appendChild(productName);
+							}
+						});
+			} else {
+				keywordList.innerHTML = '';
+				keywordList.style.display = "none";
+			}
+		}
+
+		function clickSearchItem(seq) {
 			location.href="/product-detail/" + seq;
 		}
 		function search(keyword) {
