@@ -85,13 +85,15 @@ request.setCharacterEncoding("UTF-8");
 					<jsp:include page="common_categories.jsp" />
 				</div>
 			</div>
+			<div id="searchList" style="width: 505px; overflow: auto; position: absolute; max-height: 400px; background-color: white; right: 470px; top: 190px; z-index: 100; display: none;">
+			</div>
 			<div class="col-lg-9">
 				<div class="hero__search">
-					<div class="hero__search__form">
+					<div class="hero__search__form" style="position: relative;">
 						<form action="#"
-							onsubmit="event.preventDefault(); search(document.getElementById('keyword').value);">
+							  onsubmit="event.preventDefault(); search(document.getElementById('keyword').value);">
 							<div class="hero__search__categories">통합 검색</div>
-							<input type="text" id="keyword" placeholder="검색어를 입력해주세요">
+							<input type="text" id="keyword" placeholder="검색어를 입력해주세요" autocomplete="off">
 							<button type="submit" class="site-btn">검색</button>
 						</form>
 					</div>
