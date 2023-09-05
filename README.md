@@ -61,3 +61,5 @@
 ![11 리뷰작성](https://github.com/Hyevvy/lotbook/assets/81145399/3705db3f-839a-4ba4-ac80-36b13ac4422d)
 ##### 12. 챗봇
 ![12 챗봇](https://github.com/Hyevvy/lotbook/assets/81145399/800c0a38-59c5-4827-b049-26ff92c34852)
+##### 13. 검색창
+![검색창](https://github.com/CessnaJ/LOTBOOK2/assets/81145399/5c9404a5-4e53-460c-8b4b-a5be7c869777)
