@@ -11,4 +11,25 @@
         WHERE parent_category = #{sequence}
     </select>
 
+    <select id="getBigCategory" resultType="lotbook.lotbook.dto.mapper.CategoryProductWithReviewDTO">
+        SELECT p.*, COUNT(r.product_sequence) as review_count,
+               COALESCE(AVG(r.rating), 0) as rating_avg
+        FROM product p
+                 LEFT JOIN review r ON p.sequence = r.product_sequence
+                 JOIN category c ON p.category_sequence = c.sequence
+        WHERE c.parent_category = #{view}
+        GROUP BY p.sequence;
+    </select>
+
+    <select id="getSmallCategory" resultType="lotbook.lotbook.dto.mapper.CategoryProductWithReviewDTO">
+        SELECT p.*, COUNT(r.product_sequence) as review_count,
+               COALESCE(AVG(r.rating), 0) as rating_avg
+        FROM product p
+                 LEFT JOIN review r ON p.sequence = r.product_sequence
+                 JOIN category c ON p.category_sequence = c.sequence
+        WHERE p.category_sequence = #{view}
+        GROUP BY p.sequence;
+    </select>
+
+
 </mapper>
